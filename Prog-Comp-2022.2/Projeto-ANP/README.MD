@@ -1,0 +1,3 @@
+O "Projeto ANP" foi desenvolvido como parte das atividades finais do semestre 2022.2 da disciplina de Programação para Computadores. O objetivo deste projeto foi explorar habilidades relacionadas à manipulação de arquivos da Agência Nacional de Petróleo (ANP), incluindo abertura, edição, manipulação e salvamento dos mesmos.
+
+Ao longo do projeto, foram realizadas diversas operações e manipulações nos arquivos da ANP, utilizando técnicas de programação para garantir a qualidade e eficiência dos resultados.

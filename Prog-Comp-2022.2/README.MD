@@ -1,0 +1,2 @@
+Na disciplina "Programação para Computadores 2022.2" do curso de Redes de Computadores, aprendemos Python do básico ao avançado. 
+Vimos desde estruturas condicionais, laços de repetição, funções e manipulação de arquivos, além de listas, tuplas, dicionários e conjuntos. Fizemos muitas atividades práticas, desde programas simples até projetos mais complexos, você poderá ver mais nos arquivos disponibilizados.
