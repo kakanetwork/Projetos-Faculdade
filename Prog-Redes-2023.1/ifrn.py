@@ -10,7 +10,6 @@ dados = requests.get(url).json()
 # o set serve para remover as duplicatas
 campi = set(map(lambda c: c['campus'], dados))
 
-
 for campus in campi:
     # usamos o lambda para entrar dentro da lista de dict's, e pegar todas as x vezes que y campus se repete (sabemos que y é campi, na variavel que resolvemos anteriormente)
     # então ele vai pegar cada CAMPUS da lista e comparar a cada CAMPI do set que fizemos, se for igual, ele ativa o Filtro e joga dentro da lista
@@ -19,4 +18,23 @@ for campus in campi:
     alunos = tuple(filter(filtro, dados))
     qt_alunos = len(alunos)
     print(f'Campus {campus}: {qt_alunos} Alunos')
+
+
+
+sigla = str(input('\nINFORME A SIGLA DO CAMPUS: '))
+
+
+filtro2 = lambda m: m['campus'] == sigla
+campus_sigla = list(filter(filtro2, dados))
+curso = set(map(lambda c: c['curso'], campus_sigla))
+
+
+print(f'\nEsses são os cursos disponibilazdos no {sigla}, e sua quantidade de alunos:')
+
+
+for x in curso:
+    filtro_cursos = lambda c: c['curso'] == x
+    qnt_cursos = list(filter(filtro_cursos, campus_sigla))
+    qt_alun_cursos = len(qnt_cursos)
+    print(f'Curso {x}: {qt_alun_cursos} Alunos')
 
