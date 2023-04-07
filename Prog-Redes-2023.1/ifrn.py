@@ -19,10 +19,14 @@ for campus in campi:
     qt_alunos = len(alunos)
     print(f'Campus {campus}: {qt_alunos} Alunos')
 
-
-
-sigla = str(input('\nINFORME A SIGLA DO CAMPUS: '))
-
+while True:
+    try:
+        sigla = str(input('\nINFORME A SIGLA DO CAMPUS: ')).upper()
+    except: 
+        print(f'Erro......: {sys.exc_info()[0]}')
+    else:
+        if sigla in campi:
+            break
 
 filtro2 = lambda m: m['campus'] == sigla
 campus_sigla = list(filter(filtro2, dados))
