@@ -1,6 +1,4 @@
-<h1 align="center">
-  <img alt="Redes" src="https://i.imgur.com/0LODl7O.png" width="400px">
-</h1>
+<h2 align="center">📌 Sobre</h2>
 
 <p align="center">
     🚀 Este repositório contém scripts em Python focados na área de Redes e manipulação de arquivos. Os códigos aqui presentes foram criados durante a disciplina de Programação para Redes, da faculdade de Redes para Computadores.
@@ -30,7 +28,7 @@
 <h2 align="center">📝 Notas</h2>
 
 <p align="center">
-    Este repositório é destinado apenas para fins educacionais.
+    Este repositório é destinado para fins Educacionais e Profissionais.
 </p>
 
 <h2 align="center">👀 Mais informações</h2>
