@@ -21,17 +21,15 @@ except:
 campi = set(map(lambda c: c['campus'], dados))
 
 print('\nEsses são os nossos Campus no IFRN e seus respectivos Alunos:')
-for campus in campi:
 
+for x in campi:
     # Realizando a função (definindo) para captura de todos os Campus (Com duplicatas)
-    filtro = lambda m: m['campus'] == campus
-
+    filtro = lambda m: m['campus'] == x
     # Aqui eu jogo quantos campus existem ao todo, e faço a contagem (qnt_campus_totais == qnt_alunos_totais) 
     # Como estamos dentro do FOR, ele vai fazer a contagem para cada Campus e apenas aqui a função lambda é ativada
     alunos = tuple(filter(filtro, dados))
     qt_alunos = len(alunos)
-    print(f'Campus {campus}: {qt_alunos} Alunos')
-
+    print(f'Campus {x}: {qt_alunos} Alunos')
 
 try:
     # Pedindo a sigla ao usuario e utilizando .upper para evitar erros de maiusculo/minusculo
