@@ -12,10 +12,7 @@
 </p>
 <h2 align="center">📂 Conteúdo</h2>
 <ul>
-  <li><code>manipulacao_arquivos.py</code>: Script que contém funções para manipulação de arquivos em Python, como leitura, escrita e exclusão.</li>
-  <li><code>web_scraping.py</code>: Código que realiza scraping de uma página web para obtenção de informações e dados específicos.</li>
-  <li><code>machine_learning.py</code>: Script que contém implementações de algoritmos de Machine Learning, como Regressão Linear e Árvores de Decisão.</li>
-  <li><code>processamento_imagens.py</code>: Código que realiza processamento de imagens, como aplicação de filtros e detecção de bordas.</li>
+  <li><code>Em breve... </code> </li>
 </ul>
 <h2 align="center">🚀 Como utilizar</h2>
 <p align="center">
