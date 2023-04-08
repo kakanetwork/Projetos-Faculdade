@@ -5,18 +5,19 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/kakanetwork/Projetos.py/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/kakanetwork/Projetos.py?color=ffca28&style=flat-square"></a>
-  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/kakanetwork/Projetos.py?color=ffca28&style=flat-square">
-  <a href="https://github.com/kakanetwork/Projetos.py/pulls"><img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/kakanetwork/Projetos.py?color=ffca28&style=flat-square"></a>
+    <a href="https://github.com/kakanetwork/Projetos.py/stargazers"><img alt="GitHub stars" 
+    src="https://img.shields.io/github/stars/kakanetwork/Projetos.py?color=4d080e&style=flat-square"></a>
+    <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/kakanetwork/Projetos.py?color=4d080e&style=flat-square">
+    <a href="https://github.com/kakanetwork/Projetos.py/pulls"><img alt="GitHub pull requests" 
+    src="https://img.shields.io/github/issues-pr/kakanetwork/Projetos.py?color=4d080e&style=flat-square"></a>
+
 </p>
 
 <h2 align="center">📂 Conteúdo</h2>
 
 <ul>
-  <li><code>cliente.py</code>: script que implementa um cliente para conexão com um servidor.</li>
-  <li><code>servidor.py</code>: script que implementa um servidor para atender às requisições do cliente.</li>
-  <li><code>arquivo.py</code>: script que realiza a manipulação de arquivos.</li>
-  <li><code>rede.py</code>: script que realiza operações relacionadas à rede, como o ping.</li>
+  <li><code>ifrn_alunos_campus.py</code>: O código realiza uma requisição em uma URL para obter dados de alunos do IFRN, processa esses dados para obter informações    sobre os campus e cursos, e apresenta essas informações em um formato legível ao usuário.</li>
+  <li><code>cotação_dolar.py</code>: Esse código solicita ao usuário um ano, obtém as cotações de dólar do período de 01-01 até 31-12 do ano informado, e em seguida, para cada mês do ano, calcula a média de cotações de compra e venda, bem como as maiores cotações de compra e venda do mês.</li>
 </ul>
 
 <h2 align="center">🚀 Como utilizar</h2>
@@ -35,6 +36,7 @@
 
 <p align="center">
     Para mais informações sobre a disciplina de Programação para Redes, acesse o site da faculdade de Redes para Computadores.
+    https://sites.google.com/escolar.ifrn.edu.br/diatinf/cursos/superiores/redes-de-computadores
 </p>
 
 <p align="center">
