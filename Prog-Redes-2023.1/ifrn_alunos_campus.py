@@ -1,4 +1,4 @@
-import requests, sys
+import requests, sys, os
 
 # Finalizado: 07/04/2023 
 
@@ -11,6 +11,8 @@ try:
 except:
     print(f'Não foi possivel acessar o URL, ERRO...... {sys.exc_info()[0]}')
 
+# Pegando diretório atual
+dir = os.path.dirname(os.path.abspath(__file__)) 
 """
  LEMBRETE DE LAMBDA, MAP:
  o lambda vai percorrer cada item dentro da lista (cada item é um aluno e seus dados) que estão dentro de um dict (lista de dict's), então eu acesso primeiro os dicts
@@ -43,19 +45,47 @@ except:
 else:
     # Tratamento para só aceitar siglas dentro das quais já filtramos em Campi
     if sigla in campi:
+
         # Parecido com o Filtro1 ele pega todos os cursos (com duplicatas) mas apenas da sigla/campus informado
         filtro2 = lambda m: m['campus'] == sigla
         campus_sigla = list(filter(filtro2, dados))
+
         # Aqui fazemos a captura dos cursos (sem duplicatas)
         curso = set(map(lambda c: c['curso'], campus_sigla))
 
+        # Informe o nome do seu arquivo
+        file_name = input('Digite o nome do arquivo: ')
+        # Junção do name_arquive + diretorio para 
+        file_dir = os.path.join(dir, file_name)
+
         print(f'\nEsses são os cursos disponibilizados no {sigla}, e sua quantidade de alunos:')
-        # Parecido com o primeiro for (lá era para os campus) e aqui será para os cursos do campus especifico (segue a mesma lógica)
+
+        # abertura do modo Write para escrita do arquivo 
+        with open(file_dir, 'w', encoding='utf-8') as file:
+            # Parecido com o primeiro for (lá era para os campus) e aqui será para os cursos do campus especifico (segue a mesma lógica)
+            for x in curso:
+                # filtro somente os cursos de um em um, do campus escolhido
+                filtro_cursos = lambda c: c['curso'] == x
+                qnt_cursos = list(filter(filtro_cursos, campus_sigla))
+                
+                # faço o len para descobrir a quantidade de alunos/por curso 
+                qt_alun_cursos = len(qnt_cursos)
+                if x is None:
+                    x = 'vazio'
+                file.write(str(f'{x}: {qt_alun_cursos}') + '\n')
+                print(f'Curso {x}: {qt_alun_cursos} Alunos')
+
+
+
+
+        '''arquivo2_save = open(file_path, 'w', encoding='utf-8')
         for x in curso:
             filtro_cursos = lambda c: c['curso'] == x
             qnt_cursos = list(filter(filtro_cursos, campus_sigla))
             qt_alun_cursos = len(qnt_cursos)
-            print(f'Curso {x}: {qt_alun_cursos} Alunos')
+            arquivo2_save.write('{}\n'.format(';'.join(map(str, f'{x}: {qt_alun_cursos} + \n'))))
+            arquivo2_save.close()
+            print(f'Curso {x}: {qt_alun_cursos} Alunos')      '''  
     else:
         print("Sigla Inválida!")
         sys.exit()
