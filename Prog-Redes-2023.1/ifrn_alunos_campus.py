@@ -1,6 +1,7 @@
 import requests, sys, os
 
 # Finalizado: 07/04/2023 
+# Atualizado V2: 11/04/2023
 
 # Url do site que iremos realizar o REQUEST
 url = 'https://dados.ifrn.edu.br/dataset/d5adda48-f65b-4ef8-9996-1ee2c445e7c0/resource/00efe66e-3615-4d87-8706-f68d52d801d7/download/dados_extraidos_recursos_alunos-da-instituicao.json'
@@ -13,6 +14,7 @@ except:
 
 # Pegando diretório atual
 dir = os.path.dirname(os.path.abspath(__file__)) 
+
 """
  LEMBRETE DE LAMBDA, MAP:
  o lambda vai percorrer cada item dentro da lista (cada item é um aluno e seus dados) que estão dentro de um dict (lista de dict's), então eu acesso primeiro os dicts
@@ -53,8 +55,8 @@ else:
         # Aqui fazemos a captura dos cursos (sem duplicatas)
         curso = set(map(lambda c: c['curso'], campus_sigla))
 
-        # Informe o nome do seu arquivo
-        file_name = input('Digite o nome do arquivo: ')
+        # Definindo nome do arquivo
+        file_name = f'{sigla}.txt'
         # Junção do name_arquive + diretorio para 
         file_dir = os.path.join(dir, file_name)
 
@@ -67,25 +69,11 @@ else:
                 # filtro somente os cursos de um em um, do campus escolhido
                 filtro_cursos = lambda c: c['curso'] == x
                 qnt_cursos = list(filter(filtro_cursos, campus_sigla))
-                
                 # faço o len para descobrir a quantidade de alunos/por curso 
                 qt_alun_cursos = len(qnt_cursos)
-                if x is None:
-                    x = 'vazio'
-                file.write(str(f'{x}: {qt_alun_cursos}') + '\n')
+                # escrevendo as linhas do código no arquivo
+                file.write(str(f'{x}: {qt_alun_cursos} Alunos') + '\n')
                 print(f'Curso {x}: {qt_alun_cursos} Alunos')
-
-
-
-
-        '''arquivo2_save = open(file_path, 'w', encoding='utf-8')
-        for x in curso:
-            filtro_cursos = lambda c: c['curso'] == x
-            qnt_cursos = list(filter(filtro_cursos, campus_sigla))
-            qt_alun_cursos = len(qnt_cursos)
-            arquivo2_save.write('{}\n'.format(';'.join(map(str, f'{x}: {qt_alun_cursos} + \n'))))
-            arquivo2_save.close()
-            print(f'Curso {x}: {qt_alun_cursos} Alunos')      '''  
     else:
-        print("Sigla Inválida!")
+        print("\nSigla Inválida!\n")
         sys.exit()
