@@ -15,14 +15,6 @@ except:
 # Pegando diretório atual
 dir = os.path.dirname(os.path.abspath(__file__)) 
 
-"""
- LEMBRETE DE LAMBDA, MAP:
- o lambda vai percorrer cada item dentro da lista (cada item é um aluno e seus dados) que estão dentro de um dict (lista de dict's), então eu acesso primeiro os dicts
- com o Lambda, pois ele vai de item em item dentro da lista!, após acessar os dicts eu deixo claro no lambda que quero dentro do dict a key 'campus'
- e quem pega para mim os valores dentro dessa key, é o Map que joga para uma lista, entaõ o lambda é a função e o map é quem confirma essa função e joga na lista!
- o set serve para remover as duplicatas """
-
-
 # Realizando a captura dos Campus do IFRN (sem as duplicatas)
 campi = set(map(lambda c: c['campus'], dados))
 
