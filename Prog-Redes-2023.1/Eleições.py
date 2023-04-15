@@ -38,18 +38,16 @@
 # partido = cc / nome = nm / votos = vap
 
 
-import requests
+import requests, os
 
 ano_eleição = 2022
 cargo = '0003'
 estado = 'rn'
 id = 546
 
-
 url = f'https://resultados.tse.jus.br/oficial/ele{ano_eleição}/{id}/dados-simplificados/{estado}/{estado}-c{cargo}-e000{int(id)}-r.json'
 
 dados_gerais = requests.get(url).json()
-
 
 filtro = list(map(lambda c: (c['nm'], c['cc'], c['vap'], c['pvap'], c['sqcand']), dados_gerais['cand']))
 filtro_organizado = sorted(filtro, key=lambda a: int(a[2]), reverse=True)
@@ -57,9 +55,13 @@ numero_cand = dict()
 for x in filtro_organizado:
     dados_cand = dict()
     dados_cand = {'nome': x[0], 'partido': x[1], 'votos': x[2], 'percentual': x[3]}
-    numero_cand[int(x[4])] = dados_cand
+    numero_cand[x[4]] = dados_cand
 
-print(f'{numero_cand}')
-print('='*100)
-#print(dados_cand)
 
+dir = os.path.dirname(os.path.abspath(__file__)) 
+file_dir = os.path.join(dir, 'resultados.txt')
+
+with open(file_dir, 'w', encoding='utf-8') as arq:
+    arq.write('numero; nome,partido; quantidade_votos; percentual_votos\n')
+    for x in numero_cand.values():
+        arq.write(f'{x} \n')

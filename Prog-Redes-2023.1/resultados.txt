@@ -1,0 +1,10 @@
+numero; nome,partido; quantidade_votos; percentual_votos
+{'nome': 'FATIMA BEZERRA', 'partido': 'PT - Federação Brasil da Esperança - FE BRASIL (PT/PC do B/PV) / PDT / MDB / PROS / REPUBLICANOS', 'votos': '1066496', 'percentual': '58,31'} 
+{'nome': 'FABIO DANTAS', 'partido': 'SOLIDARIEDADE - SOLIDARIEDADE / PL / UNIÃO / PSD / PP / PSC', 'votos': '406461', 'percentual': '22,22'} 
+{'nome': 'CAPITÃO STYVENSON', 'partido': 'PODE', 'votos': '307330', 'percentual': '16,80'} 
+{'nome': 'CLORISA LINHARES', 'partido': 'PMB - PMB / PATRIOTA', 'votos': '39011', 'percentual': '2,13'} 
+{'nome': 'DANNIEL MORAIS', 'partido': 'PSOL - Federação PSOL REDE (PSOL/REDE)', 'votos': '3691', 'percentual': '0,20'} 
+{'nome': 'ROSÁLIA FERNANDES', 'partido': 'PSTU', 'votos': '2437', 'percentual': '0,13'} 
+{'nome': 'NAZARENO NERIS', 'partido': 'PMN', 'votos': '1325', 'percentual': '0,07'} 
+{'nome': 'BENTO', 'partido': 'PRTB', 'votos': '1178', 'percentual': '0,06'} 
+{'nome': 'RODRIGO VIEIRA', 'partido': 'DC', 'votos': '1045', 'percentual': '0,06'} 
