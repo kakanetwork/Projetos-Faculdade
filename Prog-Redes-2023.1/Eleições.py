@@ -53,6 +53,9 @@ dados_gerais = requests.get(url).json()
 
 filtro = list(map(lambda c: (c['nm'], c['cc'], c['vap'], c['pvap'], c['sqcand']), dados_gerais['cand']))
 print(filtro)
+filtro_organizado = sorted(filtro, key=lambda a: int(a[2]), reverse=True)
+print('='*100)
+print(filtro_organizado)
 numero_cand = dict()
 for x in filtro:
     dados_cand = dict()
