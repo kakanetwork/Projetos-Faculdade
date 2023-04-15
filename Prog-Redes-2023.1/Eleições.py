@@ -49,11 +49,15 @@ id = 546
 url = f'https://resultados.tse.jus.br/oficial/ele{ano_eleição}/{id}/dados-simplificados/{estado}/{estado}-c{cargo}-e000{int(id)}-r.json'
 
 dados = requests.get(url).json()
+candidatos = dados['cand']
+
+
 
 dicionar = dict()
 
-keys = ['nm', 'cc', 'pvap', 'vap']
-filtro = tuple(map(lambda c:c ['nm'], dados['cand']))
+chaves = ['nm', 'cc', 'vap', 'pvap']
+
+filtro = dict(map(lambda c: (c, candidatos[c]), chaves))
 
 
 
