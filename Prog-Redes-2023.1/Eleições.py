@@ -48,23 +48,24 @@ id = 546
 
 url = f'https://resultados.tse.jus.br/oficial/ele{ano_eleição}/{id}/dados-simplificados/{estado}/{estado}-c{cargo}-e000{int(id)}-r.json'
 
-dados = requests.get(url).json()
+dados_gerais = requests.get(url).json()
 
-dicionar = dict()
 
-keys = ['nm', 'cc', 'vap','pvap']
-filtro = list(map(lambda c: (c['nm'], c['cc'], c['vap'], c['pvap']), dados['cand']))
+filtro = list(map(lambda c: (c['nm'], c['cc'], c['vap'], c['pvap']), dados_gerais['cand']))
 
+
+
+dados_cand = dict()
 for x in filtro:
-    print(x)
-    dicionar['nm'] = x[0]
-    dicionar['cc'] = x[1]
-    dicionar['vap'] = x[2]
-    dicionar['pvap'] = x[3]
-    print(dicionar + '\n')
+    dados_cand['nm'] = x[0]
+    dados_cand['cc'] = x[1]
+    dados_cand['vap'] = x[2]
+    dados_cand['pvap'] = x[3]
+
+    print(f'{dados_cand}\n')
 #print(filtro)
 print('='*100)
-#print(dicionar)
+#print(dados_cand)
 
 
 
