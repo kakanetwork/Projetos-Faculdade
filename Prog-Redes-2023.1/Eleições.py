@@ -54,14 +54,17 @@ dicionar = dict()
 
 keys = ['nm', 'cc', 'vap','pvap']
 filtro = list(map(lambda c: (c['nm'], c['cc'], c['vap'], c['pvap']), dados['cand']))
+
 for x in filtro:
     print(x)
-    dicionar['keys'] = x[0]
-
-
+    dicionar['nm'] = x[0]
+    dicionar['cc'] = x[1]
+    dicionar['vap'] = x[2]
+    dicionar['pvap'] = x[3]
+    print(dicionar + '\n')
 #print(filtro)
 print('='*100)
-print(dicionar)
+#print(dicionar)
 
 
 
