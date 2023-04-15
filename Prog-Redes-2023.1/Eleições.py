@@ -52,8 +52,8 @@ dados = requests.get(url).json()
 
 dicionar = dict()
 
-keys = ['nm', 'cc', 'pvap', ]
-filtro = dict(map(lambda c: (c['nm'], c['cc'], c['vap'], c['pvap']), dados['cand']))
+keys = ['nm', 'cc', 'pvap' ]
+filtro = tuple(map(lambda c: (c['nm'], c['cc'], c['vap'], c['pvap']), dados['cand']))
 
 
 
