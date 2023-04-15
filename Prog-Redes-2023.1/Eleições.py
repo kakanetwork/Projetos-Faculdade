@@ -22,21 +22,7 @@
         num_candidato: { 'nome ': nome_candidato, 'partido': nome_partido, 
                          'votos': quantidade_votos, 
                          'percentual': percentual_votos},
-        ...
-    }
-    
-    O dicionário deverá ser ordenado de forma decrescente pela quantidade de
-    votos que o candidato obteve.
-
-    Em seguida, deverá ser gerado um arquivo (resultados.txt) onde na 
-    primeira linha deverá constar a seguinte string:
-        numero;nome,partido;quantidade_votos;percentual_votos
-
-    Da segunda linha em diante deverão constar os dados correspondentes de
-    cada candidato
-'''
-# partido = cc / nome = nm / votos = vap
-
+        ...'''
 
 import requests, os
 
@@ -56,12 +42,8 @@ dir = os.path.dirname(os.path.abspath(__file__))
 file_dir = os.path.join(dir, 'resultados.txt')
 
 with open(file_dir, 'w', encoding='utf-8') as arq:
-    arq.write('numero; nome; partido; quantidade_votos; percentual_votos\n')
+    arq.write('numero, nome, partido, quantidade_votos, percentual_votos\n')
     for x in filtro_organizado:
-        dados_cand = dict()
-        dados_cand = {'nome': x[1], 'partido': x[2], 'votos': x[3], 'percentual': x[4]}
-        numero_cand[x[0]] = dados_cand
+        dados_cand = {'nome': x[1], 'partido': x[2], 'votos': x[3], 'percentual': x[4]} # Pesquisar: dict compreenshion 
+        numero_cand[x[0]] = dados_cand # Não entendi para que esse dicionário
         arq.write(str(f'{int(x[0]), x[1], x[2], int(x[3]), float(x[4].replace("," , "."))}\n'))
-
-
-   

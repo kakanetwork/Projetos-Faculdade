@@ -1,4 +1,4 @@
-numero; nome; partido; quantidade_votos; percentual_votos
+numero, nome, partido, quantidade_votos, percentual_votos
 (200001608810, 'FATIMA BEZERRA', 'PT - Federação Brasil da Esperança - FE BRASIL (PT/PC do B/PV) / PDT / MDB / PROS / REPUBLICANOS', 1066496, 58.31)
 (200001613178, 'FABIO DANTAS', 'SOLIDARIEDADE - SOLIDARIEDADE / PL / UNIÃO / PSD / PP / PSC', 406461, 22.22)
 (200001696301, 'CAPITÃO STYVENSON', 'PODE', 307330, 16.8)
