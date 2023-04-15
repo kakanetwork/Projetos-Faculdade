@@ -51,11 +51,11 @@ url = f'https://resultados.tse.jus.br/oficial/ele{ano_eleição}/{id}/dados-simp
 dados = requests.get(url).json()
 
 dicionar = dict()
-#for x in candidatos:cls
+
+keys = ['nm', 'cc', 'pvap', 'vap']
 filtro = tuple(map(lambda c:c ['nm'], dados['cand']))
 
 
 
-#var1 = tuple(filter(filtro, dados['cand']))
+
 print(filtro)
-    #dicionar = {'nm': var1}'''
