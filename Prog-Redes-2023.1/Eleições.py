@@ -51,18 +51,20 @@ url = f'https://resultados.tse.jus.br/oficial/ele{ano_eleição}/{id}/dados-simp
 dados_gerais = requests.get(url).json()
 
 
-filtro = list(map(lambda c: (c['nm'], c['cc'], c['vap'], c['pvap']), dados_gerais['cand']))
+filtro = list(map(lambda c: (c['nm'], c['cc'], c['vap'], c['pvap'], c['sqcand']), dados_gerais['cand']))
 
 
 
 dados_cand = dict()
+numero_cand = dict()
 for x in filtro:
     dados_cand['nm'] = x[0]
     dados_cand['cc'] = x[1]
     dados_cand['vap'] = x[2]
     dados_cand['pvap'] = x[3]
-
-    print(f'{dados_cand}\n')
+    print('='*100)
+    numero_cand[x[4]] = dados_cand
+    print(f'{numero_cand}\n\n')
 #print(filtro)
 print('='*100)
 #print(dados_cand)
