@@ -1,10 +1,10 @@
-numero; nome,partido; quantidade_votos; percentual_votos
-{'nome': 'FATIMA BEZERRA', 'partido': 'PT - Federação Brasil da Esperança - FE BRASIL (PT/PC do B/PV) / PDT / MDB / PROS / REPUBLICANOS', 'votos': '1066496', 'percentual': '58,31'} 
-{'nome': 'FABIO DANTAS', 'partido': 'SOLIDARIEDADE - SOLIDARIEDADE / PL / UNIÃO / PSD / PP / PSC', 'votos': '406461', 'percentual': '22,22'} 
-{'nome': 'CAPITÃO STYVENSON', 'partido': 'PODE', 'votos': '307330', 'percentual': '16,80'} 
-{'nome': 'CLORISA LINHARES', 'partido': 'PMB - PMB / PATRIOTA', 'votos': '39011', 'percentual': '2,13'} 
-{'nome': 'DANNIEL MORAIS', 'partido': 'PSOL - Federação PSOL REDE (PSOL/REDE)', 'votos': '3691', 'percentual': '0,20'} 
-{'nome': 'ROSÁLIA FERNANDES', 'partido': 'PSTU', 'votos': '2437', 'percentual': '0,13'} 
-{'nome': 'NAZARENO NERIS', 'partido': 'PMN', 'votos': '1325', 'percentual': '0,07'} 
-{'nome': 'BENTO', 'partido': 'PRTB', 'votos': '1178', 'percentual': '0,06'} 
-{'nome': 'RODRIGO VIEIRA', 'partido': 'DC', 'votos': '1045', 'percentual': '0,06'} 
+numero; nome; partido; quantidade_votos; percentual_votos
+(200001608810, 'FATIMA BEZERRA', 'PT - Federação Brasil da Esperança - FE BRASIL (PT/PC do B/PV) / PDT / MDB / PROS / REPUBLICANOS', 1066496, 58.31)
+(200001613178, 'FABIO DANTAS', 'SOLIDARIEDADE - SOLIDARIEDADE / PL / UNIÃO / PSD / PP / PSC', 406461, 22.22)
+(200001696301, 'CAPITÃO STYVENSON', 'PODE', 307330, 16.8)
+(200001613165, 'CLORISA LINHARES', 'PMB - PMB / PATRIOTA', 39011, 2.13)
+(200001712602, 'DANNIEL MORAIS', 'PSOL - Federação PSOL REDE (PSOL/REDE)', 3691, 0.2)
+(200001651786, 'ROSÁLIA FERNANDES', 'PSTU', 2437, 0.13)
+(200001608705, 'NAZARENO NERIS', 'PMN', 1325, 0.07)
+(200001668305, 'BENTO', 'PRTB', 1178, 0.06)
+(200001695666, 'RODRIGO VIEIRA', 'DC', 1045, 0.06)
