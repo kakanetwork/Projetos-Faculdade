@@ -52,24 +52,14 @@ dados_gerais = requests.get(url).json()
 
 
 filtro = list(map(lambda c: (c['nm'], c['cc'], c['vap'], c['pvap'], c['sqcand']), dados_gerais['cand']))
-print(filtro)
 filtro_organizado = sorted(filtro, key=lambda a: int(a[2]), reverse=True)
-print('='*100)
-print(filtro_organizado)
 numero_cand = dict()
-for x in filtro:
+for x in filtro_organizado:
     dados_cand = dict()
-    dados_cand = {'nome': x[0], 'partido': x[1], 'votos': int(x[2]), 'percentual': x[3]}
+    dados_cand = {'nome': x[0], 'partido': x[1], 'votos': x[2], 'percentual': x[3]}
     numero_cand[int(x[4])] = dados_cand
-dados_organizados = sorted(numero_cand.items(), key=lambda a: a[1]['votos'], reverse=True)
 
-   #dados_ordenados = sorted(numero_cand)
-#dados_ordenado = sorted(numero_cand)
-#print(f'{numero_cand}')
-#print(filtro)
+print(f'{numero_cand}')
 print('='*100)
-
-#print(dados_organizados)
 #print(dados_cand)
 
-#print(filtro)
