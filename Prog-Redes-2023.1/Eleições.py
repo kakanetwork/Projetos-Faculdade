@@ -51,8 +51,8 @@ url = f'https://resultados.tse.jus.br/oficial/ele{ano_eleição}/{id}/dados-simp
 dados = requests.get(url).json()
 
 dicionar = dict()
-#for x in candidatos:
-filtro = tuple(map(lambda c:c ['nm'] == 'FABIO DANTAS', dados['cand']))
+#for x in candidatos:cls
+filtro = tuple(map(lambda c:c ['nm'], dados['cand']))
 
 
 
