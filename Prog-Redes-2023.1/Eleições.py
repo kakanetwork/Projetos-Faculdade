@@ -57,13 +57,10 @@ numero_cand = dict()
 for x in filtro:
     dados_cand = dict()
     dados_cand = {'nome': f'{x[0]}', 'partido': f'{x[1]}', 'votos': f'{x[2]}', 'percentual': f'{x[3]}'}
-    '''dados_cand['nome'] = x[0]
-    dados_cand['partido'] = x[1]
-    dados_cand['votos'] = x[2]
-    dados_cand['percentual'] = x[3]'''
-    print('='*100)
     numero_cand[x[4]] = dados_cand
-print(f'{numero_cand}')
+    dados_ordenados = sorted(numero_cand)
+#dados_ordenado = sorted(numero_cand)
+print(f'{dados_ordenados}')
 #print(filtro)
 print('='*100)
 #print(dados_cand)
