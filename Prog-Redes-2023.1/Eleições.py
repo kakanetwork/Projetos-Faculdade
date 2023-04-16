@@ -8,7 +8,14 @@
     Com base na documentação da API contida na URL 
     https://www.tse.jus.br/eleicoes/eleicoes-2022/interessados-na-divulgacao-de-resultados-2022
 
-
+    0001 Presidente Majoritário
+    0003 Governador Majoritário
+    0005 Senador Majoritário
+    0011 Prefeito Majoritário
+    0006 Deputado Federal Proporcional
+    0007 Deputado Estadual Proporcional
+    0008 Deputado Distrital Proporcional
+    0013 Vereador Proporcional
     # Solicitar o ano,  solicitar a sigla do estado (ou br), cargo eletivo, id da eleição (ex: 544, 546)
 
 
@@ -25,16 +32,14 @@
         ...'''
 
 import requests, os
-
 ano_eleição = int(input('Informe o ano de eleição desejado: '))
-#cargo = int(input('Informe o cargo desejado: '))
+cargo = int(input('Informe o cargo desejado: '))
+
 
 estado = str(input('Informe o estado desejado: ')).lower()
 id = int(input('Informe o ID da eleição desejado: '))
-
-cargo = '0003'
 #id = 546
-url = f'https://resultados.tse.jus.br/oficial/ele{ano_eleição}/{id}/dados-simplificados/{estado}/{estado}-c{cargo}-e000{id}-r.json'
+url = f'https://resultados.tse.jus.br/oficial/ele{ano_eleição}/{id}/dados-simplificados/{estado}/{estado}-c{str(cargo).zfill(4)}-e000{id}-r.json'
 
 dados_gerais = requests.get(url).json()
 
