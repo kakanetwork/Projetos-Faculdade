@@ -32,15 +32,23 @@
         ...'''
 
 import requests, os
+
+
+
 ano_eleição = int(input('Informe o ano de eleição desejado: '))
-cargo = int(input('Informe o cargo desejado: '))
 
+print('\nNúmeros dos respectivos cargos:')
+print("1 - Presidente\n3 - Governador\n5 - Senador\n6 - Deputado Federal\n7 - Desputado Estadual\n8 - Deputado Distrital\n11 - Prefeito\n13 - Vereador")
+cargo = int(input('Informe o Número do Cargo desejado: '))
 
-estado = str(input('Informe o estado desejado: ')).lower()
+estado = str(input('\nInforme o estado desejado: ')).lower()
+
+print("\nNúmeros dos ID's das eleições:")
+print("544 - Eleição Federal\n546 - Eleição Estadual\n548 - Eleição de Conselheiro Distrital (Pernambuco)\n426 - Eleições Municipais\n438 - Eleição Suplementar Senador/MT")
 id = int(input('Informe o ID da eleição desejado: '))
-#id = 546
-url = f'https://resultados.tse.jus.br/oficial/ele{ano_eleição}/{id}/dados-simplificados/{estado}/{estado}-c{str(cargo).zfill(4)}-e000{id}-r.json'
 
+url = f'https://resultados.tse.jus.br/oficial/ele{ano_eleição}/{id}/dados-simplificados/{estado}/{estado}-c{str(cargo).zfill(4)}-e000{id}-r.json'
+print(url)
 dados_gerais = requests.get(url).json()
 
 filtro = tuple(map(lambda c: (c['sqcand'], c['nm'], c['cc'], c['vap'], c['pvap']), dados_gerais['cand']))
