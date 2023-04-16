@@ -26,16 +26,19 @@
 
 import requests, os
 
-ano_eleição = 2022
-cargo = '0003'
-estado = 'rn'
-id = 546
+ano_eleição = int(input('Informe o ano de eleição desejado: '))
+#cargo = int(input('Informe o cargo desejado: '))
 
-url = f'https://resultados.tse.jus.br/oficial/ele{ano_eleição}/{id}/dados-simplificados/{estado}/{estado}-c{cargo}-e000{int(id)}-r.json'
+estado = str(input('Informe o estado desejado: ')).lower()
+id = int(input('Informe o ID da eleição desejado: '))
+
+cargo = '0003'
+#id = 546
+url = f'https://resultados.tse.jus.br/oficial/ele{ano_eleição}/{id}/dados-simplificados/{estado}/{estado}-c{cargo}-e000{id}-r.json'
 
 dados_gerais = requests.get(url).json()
 
-filtro = list(map(lambda c: (c['sqcand'], c['nm'], c['cc'], c['vap'], c['pvap']), dados_gerais['cand']))
+filtro = tuple(map(lambda c: (c['sqcand'], c['nm'], c['cc'], c['vap'], c['pvap']), dados_gerais['cand']))
 filtro_organizado = sorted(filtro, key=lambda a: int(a[3]), reverse=True)
 numero_cand = dict()
 dir = os.path.dirname(os.path.abspath(__file__)) 
@@ -46,4 +49,4 @@ with open(file_dir, 'w', encoding='utf-8') as arq:
     for x in filtro_organizado:
         dados_cand = {'nome': x[1], 'partido': x[2], 'votos': x[3], 'percentual': x[4]} # Pesquisar: dict compreenshion 
         numero_cand[x[0]] = dados_cand # Não entendi para que esse dicionário
-        arq.write(str(f'{int(x[0]), x[1], x[2], int(x[3]), float(x[4].replace("," , "."))}\n'))
+        arq.write(f'{(int(x[0]), x[1], x[2], int(x[3]), float(x[4].replace("," , ".")))}\n')
