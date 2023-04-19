@@ -1,7 +1,7 @@
 import requests, os, sys
 
 
-# Input de algumas informações para requisição
+#  Input de algumas informações para requisição
 
 try:
     ano_eleição = int(input('Informe o ano de eleição desejado: '))
@@ -70,15 +70,15 @@ filtro_organizado = sorted(filtro, key=lambda a: int(a[3]), reverse=True)
 # definindo um dict
 numero_cand = dict()
 
-# pegando pasta atual + nome do arquivo a ser criado e concatenando eles
+# pegando pasta atual + nome do arquivo a ser criado e concatenando eles.
 dir = os.path.dirname(os.path.abspath(__file__)) 
 file_dir = os.path.join(dir, 'resultados.txt')
 
-# realizando abertura/criação do arquivo no modo Write
+# realizando abertura/criação do arquivo no modo Write.
 try:
     with open(file_dir, 'w', encoding='utf-8') as arq:
 
-        # Adicionando o cabeçário do arquivo conforme pedido
+        # Adicionando o cabeçário do arquivo conforme pedido.
         arq.write('numero, nome, partido, quantidade_votos, percentual_votos\n')
 
         # neste for, realizo várias coisas ao mesmo tempo... mas ele faz o X dentro
