@@ -48,3 +48,8 @@ def rename_folder():
     selected_item = treeview.focus()
     treeview.item(selected_item, open=True)
     treeview.edit(selected_item)
+add_button.config(command=add_folder)
+remove_button.config(command=remove_folder)
+rename_button.config(command=rename_folder)
+
+root.mainloop()
