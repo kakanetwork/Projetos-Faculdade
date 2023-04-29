@@ -1,90 +1,99 @@
-import os
 import tkinter as tk
-from tkinter import filedialog
+from tkinter import ttk
+from tkinter import messagebox
+import os
+
+class TreeView:
+    def __init__(self, parent):
+        self.parent = parent
+        self.tree = ttk.Treeview(self.parent)
+        self.tree.pack(side="left", fill="y")
+        
+        # Define um dicionário para armazenar os ids dos nodos e seus respectivos nomes
+        self.id_to_name = {}
+
+        # Cria um evento de duplo clique para renomear a pasta
+        self.tree.bind("<Double-1>", self.rename_folder)
+
+    def rename_folder(self, event):
+        # Pega o item clicado
+        item = self.tree.selection()[0]
+
+        # Define o nome antigo da pasta
+        old_name = self.id_to_name[item]
+
+        # Cria uma janela de diálogo para pegar o novo nome
+        new_name = tk.simpledialog.askstring("Renomear pasta", "Digite o novo nome para a pasta", initialvalue=old_name)
+
+        if new_name:
+            # Atualiza o nome no dicionário
+            self.id_to_name[item] = new_name
+
+            # Atualiza o nome na árvore
+            self.tree.item(item, text=new_name)
+
+            # Renomeia a pasta no sistema de arquivos
+            path = self.get_path(item)
+            new_path = os.path.join(os.path.dirname(path), new_name)
+            os.rename(path, new_path)
+
+    def add_folder(self, parent, name):
+        # Adiciona a pasta na árvore
+        folder_id = self.tree.insert(parent, "end", text=name)
+
+        # Armazena o nome da pasta no dicionário
+        self.id_to_name[folder_id] = name
+
+        # Cria a pasta no sistema de arquivos
+        path = self.get_path(folder_id)
+        os.mkdir(path)
+
+    def remove_folder(self):
+        # Pega o item selecionado
+        item = self.tree.selection()[0]
+
+        # Pega o nome da pasta
+        name = self.id_to_name[item]
+
+        # Confirma se o usuário deseja realmente remover a pasta
+        confirm = messagebox.askyesno("Remover pasta", f"Deseja remover a pasta '{name}'?")
+
+        if confirm:
+            # Remove a pasta da árvore
+            self.tree.delete(item)
+
+            # Remove a pasta do sistema de arquivos
+            path = self.get_path(item)
+            os.rmdir(path)
+
+    def get_path(self, item):
+        # Pega o caminho da pasta na árvore
+        path_list = [self.id_to_name[item]]
+        parent_item = self.tree.parent(item)
+
+        while parent_item:
+            path_list.insert(0, self.id_to_name[parent_item])
+            parent_item = self.tree.parent(parent_item)
+
+        # Retorna o caminho completo
+        path = os.path.join(root_folder.get(), *path_list)
+        return path
+
 
 class App:
-    def __init__(self, master):
-        self.master = master
-        master.title("Criador de pastas")
+    def __init__(self):
+        self.window = tk.Tk()
+        self.window.title("Organizador de pastas")
+        self.window.geometry("600x400")
 
-        self.folders = []
+        # Cria um Frame para a seleção da pasta raiz
+        root_frame = ttk.Frame(self.window)
+        root_frame.pack(pady=10)
 
-        # label e botão para selecionar a pasta raiz
-        self.root_dir_label = tk.Label(master, text="Pasta raiz:")
-        self.root_dir_label.pack(side=tk.LEFT, padx=(10, 0), pady=10)
-        self.root_dir_var = tk.StringVar()
-        self.root_dir_entry = tk.Entry(master, textvariable=self.root_dir_var, width=40)
-        self.root_dir_entry.pack(side=tk.LEFT, padx=(0, 10), pady=10)
-        self.select_root_dir_button = tk.Button(master, text="Selecionar", command=self.select_root_dir)
-        self.select_root_dir_button.pack(side=tk.LEFT, pady=10)
+        # Cria um Label para a pasta raiz
+        ttk.Label(root_frame, text="Pasta raiz:").pack(side="left")
 
-        # label e botão para adicionar nova pasta
-        self.folder_name_label = tk.Label(master, text="Nome da pasta:")
-        self.folder_name_label.pack(padx=10)
-        self.tree_widget.itemDoubleClicked.connect(self.rename_folder)
-        self.folder_name_var = tk.StringVar()
-        self.folder_name_entry = tk.Entry(master, textvariable=self.folder_name_var, width=40)
-        self.folder_name_entry.pack(padx=10)
-        self.add_folder_button = tk.Button(master, text="Adicionar pasta", command=self.add_folder)
-        self.add_folder_button.pack(pady=10)
-
-        # label e listbox para mostrar as pastas criadas
-        self.folders_label = tk.Label(master, text="Pastas criadas:")
-        self.folders_label.pack(padx=10)
-        self.folders_listbox = tk.Listbox(master, width=50)
-        self.folders_listbox.pack(padx=10)
-
-        # botão para criar as pastas na pasta raiz
-        self.create_folders_button = tk.Button(master, text="Criar pastas", command=self.create_folders)
-        self.create_folders_button.pack(pady=10)
-
-    def select_root_dir(self):
-        # abre uma janela para selecionar a pasta raiz
-        root_dir = filedialog.askdirectory()
-        self.root_dir_var.set(root_dir)
-
-    def add_folder(self):
-        # adiciona uma nova pasta à lista de pastas criadas pelo usuário
-        btn_create_folders = QtWidgets.QPushButton("Create Folders", self)
-        btn_create_folders.clicked.connect(self.create_folders_from_template)
-        layout.addWidget(btn_create_folders)        
-        folder_name = self.folder_name_var.get()
-        self.folders.append(folder_name)
-        self.folders_listbox.insert(tk.END, folder_name)
-    
-
-    def create_folders(self):
-        # cria as pastas correspondentes na pasta raiz selecionada
-        root_dir = self.root_dir_var.get()
-        for folder_name in self.folders:
-            folder_path = os.path.join(root_dir, folder_name)
-            os.makedirs(folder_path)
-
-        # limpa a lista de pastas criadas pelo usuário
-        self.folders = []
-        self.folders_listbox.delete(0, tk.END)
-    def rename_folder(self, item, column):
-        item.setFlags(item.flags() | QtCore.Qt.ItemIsEditable)
-        self.tree_widget.editItem(item)
-        new_folder_name = item.text(0)
-        if new_folder_name:
-            parent_folder = item.parent()
-            if parent_folder:
-                current_path = self.get_path(parent_folder) + "/"
-                old_folder_name = item.toolTip(0)
-                new_folder_path = current_path + new_folder_name
-                try:
-                    os.rename(current_path + old_folder_name, new_folder_path)
-                except Exception as e:
-                    print("Error renaming folder: ", e)
-                else:
-                    item.setToolTip(0, new_folder_name)
-                    item.setIcon(0, self.folder_icon)
-        else:
-            item.setText(0, item.toolTip(0))
-
-
-root = tk.Tk()
-app = App(root)
-root.mainloop()
-
+        # Cria um Entry para a seleção da pasta raiz
+        self.root_folder = tk.StringVar()
+        root_entry = ttk.Entry(root_frame, textvariable=self.root_folder)
+        root
