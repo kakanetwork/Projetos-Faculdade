@@ -21,6 +21,7 @@ class App:
         # label e botão para adicionar nova pasta
         self.folder_name_label = tk.Label(master, text="Nome da pasta:")
         self.folder_name_label.pack(padx=10)
+        self.tree_widget.itemDoubleClicked.connect(self.rename_folder)
         self.folder_name_var = tk.StringVar()
         self.folder_name_entry = tk.Entry(master, textvariable=self.folder_name_var, width=40)
         self.folder_name_entry.pack(padx=10)
@@ -44,9 +45,13 @@ class App:
 
     def add_folder(self):
         # adiciona uma nova pasta à lista de pastas criadas pelo usuário
+        btn_create_folders = QtWidgets.QPushButton("Create Folders", self)
+        btn_create_folders.clicked.connect(self.create_folders_from_template)
+        layout.addWidget(btn_create_folders)        
         folder_name = self.folder_name_var.get()
         self.folders.append(folder_name)
         self.folders_listbox.insert(tk.END, folder_name)
+    
 
     def create_folders(self):
         # cria as pastas correspondentes na pasta raiz selecionada
@@ -58,7 +63,28 @@ class App:
         # limpa a lista de pastas criadas pelo usuário
         self.folders = []
         self.folders_listbox.delete(0, tk.END)
+    def rename_folder(self, item, column):
+        item.setFlags(item.flags() | QtCore.Qt.ItemIsEditable)
+        self.tree_widget.editItem(item)
+        new_folder_name = item.text(0)
+        if new_folder_name:
+            parent_folder = item.parent()
+            if parent_folder:
+                current_path = self.get_path(parent_folder) + "/"
+                old_folder_name = item.toolTip(0)
+                new_folder_path = current_path + new_folder_name
+                try:
+                    os.rename(current_path + old_folder_name, new_folder_path)
+                except Exception as e:
+                    print("Error renaming folder: ", e)
+                else:
+                    item.setToolTip(0, new_folder_name)
+                    item.setIcon(0, self.folder_icon)
+        else:
+            item.setText(0, item.toolTip(0))
+
 
 root = tk.Tk()
 app = App(root)
 root.mainloop()
+
