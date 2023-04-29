@@ -32,3 +32,19 @@ treeview_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
 
 treeview = ttk.Treeview(treeview_frame)
 treeview.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+def add_folder():
+    selected_item = treeview.focus()
+    if not selected_item:
+        parent_item = ""
+    else:
+        parent_item = selected_item
+    treeview.insert(parent_item, "end", text="Nova Pasta")
+
+def remove_folder():
+    selected_item = treeview.focus()
+    treeview.delete(selected_item)
+
+def rename_folder():
+    selected_item = treeview.focus()
+    treeview.item(selected_item, open=True)
+    treeview.edit(selected_item)
