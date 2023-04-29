@@ -1,99 +1,55 @@
 import tkinter as tk
 from tkinter import ttk
-from tkinter import messagebox
-import os
 
-class TreeView:
-    def __init__(self, parent):
-        self.parent = parent
-        self.tree = ttk.Treeview(self.parent)
-        self.tree.pack(side="left", fill="y")
-        
-        # Define um dicionário para armazenar os ids dos nodos e seus respectivos nomes
-        self.id_to_name = {}
+root = tk.Tk()
+root.title("Criar Árvore de Pastas")
+main_frame = ttk.Frame(root)
+main_frame.pack(fill=tk.BOTH, expand=True)
 
-        # Cria um evento de duplo clique para renomear a pasta
-        self.tree.bind("<Double-1>", self.rename_folder)
+label_frame = ttk.LabelFrame(main_frame, text="Criar Template de Árvore de Pastas")
+label_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
 
-    def rename_folder(self, event):
-        # Pega o item clicado
-        item = self.tree.selection()[0]
+label = ttk.Label(label_frame, text="Digite o nome da pasta raiz:")
+label.pack(padx=10, pady=10)
 
-        # Define o nome antigo da pasta
-        old_name = self.id_to_name[item]
+entry = ttk.Entry(label_frame)
+entry.pack(padx=10, pady=10)
 
-        # Cria uma janela de diálogo para pegar o novo nome
-        new_name = tk.simpledialog.askstring("Renomear pasta", "Digite o novo nome para a pasta", initialvalue=old_name)
+button_frame = ttk.Frame(label_frame)
+button_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
 
-        if new_name:
-            # Atualiza o nome no dicionário
-            self.id_to_name[item] = new_name
+add_button = ttk.Button(button_frame, text="Adicionar Pasta")
+add_button.pack(side=tk.LEFT, padx=10)
 
-            # Atualiza o nome na árvore
-            self.tree.item(item, text=new_name)
+remove_button = ttk.Button(button_frame, text="Remover Pasta")
+remove_button.pack(side=tk.LEFT, padx=10)
 
-            # Renomeia a pasta no sistema de arquivos
-            path = self.get_path(item)
-            new_path = os.path.join(os.path.dirname(path), new_name)
-            os.rename(path, new_path)
+rename_button = ttk.Button(button_frame, text="Renomear Pasta")
+rename_button.pack(side=tk.LEFT, padx=10)
 
-    def add_folder(self, parent, name):
-        # Adiciona a pasta na árvore
-        folder_id = self.tree.insert(parent, "end", text=name)
+treeview_frame = ttk.Frame(label_frame)
+treeview_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
 
-        # Armazena o nome da pasta no dicionário
-        self.id_to_name[folder_id] = name
+treeview = ttk.Treeview(treeview_frame)
+treeview.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+def add_folder():
+    selected_item = treeview.focus()
+    if not selected_item:
+        parent_item = ""
+    else:
+        parent_item = selected_item
+    treeview.insert(parent_item, "end", text="Nova Pasta")
 
-        # Cria a pasta no sistema de arquivos
-        path = self.get_path(folder_id)
-        os.mkdir(path)
+def remove_folder():
+    selected_item = treeview.focus()
+    treeview.delete(selected_item)
 
-    def remove_folder(self):
-        # Pega o item selecionado
-        item = self.tree.selection()[0]
+def rename_folder():
+    selected_item = treeview.focus()
+    treeview.item(selected_item, open=True)
+    treeview.edit(selected_item)
+add_button.config(command=add_folder)
+remove_button.config(command=remove_folder)
+rename_button.config(command=rename_folder)
 
-        # Pega o nome da pasta
-        name = self.id_to_name[item]
-
-        # Confirma se o usuário deseja realmente remover a pasta
-        confirm = messagebox.askyesno("Remover pasta", f"Deseja remover a pasta '{name}'?")
-
-        if confirm:
-            # Remove a pasta da árvore
-            self.tree.delete(item)
-
-            # Remove a pasta do sistema de arquivos
-            path = self.get_path(item)
-            os.rmdir(path)
-
-    def get_path(self, item):
-        # Pega o caminho da pasta na árvore
-        path_list = [self.id_to_name[item]]
-        parent_item = self.tree.parent(item)
-
-        while parent_item:
-            path_list.insert(0, self.id_to_name[parent_item])
-            parent_item = self.tree.parent(parent_item)
-
-        # Retorna o caminho completo
-        path = os.path.join(root_folder.get(), *path_list)
-        return path
-
-
-class App:
-    def __init__(self):
-        self.window = tk.Tk()
-        self.window.title("Organizador de pastas")
-        self.window.geometry("600x400")
-
-        # Cria um Frame para a seleção da pasta raiz
-        root_frame = ttk.Frame(self.window)
-        root_frame.pack(pady=10)
-
-        # Cria um Label para a pasta raiz
-        ttk.Label(root_frame, text="Pasta raiz:").pack(side="left")
-
-        # Cria um Entry para a seleção da pasta raiz
-        self.root_folder = tk.StringVar()
-        root_entry = ttk.Entry(root_frame, textvariable=self.root_folder)
-        root
+root.mainloop()
