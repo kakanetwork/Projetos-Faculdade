@@ -2,14 +2,10 @@ import os, shutil, winshell
 import tkinter as tk
 from tkinter import scrolledtext, messagebox
 
-lista = [
-    "%userprofile%\\AppData\\Local\\Temp",
-    "%LOCALAPPDATA%\\Microsoft\\Windows\\INetCache",
-    "%windir%\\temp",
-    "C:\\Windows\\Prefetch",
-    "C:\\Users\\USUARIO\\Recent",
-]
-
+lista = ["C:\\Users\\USUARIO\AppData\Local\Temp",
+        "C:\\Users\\USUARIO\AppData\Local\Microsoft\Windows\INetCache",
+        "C:\Windows\Temp",
+        "C:\\Windows\\Prefetch"]
 def clear_cache():
     total_size = 0
     log.tag_config("white", foreground="white")
@@ -22,6 +18,12 @@ def clear_cache():
                 os.remove(file_path)
                 total_size += file_size
                 log.insert(tk.END, f"Apagando...: {a}\n", "white")
+            except NotADirectoryError:
+                log.insert(tk.END, f"Arquivo não deletado...: {a}\n", "white")
+                continue
+            except PermissionError:
+                log.insert(tk.END, f"Arquivo não deletado...: {a}\n", "white")
+                continue
             except:
                 shutil.rmtree(file_path)
                 log.insert(tk.END, f"Apagando Pasta...: {a}\n", "white")
@@ -29,7 +31,7 @@ def clear_cache():
 
     # Define a cor do texto do log para a tag "white"
     log.insert(tk.END, f"Limpeza de cache concluída com sucesso. Total excluído: {total_size_mb} MB\n", "white")
-    
+  
 def esvaziar_lixeira():
     if messagebox.askyesno("Atenção", "Deseja esvaziar a lixeira permanentemente?"):
         winshell.recycle_bin().empty(confirm=False, show_progress=False)
