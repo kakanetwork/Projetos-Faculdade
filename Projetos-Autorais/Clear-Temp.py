@@ -1,15 +1,19 @@
-import os
-import shutil
-import winshell
+import os, shutil, winshell
 import tkinter as tk
 from tkinter import scrolledtext, messagebox
 
-lista_teste = [ "C:\\Users\\USUARIO\\OneDrive\\Documents\\s",  "C:\\Users\\USUARIO\\OneDrive\\Documents\\a",]
+lista = [
+    "%userprofile%\\AppData\\Local\\Temp",
+    "%LOCALAPPDATA%\\Microsoft\\Windows\\INetCache",
+    "%windir%\\temp",
+    "C:\\Windows\\Prefetch",
+    "C:\\Users\\USUARIO\\Recent",
+]
 
 def clear_cache():
     total_size = 0
     log.tag_config("white", foreground="white")
-    for x in lista_teste:
+    for x in lista:
         nomes = tuple(os.listdir(x))
         for a in nomes:
             file_path = os.path.join(x, a)
