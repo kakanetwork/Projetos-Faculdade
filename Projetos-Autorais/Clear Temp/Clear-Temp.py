@@ -30,8 +30,7 @@ def esvaziar_lixeira():
 root = tk.Tk()
 root.geometry("600x400")
 root.title("Limpeza de Cache e Esvaziamento de Lixeira - By Kakanetwork")
-
-root.iconbitmap('limpar.bmp')
+root.iconbitmap('D:\\USUARIO\Documentos\Faculdade\MeusProjetos.py\Projetos-Autorais\Clear-Temp\\limpar.ico')
 
 btn_clear_cache = tk.Button(root, text="Limpar Cache", command=clear_cache)
 btn_clear_cache.pack(pady=10)
