@@ -9,7 +9,7 @@ url = 'https://inepdata.inep.gov.br/analytics/saw.dll?Dashboard&PortalPath=%2Fsh
 # Fazer a solicitação GET
 response = requests.get(url)
 
-# Verificar o status da respos5555555555555555ta
+# Verificar o status da resposta
 if response.status_code == 200:
     # A resposta foi bem sucedida, obter os dados
     data = response.json()
