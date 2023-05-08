@@ -1,4 +1,4 @@
-import os, shutil
+import os, shutil, winshell
 
 lista = ["%userprofile%\AppData\Local\Temp", "%LOCALAPPDATA%\Microsoft\Windows\INetCache", "%windir%\temp", 
 "C:\Windows\Prefetch", "C:\\Users\\USUARIO\Recent"]
@@ -10,7 +10,10 @@ for x in lista_teste:
     for a in nomes:
         try:
             os.remove(f'{x}\\{a}')
-        except IsADirectoryError:
+        except:
             shutil.rmtree(f'{x}\\{a}')
-        print(f'Apagando...: {a}\n')
-    #print(f"apagando:... {os.listdir(x)}\n")
+            print(f'Apagando Pasta...: {a}\n')
+        else:
+            print(f'Apagando...: {a}\n')
+
+winshell.recycle_bin().empty(confirm=True, show_progress=True)
