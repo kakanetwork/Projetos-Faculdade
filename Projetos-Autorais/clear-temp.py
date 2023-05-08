@@ -1,4 +1,4 @@
-import os
+import os, shutil
 
 
 
@@ -11,5 +11,6 @@ lista_teste = ["C:\\Users\\USUARIO\OneDrive\Documents\s", "C:\\Users\\USUARIO\On
 for x in lista_teste:
     nomes = tuple(os.listdir(x))
     for a in nomes:
-        os.remove('x\\a')
-    print(f"apagando:... {os.listdir(x)}\n")
+        print(f'{x}\\{a}')
+        print(f'Apagando...: {a}\n')
+    #print(f"apagando:... {os.listdir(x)}\n")
