@@ -10,15 +10,22 @@ url_fragmentada = url.split('/')
 url_host = url_fragmentada[2]
 url_image = '/'.join(url_fragmentada[3:-1])
 arq_image = url_fragmentada[-1]
+
 extensão = arq_image.split('.')[-1]
 arq_txt = arq_image.replace(extensão, 'txt')
 
-print(url_fragmentada,url_host, url_image, arq_image, arq_txt, extensão)
+protocolo = url.split(':')[0]
 
-
-url_request = f'GET {url_image} HTTP/1.1\r\nHOST: {url_host}\r\n\r\n' 
-host_port   = 80
-buffer_size = 1024
+if protocolo == 'https':
+    url_request = f'GET {url_image} HTTP/1.1\r\nHOST: {url_host}\r\n\r\n' 
+    host_port   = 443
+    buffer_size = 1024
+elif protocolo =='http':
+    url_request = f'GET {url_image} HTTP/1.1\r\nHOST: {url_host}\r\n\r\n' 
+    host_port   = 80
+    buffer_size = 1024
+else:
+    print('Erro...')
 
 sock_img = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock_img.connect((url_host, host_port))
