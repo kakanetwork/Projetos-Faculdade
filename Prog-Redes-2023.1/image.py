@@ -1,38 +1,44 @@
-import socket
-
+import socket, sys
 
 #url = input('informa a url: ')
 url = str('https://www.nasa.gov/sites/default/files/thumbnails/image/nasa-logo-web-rgb.png')
 
-
-
+# fragmenta toda a URL
 url_fragmentada = url.split('/')
+
+# pega apenas o host do fragmento acima
 url_host = url_fragmentada[2]
+
+# pega o local da imagem
 url_image = '/'.join(url_fragmentada[3:-1])
+
+# pega o nome da imagem + extensão
 arq_image = url_fragmentada[-1]
 
+# pega apenas a extensão e converte para txt
 extensão = arq_image.split('.')[-1]
 arq_txt = arq_image.replace(extensão, 'txt')
 
+# pega o protocolo (HTTP ou HTTPS)
 protocolo = url.split(':')[0]
 
+# Define a porta se a url for HTTP ou HTTPS
 if protocolo == 'https':
-    url_request = f'GET {url_image} HTTP/1.1\r\nHOST: {url_host}\r\n\r\n' 
     host_port   = 443
-    buffer_size = 1024
 elif protocolo =='http':
-    url_request = f'GET {url_image} HTTP/1.1\r\nHOST: {url_host}\r\n\r\n' 
     host_port   = 80
-    buffer_size = 1024
 else:
-    print('Erro...')
+    print('Protocolo não suportado...')
+    exit()
+
+url_request = f'GET {url_image} HTTP/1.1\r\nHOST: {url_host}\r\n\r\n' 
+buffer_size = 1024
 
 sock_img = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock_img.connect((url_host, host_port))
 sock_img.sendall(url_request.encode())
 
 print('\nBaixando a imagem...')
-
 
 # Montado a variável que armazenará os dados de retorno
 data_ret = b''
