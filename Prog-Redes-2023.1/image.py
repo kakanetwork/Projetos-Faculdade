@@ -1,4 +1,9 @@
-import socket, sys, ssl
+import socket, sys, ssl, os, platform
+
+if platform.system() == 'Windows':
+    os.system('cls')
+else:
+    os.system('clear')
 
 #url = input('informa a url: ')
 url = str('https://www.nasa.gov/sites/default/files/thumbnails/image/nasa-logo-web-rgb.png')
@@ -21,7 +26,9 @@ arq_txt = arq_image.replace(extensão, 'txt')
 
 # pega o protocolo (HTTP ou HTTPS)
 protocolo = url.split(':')[0]
-print(f"\nhostname: {url_host}\nlocal_da_imagem: {url_image}\nnome_da_imagem: {arq_image}\nextensão: {extensão}\n")
+print('='*100)
+print(f"\nhostname: {url_host}\nlocal_da_imagem: {url_image}\nnome_da_imagem: {arq_image}\nextensão: {extensão}\nprotocolo: {protocolo}\n")
+print('='*100)
 
 # Define a porta se a url for HTTP ou HTTPS
 if protocolo == 'https':
@@ -68,10 +75,10 @@ sock_img.close()
 img_size = -1
 tmp = data_ret.split('\r\n'.encode())
 for line in tmp:
-   if 'Content-Length:'.encode() in line:
+   if 'Content-Length:'.encod6e() in line:
       img_size = int(line.split()[1])
       break
-print(f'\nTamanho da Imagem: {img_size} bytes')
+print(f'Tamanho da Imagem: {img_size} bytes\n')
 
 # Separando o Cabeçalho dos Dados
 delimiter = '\r\n\r\n'.encode()
@@ -79,8 +86,12 @@ position  = data_ret.find(delimiter)
 headers   = data_ret[:position]
 image     = data_ret[position+4:]
 
+print('='*100,'\n')
 # salvando head
-with open(arq_txt, 'w', encoding='utf-8') as header:
+print(str(headers, 'utf-8'),'\n')
+print('='*100)
+
+with open('saida.txt', 'w', encoding='utf-8') as header:
     header.write(headers.decode('utf-8'))
 
 # Salvando a imagem
