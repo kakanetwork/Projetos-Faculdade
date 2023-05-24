@@ -1,7 +1,7 @@
 import socket, sys
 
 #url = input('informa a url: ')
-url = str('https://www.nasa.gov/sites/default/files/thumbnails/image/nasa-logo-web-rgb.png')
+url = str('https://raw.githubusercontent.com/Pedro-H-Braga/Atividades-Prog-Redes-2023.1/main/imagem.png')
 
 # fragmenta toda a URL
 url_fragmentada = url.split('/')
@@ -21,7 +21,6 @@ arq_txt = arq_image.replace(extensão, 'txt')
 
 # pega o protocolo (HTTP ou HTTPS)
 protocolo = url.split(':')[0]
-print(url_fragmentada)
 
 # Define a porta se a url for HTTP ou HTTPS
 if protocolo == 'https':
@@ -34,7 +33,6 @@ else:
 
 url_request = f'GET {url_image} HTTP/1.1\r\nHOST: {url_host}\r\n\r\n' 
 buffer_size = 1024
-
 
 sock_img = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock_img.connect((url_host, host_port))
@@ -67,8 +65,9 @@ position  = data_ret.find(delimiter)
 headers   = data_ret[:position]
 image     = data_ret[position+4:]
 
+# salvando head
 with open(arq_txt, 'w', encoding='utf-8') as header:
-    header.write(headers)
+    header.write(headers.decode('utf-8'))
 
 # Salvando a imagem
 file_output = open('image.png', 'wb')
