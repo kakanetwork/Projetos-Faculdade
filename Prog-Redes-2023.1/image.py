@@ -1,7 +1,7 @@
-import socket, sys
+import socket, sys, ssl
 
 #url = input('informa a url: ')
-url = str('https://raw.githubusercontent.com/Pedro-H-Braga/Atividades-Prog-Redes-2023.1/main/imagem.png')
+url = str('https://www.nasa.gov/sites/default/files/thumbnails/image/nasa-logo-web-rgb.png')
 
 # fragmenta toda a URL
 url_fragmentada = url.split('/')
@@ -10,7 +10,7 @@ url_fragmentada = url.split('/')
 url_host = url_fragmentada[2]
 
 # pega o local da imagem
-url_image = '/'.join(url_fragmentada[3:-1])
+url_image = '/'.join(url_fragmentada[3:])
 
 # pega o nome da imagem + extensão
 arq_image = url_fragmentada[-1]
@@ -21,24 +21,38 @@ arq_txt = arq_image.replace(extensão, 'txt')
 
 # pega o protocolo (HTTP ou HTTPS)
 protocolo = url.split(':')[0]
+print(f"\nhostname: {url_host}\nlocal_da_imagem: {url_image}\nnome_da_imagem: {arq_image}\nextensão: {extensão}\n")
 
 # Define a porta se a url for HTTP ou HTTPS
 if protocolo == 'https':
-    host_port   = 443
+    buffer_size = 1024 
+    request  = f'GET {url_image} HTTP/1.1\r\n'
+    request += f'Host: {url_host}\r\n'
+    request += 'User-Agent: Python\r\n'
+    request += 'Connection: close\r\n\r\n'
+
+    context         = ssl.create_default_context()
+    context.check_hostname = False
+    context.verify_mode = ssl.CERT_NONE
+
+    socket_rss      = socket.create_connection((url_host, 443))
+    sock_img = context.wrap_socket(socket_rss, server_hostname=url_host)
+
+    sock_img.send(request.encode('utf-8'))
+    print('\nBaixando a imagem...')
+
 elif protocolo =='http':
-    host_port   = 80
+    buffer_size = 1024
+    url_request = f'GET {url_image} HTTP/1.1\r\nHOST: {url_host}\r\n\r\n' 
+    sock_img = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock_img.connect((url_host, 80))
+    sock_img.sendall(url_request.encode())
+    print('\nBaixando a imagem...')
+
 else:
     print('\nProtocolo não suportado...\n')
     exit()
 
-url_request = f'GET {url_image} HTTP/1.1\r\nHOST: {url_host}\r\n\r\n' 
-buffer_size = 1024
-
-sock_img = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock_img.connect((url_host, host_port))
-sock_img.sendall(url_request.encode())
-
-print('\nBaixando a imagem...')
 
 # Montado a variável que armazenará os dados de retorno
 data_ret = b''
