@@ -21,7 +21,7 @@ arq_txt = arq_image.replace(extensão, 'txt')
 
 # pega o protocolo (HTTP ou HTTPS)
 protocolo = url.split(':')[0]
-
+print(url_fragmentada)
 # Define a porta se a url for HTTP ou HTTPS
 if protocolo == 'https':
     host_port   = 443
@@ -39,8 +39,8 @@ sock_img = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock_img.connect((url_host, host_port))
 sock_img.sendall(url_request.encode())
 
-dados = sock_img.recv(buffer_size)
-print(str(dados, 'utf-8'))
+'''dados = sock_img.recv(buffer_size)
+print(str(dados, 'utf-8'))'''
 
 print('\nBaixando a imagem...')
 
@@ -69,6 +69,7 @@ position  = data_ret.find(delimiter)
 headers   = data_ret[:position]
 image     = data_ret[position+4:]
 
+print(headers)
 # Salvando a imagem
 file_output = open('image.png', 'wb')
 file_output.write(image)
