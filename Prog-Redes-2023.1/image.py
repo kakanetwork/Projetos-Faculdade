@@ -28,15 +28,19 @@ if protocolo == 'https':
 elif protocolo =='http':
     host_port   = 80
 else:
-    print('Protocolo não suportado...')
+    print('\nProtocolo não suportado...\n')
     exit()
 
 url_request = f'GET {url_image} HTTP/1.1\r\nHOST: {url_host}\r\n\r\n' 
 buffer_size = 1024
 
+
 sock_img = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock_img.connect((url_host, host_port))
 sock_img.sendall(url_request.encode())
+
+dados = sock_img.recv(buffer_size)
+print(str(dados, 'utf-8'))
 
 print('\nBaixando a imagem...')
 
@@ -44,7 +48,8 @@ print('\nBaixando a imagem...')
 data_ret = b''
 while True:
     data = sock_img.recv(buffer_size)
-    if not data: break
+    if not data: 
+        break
     data_ret += data
 
 sock_img.close()
