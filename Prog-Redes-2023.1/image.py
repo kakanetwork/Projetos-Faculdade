@@ -33,11 +33,7 @@ print('='*100)
 # Define a porta se a url for HTTP ou HTTPS
 if protocolo == 'https':
     buffer_size = 1024 
-    request  = f'GET {url_image} HTTP/1.1\r\n'
-    request += f'Host: {url_host}\r\n'
-    request += 'User-Agent: Python\r\n'
-    request += 'Connection: close\r\n\r\n'
-
+    url_request = f'GET {url_image} HTTP/1.1\r\nHOST: {url_host}\r\n\r\n' 
     context         = ssl.create_default_context()
     context.check_hostname = False
     context.verify_mode = ssl.CERT_NONE
@@ -45,7 +41,7 @@ if protocolo == 'https':
     socket_rss      = socket.create_connection((url_host, 443))
     sock_img = context.wrap_socket(socket_rss, server_hostname=url_host)
 
-    sock_img.send(request.encode('utf-8'))
+    sock_img.send(url_request.encode('utf-8'))
     print('\nBaixando a imagem...')
 
 elif protocolo =='http':
