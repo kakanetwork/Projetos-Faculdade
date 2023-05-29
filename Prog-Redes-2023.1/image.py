@@ -15,7 +15,7 @@ url_fragmentada = url.split('/')
 url_host = url_fragmentada[2]
 
 # pega o local da imagem
-# aidicio
+# adiciona o '/'+'/' para iniciar com uma /
 url_image = '/'+'/'.join(url_fragmentada[3:])
 
 # pega o nome da imagem + extensão
@@ -33,6 +33,7 @@ print('='*100)
 
 # Define a porta se a url for HTTP ou HTTPS
 if protocolo == 'https':
+    # define o tamanho do buffer 
     buffer_size = 1024 
     url_request = f'GET {url_image} HTTP/1.1\r\nHOST: {url_host}\r\n\r\n' 
     context         = ssl.create_default_context()
