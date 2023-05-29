@@ -61,29 +61,7 @@ if protocolo == 'https':
 
     socket_conexão.close()
 
-    # Obtendo o tamanho da imagem
-
-    # Separando o Cabeçalho dos Dados
-    delimiter = '\r\n\r\n'.encode()
-    position  = data_ret.find(delimiter)
-    headers   = data_ret[:position]
-    image     = data_ret[position+4:]
-
-    print('='*100,'\n')
-
-    # salvando head
-    print(str(headers, 'utf-8'),'\n')
-    print('='*100)
-
-    with open('saida.txt', 'w', encoding='utf-8') as header:
-        header.write(headers.decode('utf-8'))
-
-    # Salvando a imagem
-    file_output = open('image.png', 'wb')
-    file_output.write(image)
-    file_output.close()
-
-'''elif protocolo =='http':
+elif protocolo =='http':
     buffer_size = 1024
     url_request = f'GET {url_image} HTTP/1.1\r\nHOST: {url_host}\r\n\r\n' 
     socket_conexão = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -93,7 +71,27 @@ if protocolo == 'https':
 
 else:
     print('\nProtocolo não suportado...\n')
-    exit()'''
+    exit()
 
+
+# Separando o Cabeçalho dos Dados
+delimiter = '\r\n\r\n'.encode()
+position  = data_ret.find(delimiter)
+headers   = data_ret[:position]
+image     = data_ret[position+4:]
+
+print('='*100,'\n')
+
+# salvando head
+print(str(headers, 'utf-8'),'\n')
+print('='*100)
+
+with open('saida.txt', 'w', encoding='utf-8') as header:
+    header.write(headers.decode('utf-8'))
+
+# Salvando a imagem
+file_output = open('image.png', 'wb')
+file_output.write(image)
+file_output.close()
 
 # Montado a variável que armazenará os dados de retorno
