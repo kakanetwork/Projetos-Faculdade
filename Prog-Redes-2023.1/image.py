@@ -30,28 +30,29 @@ protocolo = url.split(':')[0]
 print('='*100)
 print(f"\nhostname: {url_host}\nlocal_da_imagem: {url_image}\nnome_da_imagem: {arq_image}\nextensão: {extensão}\nprotocolo: {protocolo}\n")
 print('='*100)
-
+# define o tamanho do buffer 
+buffer_size = 1024 
 # Define a porta se a url for HTTP ou HTTPS
 if protocolo == 'https':
-    # define o tamanho do buffer 
-    buffer_size = 1024 
-
     # define a requisição 
     url_request = f'GET {url_image} HTTP/1.1\r\nHOST: {url_host}\r\n\r\n' 
 
-    # criação do certificado SSL
+    # criação da conexão segura (SSL)
     context         = ssl.create_default_context()
     context.check_hostname = False
     context.verify_mode = ssl.CERT_NONE
 
-    # criação do socket
+    # criação do socket/ conexão com o server 
     socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     socket_conexão = context.wrap_socket(socket, server_hostname=url_host)
     socket_conexão.connect((url_host, 443))
+
+    # enviando requisição pedida acima
     socket_conexão.send(url_request.encode('utf-8'))
 
-    print('\nBaixando a imagem...')
+    print('\nBaixando a imagem...\n')
 
+    # recebendo a resposta
     data_ret = b''
     while True:
         data = socket_conexão.recv(buffer_size)
@@ -62,12 +63,9 @@ if protocolo == 'https':
     socket_conexão.close()
 
 elif protocolo =='http':
-    # define o tamanho do buffer 
-    buffer_size = 1024 
 
     # define a requisição 
     url_request = f'GET {url_image} HTTP/1.1\r\nHOST: {url_host}\r\n\r\n' 
-
 
     socket_conexão = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     socket_conexão.connect((url_host, 80))
