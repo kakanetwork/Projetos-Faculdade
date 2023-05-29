@@ -15,7 +15,11 @@ print('='*100)
 modo = ''
 while modo != 'A' and modo != 'U':
     modo = input('\nEscolha o Modo: Automático(A) Único(U) ou Sair(S): ').upper()
-    if modo == 'S': break
+    if modo == 'S':
+
+        print('\n'+'='*100)
+        print('\nCódigo encerrado com sucesso!\n')
+        break
 
 commit_name = 'Atualizado'
 branch_origin = 'master'
@@ -33,4 +37,4 @@ elif modo == 'U':
     subprocess.run(['git', 'add', '.'])
     subprocess.run(['git', 'commit', '-m', commit_name])
     subprocess.call(["git", "push", "-u", "origin", branch_origin])
-    print('\n','='*100)
+    print('\n'+'='*100)
