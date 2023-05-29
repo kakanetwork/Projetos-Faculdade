@@ -15,6 +15,7 @@ url_fragmentada = url.split('/')
 url_host = url_fragmentada[2]
 
 # pega o local da imagem
+# aidicio
 url_image = '/'+'/'.join(url_fragmentada[3:])
 
 # pega o nome da imagem + extensão
