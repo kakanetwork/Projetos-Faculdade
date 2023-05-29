@@ -5,8 +5,9 @@ if platform.system() == 'Windows':
 else:
     os.system('clear')
 
+print('='*100)
 #url = input('informa a url: ')
-url = str('https://www.nasa.gov/sites/default/files/thumbnails/image/nasa-logo-web-rgb.png')
+url = str('https://uploads.jovemnerd.com.br/wp-content/uploads/2022/04/star_wars_darth_vader_tudo_sobre__cv04bw-1210x544.jpg')
 
 # fragmenta toda a URL
 url_fragmentada = url.split('/')
