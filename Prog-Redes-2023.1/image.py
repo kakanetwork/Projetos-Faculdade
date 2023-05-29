@@ -62,13 +62,13 @@ if protocolo == 'https':
     socket_conexão.close()
 
     # Obtendo o tamanho da imagem
-    img_size = -1
+'''    img_size = -1
     tmp = data_ret.split('\r\n'.encode())
     for line in tmp:
         if 'Content-Length:'.encod6e() in line:
             img_size = int(line.split()[1])
             break
-    print(f'Tamanho da Imagem: {img_size} bytes\n')
+    print(f'Tamanho da Imagem: {img_size} bytes\n')'''
 
     # Separando o Cabeçalho dos Dados
     delimiter = '\r\n\r\n'.encode()
