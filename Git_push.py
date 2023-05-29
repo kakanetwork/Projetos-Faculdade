@@ -4,7 +4,7 @@
 import subprocess, time
 
 print('='*100)
-modo = input('\nEscolha o Modo Automatico(A) ou modo Único(U): ')
+modo = input('\nEscolha o Modo Automatico(A) ou modo Único(U): ').upper()
 
 if modo == 'A':
     while True:
