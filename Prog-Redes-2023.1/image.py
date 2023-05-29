@@ -30,9 +30,11 @@ protocolo = url.split(':')[0]
 print('='*100)
 print(f"\nhostname: {url_host}\nlocal_da_imagem: {url_image}\nnome_da_imagem: {arq_image}\nextensão: {extensão}\nprotocolo: {protocolo}\n")
 print('='*100)
+
 # define o tamanho do buffer 
 buffer_size = 1024 
-# Define a porta se a url for HTTP ou HTTPS
+
+# verifica a porta se a url for HTTP ou HTTPS
 if protocolo == 'https':
     # define a requisição 
     url_request = f'GET {url_image} HTTP/1.1\r\nHOST: {url_host}\r\n\r\n' 
@@ -53,20 +55,24 @@ if protocolo == 'https':
     print('\nBaixando a imagem...\n')
 
     # recebendo a resposta
+
     data_ret = b''
     while True:
         data = socket_conexão.recv(buffer_size)
         if not data: 
             break
         data_ret += data
-
+    
+    # fechando conexão
     socket_conexão.close()
+
 
 elif protocolo =='http':
 
     # define a requisição 
     url_request = f'GET {url_image} HTTP/1.1\r\nHOST: {url_host}\r\n\r\n' 
 
+    # criando conexão IPV4(AF.INET) e TCP(SOCK_STREAM)
     socket_conexão = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     socket_conexão.connect((url_host, 80))
     socket_conexão.sendall(url_request.encode())
