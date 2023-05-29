@@ -7,7 +7,7 @@ else:
 
 print('='*100)
 #url = input('informa a url: ')
-url = str('https://uploads.jovemnerd.com.br/wp-content/uploads/2022/04/star_wars_darth_vader_tudo_sobre__cv04bw-1210x544.jpg')
+url = str('http://portal.mec.gov.br/images/comunicado/govbr.png')
 
 # fragmenta toda a URL
 url_fragmentada = url.split('/')
@@ -58,12 +58,14 @@ if protocolo == 'https':
     # recebendo a resposta
 
     data_ret = b''
-    while True:
-        data = socket_conexão.recv(buffer_size)
-        if not data: 
-            break
-        data_ret += data
-    
+    try:
+        while True:
+            data = socket_conexão.recv(buffer_size)
+            if not data: 
+                break
+            data_ret += data
+    except:
+        print(f'Erro...{sys.exc_info(0)}')    
     # fechando conexão
     socket_conexão.close()
 
@@ -84,12 +86,16 @@ elif protocolo =='http':
 
     #RRecebendo os dados
     data_ret = b''
-    while True:
-        data = socket_conexão.recv(buffer_size)
-        if not data: 
-            break
-        data_ret += data
-
+    try:
+        while True:
+            data = socket_conexão.recv(buffer_size)
+            if not data: 
+                break
+            data_ret += data
+    except ConnectionResetError:
+        print('Erro... a conexão foi forçadamente encerrada pelo host remoto.')
+    except:
+        print(f'Erro...{sys.exc_info(0)}')
     # fechando conexão
     socket_conexão.close()
 
