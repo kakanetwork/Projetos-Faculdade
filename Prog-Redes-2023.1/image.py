@@ -69,11 +69,7 @@ elif protocolo =='http':
     socket_conexão.sendall(url_request.encode())
     print('\nBaixando a imagem...')
 
-else:
-    print('\nProtocolo não suportado...\n')
-    exit()
-
-
+print('funcionou')
 # Separando o Cabeçalho dos Dados
 delimiter = '\r\n\r\n'.encode()
 position  = data_ret.find(delimiter)
@@ -93,5 +89,6 @@ with open('saida.txt', 'w', encoding='utf-8') as header:
 file_output = open('image.png', 'wb')
 file_output.write(image)
 file_output.close()
+print('funcionou')
 
 # Montado a variável que armazenará os dados de retorno
