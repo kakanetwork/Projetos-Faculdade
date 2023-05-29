@@ -62,14 +62,27 @@ if protocolo == 'https':
     socket_conexão.close()
 
 elif protocolo =='http':
-    buffer_size = 1024
+    # define o tamanho do buffer 
+    buffer_size = 1024 
+
+    # define a requisição 
     url_request = f'GET {url_image} HTTP/1.1\r\nHOST: {url_host}\r\n\r\n' 
+
+
     socket_conexão = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     socket_conexão.connect((url_host, 80))
     socket_conexão.sendall(url_request.encode())
     print('\nBaixando a imagem...')
 
-print('funcionou')
+    data_ret = b''
+    while True:
+        data = socket_conexão.recv(buffer_size)
+        if not data: 
+            break
+        data_ret += data
+
+    socket_conexão.close()
+
 # Separando o Cabeçalho dos Dados
 delimiter = '\r\n\r\n'.encode()
 position  = data_ret.find(delimiter)
@@ -89,6 +102,5 @@ with open('saida.txt', 'w', encoding='utf-8') as header:
 file_output = open('image.png', 'wb')
 file_output.write(image)
 file_output.close()
-print('funcionou')
 
 # Montado a variável que armazenará os dados de retorno
