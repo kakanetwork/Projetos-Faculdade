@@ -75,9 +75,13 @@ elif protocolo =='http':
     # criando conexão IPV4(AF.INET) e TCP(SOCK_STREAM)
     socket_conexão = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     socket_conexão.connect((url_host, 80))
-    socket_conexão.sendall(url_request.encode())
+
+    # enviando requisição pedida acima
+    socket_conexão.sendall(url_request.encode('utf-8'))
+
     print('\nBaixando a imagem...')
 
+    #RRecebendo os dados
     data_ret = b''
     while True:
         data = socket_conexão.recv(buffer_size)
@@ -85,6 +89,7 @@ elif protocolo =='http':
             break
         data_ret += data
 
+    # fechando conexão
     socket_conexão.close()
 
 # Separando o Cabeçalho dos Dados
@@ -94,17 +99,15 @@ headers   = data_ret[:position]
 image     = data_ret[position+4:]
 
 print('='*100,'\n')
-
-# salvando head
+# printando o head
 print(str(headers, 'utf-8'),'\n')
 print('='*100)
 
-with open('saida.txt', 'w', encoding='utf-8') as header:
+# salvando o head em um arquivo
+with open(arq_txt, 'w', encoding='utf-8') as header:
     header.write(headers.decode('utf-8'))
 
 # Salvando a imagem
 file_output = open('image.png', 'wb')
 file_output.write(image)
 file_output.close()
-
-# Montado a variável que armazenará os dados de retorno
