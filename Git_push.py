@@ -6,5 +6,6 @@ while True:
     subprocess.run(['git', 'add', '.'])
     subprocess.run(['git', 'commit', '-m', 'Atualizado'])
     subprocess.call(["git", "push", "-u", "origin", "master"])
-    print(time.sleep(60))
+    print("Tempo passando:", time.strftime("%H:%M:%S", time.gmtime()))
+    time.sleep(60)
     
