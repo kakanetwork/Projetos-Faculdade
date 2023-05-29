@@ -27,7 +27,7 @@ arq_txt = arq_image.replace(extensão, 'txt')
 # pega o protocolo (HTTP ou HTTPS)
 protocolo = url.split(':')[0]
 print('='*100)
-print(f"\nhostname: {url_host}\nlocal_da_imagem: {url_image}\nnome_da_imagem: {arq_image}\nextensão: {extensão}\nprotocolo: {protocolo}\n")
+print(f"\nhostname: {url_host}\nlsocal_da_imagem: {url_image}\nnome_da_imagem: {arq_image}\nextensão: {extensão}\nprotocolo: {protocolo}\n")
 print('='*100)
 
 # Define a porta se a url for HTTP ou HTTPS
@@ -38,6 +38,7 @@ if protocolo == 'https':
     context.check_hostname = False
     context.verify_mode = ssl.CERT_NONE
 
+    socket = socket.socket((socket.AF_INET))
     socket_rss      = socket.create_connection((url_host, 443))
     sock_img = context.wrap_socket(socket_rss, server_hostname=url_host)
 
