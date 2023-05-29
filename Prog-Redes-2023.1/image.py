@@ -53,11 +53,15 @@ if protocolo == 'https':
     socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # Envolve o socket criado anteriormente em uma conexão segura (wrap_socket)
     socket_conexão = context.wrap_socket(socket, server_hostname=url_host)
-    # estabelece a conexão
-    socket_conexão.connect((url_host, 443))
 
-    # enviando requisição pedida acima
-    socket_conexão.send(url_request.encode('utf-8'))
+    try:
+        # estabelece a conexão
+        socket_conexão.connect((url_host, 443))
+
+        # enviando requisição pedida acima
+        socket_conexão.send(url_request.encode('utf-8'))
+    except:
+        print(f'Erro...{sys.exc_info()[0]}')
 
     print('\nBaixando a imagem...\n')
 
@@ -82,11 +86,14 @@ elif protocolo =='http':
 
     # criando conexão IPV4(AF.INET) e TCP(SOCK_STREAM)
     socket_conexão = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    socket_conexão.connect((url_host, 80))
 
-    # enviando requisição pedida acima
-    socket_conexão.sendall(url_request.encode('utf-8'))
-
+    try:
+        socket_conexão.connect((url_host, 80))
+        # enviando requisição pedida acima
+        socket_conexão.sendall(url_request.encode('utf-8'))
+    except:
+        print(f'Erro...{sys.exc_info()[0]}')    
+        
     print('\nBaixando a imagem...')
 
     #Recebendo os dados
@@ -104,6 +111,10 @@ elif protocolo =='http':
     # fechando conexão
     socket_conexão.close()
 
+else:
+    print('Protocolo não suportado.... (Utilize URLs HTTP ou HTTPS)')
+    exit()
+    
 # Separando o Cabeçalho dos Dados
 delimiter = '\r\n\r\n'.encode()
 position  = data_ret.find(delimiter)
