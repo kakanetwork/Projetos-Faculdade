@@ -40,14 +40,20 @@ if protocolo == 'https':
     # define a requisição 
     url_request = f'GET {url_image} HTTP/1.1\r\nHOST: {url_host}\r\n\r\n' 
 
-    # criação da conexão segura (SSL)
-    context         = ssl.create_default_context()
+    # criação do contexto SSL
+    context = ssl.create_default_context()
+
+    # desativa a verificação do nome do host durante a autenticação SSL.
     context.check_hostname = False
+
+    # o certificado do servidor não será verificado
     context.verify_mode = ssl.CERT_NONE
 
-    # criação do socket/ conexão com o server 
+    # criação do socket/ conexão com o server (IPV4/TCP)
     socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    # Envolve o socket criado anteriormente em uma conexão segura (wrap_socket)
     socket_conexão = context.wrap_socket(socket, server_hostname=url_host)
+    # estabelece a conexão
     socket_conexão.connect((url_host, 443))
 
     # enviando requisição pedida acima
@@ -56,7 +62,6 @@ if protocolo == 'https':
     print('\nBaixando a imagem...\n')
 
     # recebendo a resposta
-
     data_ret = b''
     try:
         while True:
@@ -84,7 +89,7 @@ elif protocolo =='http':
 
     print('\nBaixando a imagem...')
 
-    #RRecebendo os dados
+    #Recebendo os dados
     data_ret = b''
     try:
         while True:
@@ -95,7 +100,7 @@ elif protocolo =='http':
     except ConnectionResetError:
         print('Erro... a conexão foi forçadamente encerrada pelo host remoto.')
     except:
-        print(f'Erro...{sys.exc_info(0)}')
+        print(f'Erro...{sys.exc_info()[0]}')
     # fechando conexão
     socket_conexão.close()
 
