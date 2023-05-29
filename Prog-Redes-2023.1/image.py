@@ -35,11 +35,18 @@ print('='*100)
 if protocolo == 'https':
     # define o tamanho do buffer 
     buffer_size = 1024 
+
+    # define a requisição 
     url_request = f'GET {url_image} HTTP/1.1\r\nHOST: {url_host}\r\n\r\n' 
+
+    # criação do certificado SSL
     context         = ssl.create_default_context()
     context.check_hostname = False
     context.verify_mode = ssl.CERT_NONE
 
+    # criação do socket
+    socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    socket_conexão = context.wrap_socket(socket)
     socket = socket.socket((socket.AF_INET))
     socket_rss      = socket.create_connection((url_host, 443))
     sock_img = context.wrap_socket(socket_rss, server_hostname=url_host)
