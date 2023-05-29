@@ -77,6 +77,7 @@ if protocolo == 'https':
     image     = data_ret[position+4:]
 
     print('='*100,'\n')
+
     # salvando head
     print(str(headers, 'utf-8'),'\n')
     print('='*100)
@@ -89,7 +90,7 @@ if protocolo == 'https':
     file_output.write(image)
     file_output.close()
 
-elif protocolo =='http':
+'''elif protocolo =='http':
     buffer_size = 1024
     url_request = f'GET {url_image} HTTP/1.1\r\nHOST: {url_host}\r\n\r\n' 
     socket_conexão = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -99,7 +100,7 @@ elif protocolo =='http':
 
 else:
     print('\nProtocolo não suportado...\n')
-    exit()
+    exit()'''
 
 
 # Montado a variável que armazenará os dados de retorno
