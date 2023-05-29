@@ -1,11 +1,10 @@
-import subprocess
 
-for i in range(60):
+# Código para realizar commit e push automatico no GITHUB
+
+import subprocess, time
+while True:
     subprocess.run(['git', 'add', '.'])
     subprocess.run(['git', 'commit', '-m', 'Atualizado'])
     subprocess.call(["git", "push", "-u", "origin", "master"])
+    time.sleep(60) | print('oi')
     
-    print(f"Tempo passando: {i+1} segundos")
-    
-    # Aguarda 1 segundo
-    subprocess.call(["ping", "-n", "2", "127.0.0.1", ">nul"])
