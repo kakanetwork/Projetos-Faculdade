@@ -6,8 +6,8 @@ else:
     os.system('clear')
 
 print('='*100)
-#url = input('informa a url: ')
-url = str('http://portal.mec.gov.br/images/comunicado/govbr.png')
+url = str(input('\ninforme a url: '))
+#url = str('http://portal.mec.gov.br/images/comunicado/govbr.png')
 
 # fragmenta toda a URL
 url_fragmentada = url.split('/')
@@ -28,7 +28,8 @@ arq_txt = arq_image.replace(extensão, 'txt')
 
 # pega o protocolo (HTTP ou HTTPS)
 protocolo = url.split(':')[0]
-print('='*100)
+
+print('\n'+'='*100)
 print(f"\nhostname: {url_host}\nlocal_da_imagem: {url_image}\nnome_da_imagem: {arq_image}\nextensão: {extensão}\nprotocolo: {protocolo}\n")
 print('='*100)
 
@@ -74,7 +75,8 @@ if protocolo == 'https':
                 break
             data_ret += data
     except:
-        print(f'Erro...{sys.exc_info(0)}')    
+        print(f'Erro...{sys.exc_info(0)}')  
+        exit()  
     # fechando conexão
     socket_conexão.close()
 
@@ -93,6 +95,7 @@ elif protocolo =='http':
         socket_conexão.sendall(url_request.encode('utf-8'))
     except:
         print(f'Erro...{sys.exc_info()[0]}')    
+        exit()
         
     print('\nBaixando a imagem...')
 
@@ -105,14 +108,17 @@ elif protocolo =='http':
                 break
             data_ret += data
     except ConnectionResetError:
-        print('Erro... a conexão foi forçadamente encerrada pelo host remoto.')
+        print('Erro... a conexão foi forçadamente encerrada pelo host remoto.\n')
+        print('='*100)
+        exit()
     except:
         print(f'Erro...{sys.exc_info()[0]}')
     # fechando conexão
     socket_conexão.close()
 
 else:
-    print('Protocolo não suportado.... (Utilize URLs HTTP ou HTTPS)')
+    print('Protocolo não suportado.... (Utilize URLs HTTP ou HTTPS)\n')
+    print('='*100)
     exit()
     
 # Separando o Cabeçalho dos Dados
