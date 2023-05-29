@@ -48,18 +48,18 @@ if protocolo == 'https':
     socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     socket_conexão = context.wrap_socket(socket, server_hostname=url_host)
     socket_conexão.connect((url_host, 443))
-    sock_img.send(url_request.encode('utf-8'))
+    socket_conexão.send(url_request.encode('utf-8'))
 
     print('\nBaixando a imagem...')
 
     data_ret = b''
     while True:
-        data = sock_img.recv(buffer_size)
+        data = socket_conexão.recv(buffer_size)
         if not data: 
             break
         data_ret += data
 
-    sock_img.close()
+    socket_conexão.close()
 
     # Obtendo o tamanho da imagem
     img_size = -1
@@ -92,9 +92,9 @@ if protocolo == 'https':
 elif protocolo =='http':
     buffer_size = 1024
     url_request = f'GET {url_image} HTTP/1.1\r\nHOST: {url_host}\r\n\r\n' 
-    sock_img = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock_img.connect((url_host, 80))
-    sock_img.sendall(url_request.encode())
+    socket_conexão = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    socket_conexão.connect((url_host, 80))
+    socket_conexão.sendall(url_request.encode())
     print('\nBaixando a imagem...')
 
 else:
