@@ -48,9 +48,46 @@ if protocolo == 'https':
     socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     socket_conexão = context.wrap_socket(socket, server_hostname=url_host)
     socket_conexão.connect((url_host, 443))
-    
     sock_img.send(url_request.encode('utf-8'))
+
     print('\nBaixando a imagem...')
+
+    data_ret = b''
+    while True:
+        data = sock_img.recv(buffer_size)
+        if not data: 
+            break
+        data_ret += data
+
+    sock_img.close()
+
+    # Obtendo o tamanho da imagem
+    img_size = -1
+    tmp = data_ret.split('\r\n'.encode())
+    for line in tmp:
+        if 'Content-Length:'.encod6e() in line:
+            img_size = int(line.split()[1])
+            break
+    print(f'Tamanho da Imagem: {img_size} bytes\n')
+
+    # Separando o Cabeçalho dos Dados
+    delimiter = '\r\n\r\n'.encode()
+    position  = data_ret.find(delimiter)
+    headers   = data_ret[:position]
+    image     = data_ret[position+4:]
+
+    print('='*100,'\n')
+    # salvando head
+    print(str(headers, 'utf-8'),'\n')
+    print('='*100)
+
+    with open('saida.txt', 'w', encoding='utf-8') as header:
+        header.write(headers.decode('utf-8'))
+
+    # Salvando a imagem
+    file_output = open('image.png', 'wb')
+    file_output.write(image)
+    file_output.close()
 
 elif protocolo =='http':
     buffer_size = 1024
@@ -66,39 +103,3 @@ else:
 
 
 # Montado a variável que armazenará os dados de retorno
-data_ret = b''
-while True:
-    data = sock_img.recv(buffer_size)
-    if not data: 
-        break
-    data_ret += data
-
-sock_img.close()
-
-# Obtendo o tamanho da imagem
-img_size = -1
-tmp = data_ret.split('\r\n'.encode())
-for line in tmp:
-   if 'Content-Length:'.encod6e() in line:
-      img_size = int(line.split()[1])
-      break
-print(f'Tamanho da Imagem: {img_size} bytes\n')
-
-# Separando o Cabeçalho dos Dados
-delimiter = '\r\n\r\n'.encode()
-position  = data_ret.find(delimiter)
-headers   = data_ret[:position]
-image     = data_ret[position+4:]
-
-print('='*100,'\n')
-# salvando head
-print(str(headers, 'utf-8'),'\n')
-print('='*100)
-
-with open('saida.txt', 'w', encoding='utf-8') as header:
-    header.write(headers.decode('utf-8'))
-
-# Salvando a imagem
-file_output = open('image.png', 'wb')
-file_output.write(image)
-file_output.close()
