@@ -46,7 +46,8 @@ if protocolo == 'https':
 
     # criação do socket
     socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    socket_conexão = context.wrap_socket(socket)
+    socket_conexão = context.wrap_socket(socket, server_hostname=url_host)
+
     socket = socket.socket((socket.AF_INET))
     socket_rss      = socket.create_connection((url_host, 443))
     sock_img = context.wrap_socket(socket_rss, server_hostname=url_host)
