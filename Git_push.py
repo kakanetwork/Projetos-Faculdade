@@ -14,7 +14,8 @@ print('='*100)
 
 modo = ''
 while modo != 'A' and modo != 'U':
-    modo = input('\nEscolha o Modo Automático (A) ou Modo Único (U): ').upper()
+    modo = input('\nEscolha o Modo: Automático(A) Único(U) ou Sair(S): ').upper()
+    if modo == 'S': break
 
 commit_name = 'Atualizado'
 branch_origin = 'master'
