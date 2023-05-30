@@ -63,6 +63,8 @@ if protocolo == 'https':
         socket_conexão.send(url_request.encode('utf-8'))
     except:
         print(f'Erro...{sys.exc_info()[0]}')
+        exit()
+
 
     print('\nBaixando a imagem...\n')
 
@@ -113,11 +115,13 @@ elif protocolo =='http':
         exit()
     except:
         print(f'Erro...{sys.exc_info()[0]}')
+        exit()
+
     # fechando conexão
     socket_conexão.close()
 
 else:
-    print('Protocolo não suportado.... (Utilize URLs HTTP ou HTTPS)\n')
+    print('Protocolo não suportado, em desenvolvimento.... (Utilize URLs HTTP ou HTTPS)\n')
     print('='*100)
     exit()
     
@@ -133,10 +137,19 @@ print(str(headers, 'utf-8'),'\n')
 print('='*100)
 
 # salvando o head em um arquivo
-with open(arq_txt, 'w', encoding='utf-8') as header:
-    header.write(headers.decode('utf-8'))
+try:
+    with open(arq_txt, 'w', encoding='utf-8') as header:
+        header.write(headers.decode('utf-8'))
+except:
+    print(f'Erro...{sys.exc_info()[0]}')
+    exit()
+
 
 # Salvando a imagem
-file_output = open('image.png', 'wb')
-file_output.write(image)
-file_output.close()
+try:
+    with open('image.png', 'wb') as imagem:
+        imagem.write(image)
+except:
+    print(f'Erro...{sys.exc_info()[0]}')
+    exit()
+
