@@ -167,10 +167,11 @@ except:
 
 # ------------------------------------------------------------------------------------------------------------
 
+
 dir_head = diretorio_atual + f'\\{arq_txt}'
 chave_extensão = 'Content-Type'
 try:
-    with open(dir1, 'r', encoding='utf-8') as read_header:
+    with open(dir_head, 'r', encoding='utf-8') as read_header:
         for x in read_header:
             if frase in x:
                 extensão_head = x.split('/')[1].strip()
