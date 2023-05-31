@@ -23,10 +23,6 @@ print(ascii_art)
 
 print('='*100)
 
-def Git_Pull ():
-    subprocess.run(['git', 'pull'])
-    print('obrigado')
-
 def Git_Push ():
     print('='*100)
     modo = ''
@@ -49,7 +45,7 @@ def Git_Push ():
         subprocess.run(['git', 'add', '.'])
         subprocess.run(['git', 'commit', '-m', commit_name])
         subprocess.call(["git", "push", "-u", "origin", branch_origin])
-        print('obrigado')
+        print('\nVolte sempre!\nby kakanetwork')
         print('\n'+'='*100)
 
     elif modo == '?':
@@ -61,6 +57,10 @@ Branch_Origin -> O nome do seu branch default no Github (se necessário alteraç
     elif modo == 'S':
         print('\nPrograma Encerrado com Sucesso! :(\n')
         exit()
+
+def Git_Pull ():
+    subprocess.run(['git', 'pull'])
+    print('obrigado')
 
 def Git_Connect ():
     print('\nem desenvolvimento...')
