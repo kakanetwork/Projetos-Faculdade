@@ -49,6 +49,7 @@ def Git_Push ():
         subprocess.run(['git', 'add', '.'])
         subprocess.run(['git', 'commit', '-m', commit_name])
         subprocess.call(["git", "push", "-u", "origin", branch_origin])
+        print('obrigado')
         print('\n'+'='*100)
 
     elif modo == '?':
