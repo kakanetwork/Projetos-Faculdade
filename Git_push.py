@@ -45,6 +45,7 @@ def Git_Push ():
             time.sleep(tempo_seg) 
 
     elif modo == 'U':
+        print('')
         subprocess.run(['git', 'add', '.'])
         subprocess.run(['git', 'commit', '-m', commit_name])
         subprocess.call(["git", "push", "-u", "origin", branch_origin])
@@ -87,10 +88,18 @@ opções = {
     '5': Sair
 }   
 
+opções_descritivas = {
+    '1': 'Realizar Push no GitHub',
+    '2': 'Realizar Pull do GitHub',
+    '3': 'Conectar ao GitHub',
+    '4': 'Exibir Ajuda',
+    '5': 'Sair do Programa'
+}
+
 print('\nFerramentas Disponiveis:\n')
 
-for key, value in opções.items():
-    print(f'{key}: {value.__name__}')
+for key, value in opções_descritivas.items():
+    print(f'{key}: {value}')
 
 ferramenta = ''
 
@@ -98,6 +107,7 @@ while ferramenta not in opções:
     ferramenta = input('\nQual Ferramenta deseja utilizar? ')
     if ferramenta not in opções:
         print('Tente Novamente... informe corretamente!')
-print(f'Você escolhou a ferramenta: {opções[ferramenta].__name__}\n')
+
+print(f'Você escolhou a ferramenta: {opções_descritivas[ferramenta]}\n')
 opções[ferramenta]()
 
