@@ -26,6 +26,7 @@
 
 <p align="center">
     Para utilizar os scripts, basta ter o Python instalado na sua máquina e executar o comando <code>python nome_do_script.py</code> no terminal para rodá-lo.
+    (Verifique as bibliotecas necessárias para o funcionamento do código)
 </p>
 
 <h2 align="center">📝 Notas</h2>
