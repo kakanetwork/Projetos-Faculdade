@@ -30,9 +30,11 @@ def Git_Push ():
         modo = str(input('\nModos:\nA - Automatico\nU - Único\nS - Sair\n? - Ajuda\n\nQual você deseja? ').upper())
         if modo not in ['A', 'U', 'S', '?']:
             print('Tente Novamente... informe corretamente!')
+    
     commit_name = 'Atualizado'
     branch_origin = 'master'
     tempo_seg = 120
+    print('='*100)
     if modo == 'A':
         while True:
             subprocess.run(['git', 'add', '.'])
