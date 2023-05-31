@@ -53,7 +53,6 @@ def Git_Push ():
         print('\n'+'='*100)
 
     elif modo == '?':
-        print('='*100)
         print(f'\nExplicação das Variavéis:\n\nAutomático -> Será gerado um Commit a cada {tempo_seg}s até que você encerre o programa! (se desejar alterar os segundos, acesse a configuração)\n\
 Único -> Será gerado um Commit Único e o Programa será encerrado!\n\nCommit_name -> O nome do seu commit, pode ser genérico (se necessário alteração, vá nas configurações)!\n\
 Branch_Origin -> O nome do seu branch default no Github (se necessário alteração, vá nas configurações)!\n')
