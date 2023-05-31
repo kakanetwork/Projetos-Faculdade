@@ -57,11 +57,11 @@ def Git_Push ():
 Branch_Origin -> O nome do seu branch default no Github (se necessário alteração, vá nas configurações)!\n')
         print('='*100)
     elif modo == 'S':
-        print('\nPrograma Encerrado com Sucesso!\n')
+        print('\nPrograma Encerrado com Sucesso! :(\n')
         exit()
 
 def Git_Connect ():
-    print('\ndesenvolvimento...')
+    print('\nem desenvolvimento...')
 
 def Ajuda ():
     print('='*100)
@@ -71,7 +71,7 @@ automaticamente (Recomendado realizar antes de qualquer Pull ou Push.)!\n')
     print('='*100)
 
 def Sair ():
-    print('\n Programa Encerrado')
+    print('\nPrograma Encerrado com Sucesso! :(')
     exit()
 
 opções = {
