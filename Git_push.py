@@ -63,6 +63,7 @@ Branch_Origin -> O nome do seu branch default no Github (se necessário alteraç
 
 def Git_Pull ():
     print('='*100)
+    print('')
     subprocess.run(['git', 'pull'])
     print('\nVolte sempre!\nby kakanetwork')
     print('\n'+'='*100)
