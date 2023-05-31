@@ -157,9 +157,11 @@ print('='*100,'\n')
 print(str(headers, 'utf-8'),'\n')
 print('='*100)
 
+dir1 = diretorio_atual + f'\\{arq_txt}'
+
 # salvando o head em um arquivo
 try:
-    with open(arq_txt, 'w', encoding='utf-8') as header:
+    with open(dir1, 'w', encoding='utf-8') as header:
         header.write(headers.decode('utf-8'))
 except:
     print(f'Erro...{sys.exc_info()[0]}')
@@ -173,18 +175,19 @@ chave_extensão = 'Content-Type'
 try:
     with open(dir_head, 'r', encoding='utf-8') as read_header:
         for x in read_header:
-            if frase in x:
+            if chave_extensão in x:
                 extensão_head = x.split('/')[1].strip()
 except:
     print(f'Erro...{sys.exc_info()[0]}')
     exit()
+
 # ------------------------------------------------------------------------------------------------------------
 
 nome_imagem = 'image' + f'.{extensão_head}'
-
+dir2 = diretorio_atual + f'\\{nome_imagem}'
 # Salvando a imagem
 try:
-    with open(nome_imagem, 'wb') as imagem:
+    with open(dir2, 'wb') as imagem:
         imagem.write(image)
 except:
     print(f'Erro...{sys.exc_info()[0]}')
