@@ -62,10 +62,13 @@ Branch_Origin -> O nome do seu branch default no Github (se necessário alteraç
         exit()
 
 def Git_Pull ():
+    print('='*100)
     subprocess.run(['git', 'pull'])
-    print('obrigado')
+    print('\nVolte sempre!\nby kakanetwork')
+    print('\n'+'='*100)
 
 def Git_Connect ():
+    print('='*100)
     print('\nem desenvolvimento...')
 
 def Ajuda ():
@@ -76,6 +79,7 @@ automaticamente (Recomendado realizar antes de qualquer Pull ou Push.)!\n')
     print('='*100)
 
 def Sair ():
+    print('='*100)
     print('\nPrograma Encerrado com Sucesso! :(')
     exit()
 
