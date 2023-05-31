@@ -1,28 +1,32 @@
 import socket, sys, ssl, os, platform
 
+# ------------------------------------------------------------------------------------------------------------
+
 if platform.system() == 'Windows':
     os.system('cls')
 else:
     os.system('clear')
 
+# ------------------------------------------------------------------------------------------------------------
+
 print('='*100)
 url = str(input('\ninforme a url: '))
-#url = str('http://portal.mec.gov.br/images/comunicado/govbr.png')
 
-# fragmenta toda a URL
+# ------------------------------------------------------------------------------------------------------------
+ 
+# fragmenta a URL usando a '/' como referencia
 url_fragmentada = url.split('/')
 
-# pega apenas o host do fragmento acima
+# pega apenas o host 
 url_host = url_fragmentada[2]
 
 # pega o local da imagem
-# adiciona o '/'+'/' para iniciar com uma /
 url_image = '/'+'/'.join(url_fragmentada[3:])
 
 # pega o nome da imagem + extensão
 arq_image = url_fragmentada[-1]
 
-# pega apenas a extensão e converte para txt
+# pega a extensão e converte para txt (será utlizado posteriomente para save do HEAD)
 extensão = arq_image.split('.')[-1]
 arq_txt = arq_image.replace(extensão, 'txt')
 
@@ -33,15 +37,18 @@ print('\n'+'='*100)
 print(f"\nhostname: {url_host}\nlocal_da_imagem: {url_image}\nnome_da_imagem: {arq_image}\nextensão: {extensão}\nprotocolo: {protocolo}\n")
 print('='*100)
 
+# ------------------------------------------------------------------------------------------------------------
+ 
 # define o tamanho do buffer 
 buffer_size = 1024 
 
-# verifica a porta se a url for HTTP ou HTTPS
+# verifica se a url é HTTP ou HTTPS
 if protocolo == 'https':
+
     # define a requisição 
     url_request = f'GET {url_image} HTTP/1.1\r\nHOST: {url_host}\r\n\r\n' 
 
-    # criação do contexto SSL
+    # criação do contexto SSL para conexão HTTPS
     context = ssl.create_default_context()
 
     # desativa a verificação do nome do host durante a autenticação SSL.
@@ -52,6 +59,7 @@ if protocolo == 'https':
 
     # criação do socket/ conexão com o server (IPV4/TCP)
     socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
     # Envolve o socket criado anteriormente em uma conexão segura (wrap_socket)
     socket_conexão = context.wrap_socket(socket, server_hostname=url_host)
 
@@ -65,13 +73,14 @@ if protocolo == 'https':
         print(f'Erro...{sys.exc_info()[0]}')
         exit()
 
-
     print('\nBaixando a imagem...\n')
 
-    # recebendo a resposta
+    # recebendo a resposta 
     data_ret = b''
     try:
         while True:
+
+            # recebe a resposta em pedaços de Xbytes (x = buffer_size)
             data = socket_conexão.recv(buffer_size)
             if not data: 
                 break
@@ -79,9 +88,11 @@ if protocolo == 'https':
     except:
         print(f'Erro...{sys.exc_info(0)}')  
         exit()  
+
     # fechando conexão
     socket_conexão.close()
 
+# ------------------------------------------------------------------------------------------------------------
 
 elif protocolo =='http':
 
@@ -92,7 +103,9 @@ elif protocolo =='http':
     socket_conexão = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     try:
+        # Realizando a conexão
         socket_conexão.connect((url_host, 80))
+
         # enviando requisição pedida acima
         socket_conexão.sendall(url_request.encode('utf-8'))
     except:
@@ -105,6 +118,7 @@ elif protocolo =='http':
     data_ret = b''
     try:
         while True:
+            # recebe a resposta em pedaços de Xbytes (x = buffer_size)
             data = socket_conexão.recv(buffer_size)
             if not data: 
                 break
@@ -121,18 +135,22 @@ elif protocolo =='http':
     socket_conexão.close()
 
 else:
-    print('Protocolo não suportado, em desenvolvimento.... (Utilize URLs HTTP ou HTTPS)\n')
+    print('\nProtocolo não suportado, em desenvolvimento.... (Utilize URLs HTTP ou HTTPS)\n')
     print('='*100)
     exit()
-    
-# Separando o Cabeçalho dos Dados
+
+# ------------------------------------------------------------------------------------------------------------
+     
+# Separando o Head da Imagem
 delimiter = '\r\n\r\n'.encode()
 position  = data_ret.find(delimiter)
 headers   = data_ret[:position]
 image     = data_ret[position+4:]
 
-print('='*100,'\n')
+# ------------------------------------------------------------------------------------------------------------
+
 # printando o head
+print('='*100,'\n')
 print(str(headers, 'utf-8'),'\n')
 print('='*100)
 
@@ -144,7 +162,8 @@ except:
     print(f'Erro...{sys.exc_info()[0]}')
     exit()
 
-
+# ------------------------------------------------------------------------------------------------------------
+ 
 # Salvando a imagem
 try:
     with open('image.png', 'wb') as imagem:
@@ -153,3 +172,4 @@ except:
     print(f'Erro...{sys.exc_info()[0]}')
     exit()
 
+# ------------------------------------------------------------------------------------------------------------
