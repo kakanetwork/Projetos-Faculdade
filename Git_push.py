@@ -25,6 +25,7 @@ print('='*100)
 
 def Git_Pull ():
     subprocess.run(['git', 'pull'])
+    print('obrigado')
 
 def Git_Push ():
     print('='*100)
