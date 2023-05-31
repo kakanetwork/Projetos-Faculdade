@@ -13,7 +13,10 @@ print('='*100)
 url = str(input('\ninforme a url: '))
 
 # ------------------------------------------------------------------------------------------------------------
- 
+
+# pegando meu dir atual (será usado mais a frente)
+diretorio_atual = os.path.dirname(os.path.abspath(__file__)) 
+
 # fragmenta a URL usando a '/' como referencia
 url_fragmentada = url.split('/')
 
@@ -163,10 +166,24 @@ except:
     exit()
 
 # ------------------------------------------------------------------------------------------------------------
- 
+
+dir_head = diretorio_atual + f'\\{arq_txt}'
+chave_extensão = 'Content-Type'
+try:
+    with open(dir1, 'r', encoding='utf-8') as read_header:
+        for x in read_header:
+            if frase in x:
+                extensão_head = x.split('/')[1].strip()
+except:
+    print(f'Erro...{sys.exc_info()[0]}')
+    exit()
+# ------------------------------------------------------------------------------------------------------------
+
+nome_imagem = 'image' + f'.{extensão_head}'
+
 # Salvando a imagem
 try:
-    with open('image.png', 'wb') as imagem:
+    with open(nome_imagem, 'wb') as imagem:
         imagem.write(image)
 except:
     print(f'Erro...{sys.exc_info()[0]}')
