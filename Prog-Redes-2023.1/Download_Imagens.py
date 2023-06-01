@@ -28,7 +28,7 @@ buffer_size = 1024
 
 if protocolo == 'https':
     # realizando toda conexão/envio/recebimento com função no protocolo HTTPS
-    data_ret = Functions_Socket.socket_https(url_image, url_host, buffer_size)
+    data_ret, headers, content_length = Functions_Socket.socket_https(url_image, url_host, buffer_size)
 
 elif protocolo =='http':
     # realizando toda conexão/envio/recebimento com função no protocolo HTTPS
@@ -38,11 +38,15 @@ else:
     print('\nProtocolo não suportado, em desenvolvimento.... (Utilize URLs HTTP ou HTTPS)\n'); print('='*100); exit()
 
 # ------------------------------------------------------------------------------------------------------------
-     
+print('='*100)
+print('='*100)
+
+print(content_length)
+print('='*100)
+print('='*100)
+
 # Separando o Head da Imagem
-delimiter = '\r\n\r\n'.encode()
-position  = data_ret.find(delimiter)
-headers   = data_ret[:position]
+position  = data_ret.find('\r\n\r\n'.encode())
 image     = data_ret[position+4:]
 
 # ------------------------------------------------------------------------------------------------------------
