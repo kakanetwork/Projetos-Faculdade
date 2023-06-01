@@ -1,4 +1,4 @@
-import os, socket, ssl, sys
+import socket, ssl, sys
 
 # verifica se a url é HTTP ou HTTPS
 def socket_https(url_image, url_host, buffer_size):
