@@ -2,7 +2,7 @@ import platform, Functions_Socket, Functions_Simple
 
 # ------------------------------------------------------------------------------------------------------------
 
-clear_terminal()
+Functions_Simple.clear_terminal()
 
 # ------------------------------------------------------------------------------------------------------------
 
@@ -44,10 +44,10 @@ buffer_size = 1024
 
 # verifica se a url é HTTP ou HTTPS
 if protocolo == 'https':
-    socket_https(url_image, url_host, buffer_size)
+    Functions_Socket.socket_https(url_image, url_host, buffer_size)
 
 elif protocolo =='http':
-    socket_http(url_image, url_host, buffer_size)
+    Functions_Socket.socket_http(url_image, url_host, buffer_size)
 
 else:
     print('\nProtocolo não suportado, em desenvolvimento.... (Utilize URLs HTTP ou HTTPS)\n')
