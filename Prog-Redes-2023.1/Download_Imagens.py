@@ -1,3 +1,6 @@
+import sys
+diretorio_atual = os.path.dirname(os.path.abspath(__file__)) 
+sys.path.append(diretorio_atual + '\\Functions')
 import platform, Functions_Socket, Functions_Simple
 
 # ------------------------------------------------------------------------------------------------------------
@@ -10,9 +13,6 @@ print('='*100)
 url = str(input('\ninforme a url: '))
 
 # ------------------------------------------------------------------------------------------------------------
-
-# pegando meu dir atual (será usado mais a frente)
-diretorio_atual = os.path.dirname(os.path.abspath(__file__)) 
 
 # fragmenta a URL usando a '/' como referencia
 url_fragmentada = url.split('/')
