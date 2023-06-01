@@ -14,24 +14,7 @@ url = str(input('\ninforme a url: '))
 
 # ------------------------------------------------------------------------------------------------------------
 
-# fragmenta a URL usando a '/' como referencia
-url_fragmentada = url.split('/')
-
-# pega apenas o host 
-url_host = url_fragmentada[2]
-
-# pega o local da imagem
-url_image = '/'+'/'.join(url_fragmentada[3:])
-
-# pega o nome da imagem + extensão
-arq_image = url_fragmentada[-1]
-
-# pega a extensão e converte para txt (será utlizado posteriomente para save do HEAD)
-extensão = arq_image.split('.')[-1]
-arq_txt = arq_image.replace(extensão, 'txt')
-
-# pega o protocolo (HTTP ou HTTPS)
-protocolo = url.split(':')[0]
+url_host, url_image, arq_image, extensão, arq_txt, protocolo = Functions_Simple.split_url(url)
 
 print('\n'+'='*100)
 print(f"\nhostname: {url_host}\nlocal_da_imagem: {url_image}\nnome_da_imagem: {arq_image}\nextensão: {extensão}\nprotocolo: {protocolo}\n")
