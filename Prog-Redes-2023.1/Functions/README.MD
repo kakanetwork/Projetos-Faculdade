@@ -1,7 +1,7 @@
 <h2 align="center">📌 Sobre</h2>
 
 <p align="center">
-    🚀 Este repositório contém scripts em Python focados na área de Redes e manipulação de arquivos. Os códigos aqui presentes foram criados durante a disciplina de Programação para Redes, da faculdade de Redes para Computadores.
+    🚀 Esta pasta contém algumas funções (com funcionalidades e assuntos diversos)
 </p>
 
 <p align="center">
@@ -16,11 +16,8 @@
 <h2 align="center">📂 Conteúdo</h2>
 
 <ul>
-  <li><code>Functions</code>: Essa Pasta possui arquivos com funções definidas, necessárias para o funcionamento de alguns dos códigos contidos abaixo.
-  <li><code>ifrn_alunos_campus.py</code>: O código realiza uma requisição em uma URL para obter dados de alunos do IFRN, processa esses dados para obter informações    sobre os campus e cursos, e apresenta essas informações em um formato legível ao usuário.</li>
-  <li><code>cotação_dolar.py</code>: Esse código solicita ao usuário um ano, obtém as cotações de dólar do período de 01-01 até 31-12 do ano informado, e em seguida, para cada mês do ano, calcula a média de cotações de compra e venda, bem como as maiores cotações de compra e venda do mês.</li>
-  <li><code>Download_Imagens.py</code>: Esse código realiza uma requisição Get (utilizando da biblioteca Socket) para realizar o download de um arquivo com base na sua URL (HTTP ou HTTPS), além disso ele também salva o Header da imagem, com informações sobre ela.</li>
-  <li><code>Eleições.py</code>: Esse código em Python realiza uma requisição HTTP para obter dados eleitorais do site do Tribunal Superior Eleitoral (TSE) com base nas informações fornecidas pelo usuário, como o ano da eleição, o cargo, o estado e o ID da eleição. Em seguida, ele filtra e organiza os dados dos candidatos com base na quantidade de votos recebidos e os armazena em um arquivo de texto. (É utilizado a biblioteca Requests com a API do TSE)</li>
+  <li><code>Functions_Simple.py</code>: Nesse arquivo temos funções mais simples, como a Clear Terminal (Limpar o terminal) e a Split URL (Pegar infos especificas na URL) Etc...
+  <li><code>Functions_Sockets.p</code>: Nesse arquivo temos funções relacionadas a conexão com sockets, como a Socket Http que realiza a conexão completa (TCP/IP , IPV4).
 </ul>
 
 <h2 align="center">🚀 Como utilizar</h2>
