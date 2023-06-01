@@ -1,4 +1,4 @@
-import socket, sys, ssl, os, platform
+import platform
 from Functions_01 import *
 
 # ------------------------------------------------------------------------------------------------------------
