@@ -49,3 +49,43 @@ def socket_https(url_image, url_host, buffer_size):
     # fechando conexão
     socket_conexão.close()
     return data_ret
+
+def socket_http (url_image, url_host, buffer_size):
+    # define a requisição 
+    url_request = f'GET {url_image} HTTP/1.1\r\nHOST: {url_host}\r\n\r\n' 
+
+    # criando conexão IPV4(AF.INET) e TCP(SOCK_STREAM)
+    socket_conexão = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    try:
+        # Realizando a conexão
+        socket_conexão.connect((url_host, 80))
+
+        # enviando requisição pedida acima
+        socket_conexão.sendall(url_request.encode('utf-8'))
+    except:
+        print(f'Erro...{sys.exc_info()[0]}')    
+        exit()
+        
+    print('\nBaixando a imagem...')
+
+    #Recebendo os dados
+    data_ret = b''
+    try:
+        while True:
+            # recebe a resposta em pedaços de Xbytes (x = buffer_size)
+            data = socket_conexão.recv(buffer_size)
+            if not data: 
+                break
+            data_ret += data
+    except ConnectionResetError:
+        print('Erro... a conexão foi forçadamente encerrada pelo host remoto.\n')
+        print('='*100)
+        exit()
+    except:
+        print(f'Erro...{sys.exc_info()[0]}')
+        exit()
+
+    # fechando conexão
+    socket_conexão.close()
+    return data_ret
