@@ -1,7 +1,7 @@
-import sys
+import sys, os
 diretorio_atual = os.path.dirname(os.path.abspath(__file__)) 
 sys.path.append(diretorio_atual + '\\Functions')
-import platform, Functions_Socket, Functions_Simple
+import Functions_Socket, Functions_Simple
 
 # ------------------------------------------------------------------------------------------------------------
 
