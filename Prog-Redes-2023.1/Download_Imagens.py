@@ -28,15 +28,14 @@ buffer_size = 1024
 
 if protocolo == 'https':
     # realizando toda conexão/envio/recebimento com função no protocolo HTTPS
-    Functions_Socket.socket_https(url_image, url_host, buffer_size)
+    data_ret = Functions_Socket.socket_https(url_image, url_host, buffer_size)
 
 elif protocolo =='http':
     # realizando toda conexão/envio/recebimento com função no protocolo HTTPS
-    Functions_Socket.socket_http(url_image, url_host, buffer_size)
+    data_ret = Functions_Socket.socket_http(url_image, url_host, buffer_size)
 
 else:
-    print('\nProtocolo não suportado, em desenvolvimento.... (Utilize URLs HTTP ou HTTPS)\n'); print('='*100)
-    exit()
+    print('\nProtocolo não suportado, em desenvolvimento.... (Utilize URLs HTTP ou HTTPS)\n'); print('='*100); exit()
 
 # ------------------------------------------------------------------------------------------------------------
      
@@ -54,14 +53,12 @@ print(str(headers, 'utf-8'),'\n')
 print('='*100)
 
 dir1 = diretorio_atual + f'\\{arq_txt}'
-
 # salvando o head em um arquivo
 try:
     with open(dir1, 'w', encoding='utf-8') as header:
         header.write(headers.decode('utf-8'))
 except:
-    print(f'Erro...{sys.exc_info()[0]}')
-    exit()
+    print(f'Erro...{sys.exc_info()[0]}'); exit()
 
 # ------------------------------------------------------------------------------------------------------------
 
@@ -73,8 +70,7 @@ try:
             if chave_extensão in x:
                 extensão_head = x.split('/')[1].strip()
 except:
-    print(f'Erro...{sys.exc_info()[0]}')
-    exit()
+    print(f'Erro...{sys.exc_info()[0]}'); exit()
 
 # ------------------------------------------------------------------------------------------------------------
 
@@ -85,7 +81,6 @@ try:
     with open(dir2, 'wb') as imagem:
         imagem.write(image)
 except:
-    print(f'Erro...{sys.exc_info()[0]}')
-    exit()
+    print(f'Erro...{sys.exc_info()[0]}'); exit()
 
 # ------------------------------------------------------------------------------------------------------------
