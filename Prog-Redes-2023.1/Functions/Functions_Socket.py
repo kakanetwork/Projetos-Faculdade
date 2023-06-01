@@ -1,4 +1,4 @@
-import socket, ssl, sys
+import socket, ssl, sys, time
 
 # verifica se a url é HTTP ou HTTPS
 def socket_https(url_image, url_host, buffer_size):
@@ -28,21 +28,36 @@ def socket_https(url_image, url_host, buffer_size):
     dados_recebidos = 0
     content_length = 0
     try:
+        start_time = time.time()
         while True:
             # recebe a resposta em pedaços de Xbytes (x = buffer_size)
             data = socket_conexão.recv(buffer_size)
             if not data: 
                 break
             data_ret += data
+            # joga na variavel o quanto de bytes já foram recebidos
             dados_recebidos += len(data)
+            # pegando o cabeçalho 
             position  = data_ret.find('\r\n\r\n'.encode())
             headers   = data_ret[:position] 
+            # procuro no header a posição inicial do 'content_length' que vai me informar o tamanho da imagem + posição final
             inicio_length = headers.find(b'Content-Length:')
             final_length = headers.find(b'\r\n', inicio_length)
+            # pego apenas a variavel do tamanho e transformo em inteiro (+16 corresponde ao nome 'content_length: ')
             content_length = int(headers[inicio_length+16:final_length])
-            sys.stdout.write(f'\rBytes baixados: {dados_recebidos} / {content_length} bytes')
+            # utlizando 
+            tempo_decorrido = time.time() - start_time
+            sys.stdout.write(f'\rBytes baixados: {dados_recebidos} / {content_length} bytes\nTempo Decorrido: {tempo_decorrido}')
             sys.stdout.flush()
+            time.sleep(0.4)
+            if dados_recebidos >= content_length:
+                break
+            
         print('\nDownload Concluído...\n')
+        end_time = time.time()
+        tempo_total = end_time - start_time
+        print(f'Tempo total: {tempo_total:.2f}s')
+
     except:
         print(f'Erro...{sys.exc_info(0)}')  
         exit()  

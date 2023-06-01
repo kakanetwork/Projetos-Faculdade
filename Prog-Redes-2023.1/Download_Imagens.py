@@ -21,7 +21,7 @@ url_host, url_image, arq_image, extensão, arq_txt, protocolo = Functions_Simple
 print('\n'+'='*100)
 print(f"\nhostname: {url_host}\nlocal_da_imagem: {url_image}\nnome_da_imagem: {arq_image}\nextensão: {extensão}\nprotocolo: {protocolo}\n"); print('='*100)
 
-# ------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------------------------------------ 
  
 # define o tamanho do buffer 
 buffer_size = 1024 
@@ -29,11 +29,9 @@ buffer_size = 1024
 if protocolo == 'https':
     # realizando toda conexão/envio/recebimento com função no protocolo HTTPS
     data_ret, headers = Functions_Socket.socket_https(url_image, url_host, buffer_size)
-
 elif protocolo =='http':
     # realizando toda conexão/envio/recebimento com função no protocolo HTTPS
     data_ret = Functions_Socket.socket_http(url_image, url_host, buffer_size)
-
 else:
     print('\nProtocolo não suportado, em desenvolvimento.... (Utilize URLs HTTP ou HTTPS)\n'); print('='*100); exit()
 
