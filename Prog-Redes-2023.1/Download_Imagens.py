@@ -62,6 +62,7 @@ except:
 
 # ------------------------------------------------------------------------------------------------------------
 
+# Abaixo eu procuro no header o campo "content-type" que me informa a extensão original da imagem, com isso salvo a imagem nessa extensão
 dir_head = diretorio_atual + f'\\{arq_txt}'
 chave_extensão = 'Content-Type'
 try:
