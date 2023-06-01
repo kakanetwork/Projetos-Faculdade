@@ -66,9 +66,12 @@ except:
 dir_head = diretorio_atual + f'\\{arq_txt}'
 chave_extensão = 'Content-Type'
 try:
+    # abrindo o header para ler
     with open(dir_head, 'r', encoding='utf-8') as read_header:
+        # lendo linha por linha, e verificando se o "content-type" está em alguma dessas linhas
         for x in read_header:
             if chave_extensão in x:
+                # se for True, ele vai pegar essa linha do "content-type" e retirar apenas a extensão
                 extensão_head = x.split('/')[1].strip()
 except:
     print(f'Erro...{sys.exc_info()[0]}'); exit()
@@ -77,7 +80,7 @@ except:
 
 nome_imagem = 'imagem' + f'.{extensão_head}'
 dir2 = diretorio_atual + f'\\{nome_imagem}'
-# Salvando a imagem
+# Salvando a imagem com o formato (extensão) que conseguimos na parte anterior
 try:
     with open(dir2, 'wb') as imagem:
         imagem.write(image)
