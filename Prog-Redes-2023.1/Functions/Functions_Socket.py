@@ -1,4 +1,4 @@
-import socket, ssl, sys, time
+import socket, ssl, sys, time, Functions_Decorative
 
 # verifica se a url é HTTP ou HTTPS
 def socket_https(url_image, url_host, buffer_size):
@@ -20,7 +20,7 @@ def socket_https(url_image, url_host, buffer_size):
         # enviando requisição pedida acima
         socket_conexão.send(url_request.encode('utf-8'))
     except:
-        print(f'Erro...{sys.exc_info()[0]}')
+        print(f'Erro na conexão do socket...{sys.exc_info()[0]}')
         exit()
     print('\nBaixando a imagem...')
     # recebendo a resposta 
@@ -42,24 +42,26 @@ def socket_https(url_image, url_host, buffer_size):
             headers   = data_ret[:position] 
             # procuro no header a posição inicial do 'content_length' que vai me informar o tamanho da imagem + posição final
             inicio_length = headers.find(b'Content-Length:')
-            final_length = headers.find(b'\r\n', inicio_length)
-            # pego apenas a variavel do tamanho e transformo em inteiro (+16 corresponde ao nome 'content_length: ')
-            content_length = int(headers[inicio_length+16:final_length])
-            # utlizando 
-            tempo_decorrido = time.time() - start_time
-            sys.stdout.write(f'\rBytes baixados: {dados_recebidos} / {content_length} bytes\nTempo Decorrido: {tempo_decorrido}')
-            sys.stdout.flush()
-            time.sleep(0.4)
-            if dados_recebidos >= content_length:
-                break
+            if inicio_length != -1:
+                final_length = headers.find(b'\r\n', inicio_length)
+                # pego apenas a variavel do tamanho e transformo em inteiro (+16 corresponde ao nome 'content_length: ')
+                content_length = int(headers[inicio_length+16:final_length])
+                # printando na tela usando Dtdout.write (para escrever print sob print)
+                sys.stdout.write(f'\rBytes baixados: {dados_recebidos} / {content_length} bytes')
+                # flush para criar um buffer dos prints e ter sensação de carregamento
+                sys.stdout.flush()
+                # verifico se a quantidade de bytes recebidos é maior ou igual ao tamanho da imagem, se sim ele para o while True
+                if dados_recebidos >= content_length:
+                    break
             
         print('\nDownload Concluído...\n')
         end_time = time.time()
         tempo_total = end_time - start_time
-        print(f'Tempo total: {tempo_total:.2f}s')
+        # para ver o tempo total decorrido
+        print(f'Tempo total: {tempo_total:.2f}s\n')
 
     except:
-        print(f'Erro...{sys.exc_info(0)}')  
+        print(f'Erro no recebimento dos dados...{sys.exc_info(0)}')  
         exit()  
     # fechando conexão
     socket_conexão.close()
@@ -76,7 +78,7 @@ def socket_http (url_image, url_host, buffer_size):
         # enviando requisição pedida acima
         socket_conexão.sendall(url_request.encode('utf-8'))
     except:
-        print(f'Erro...{sys.exc_info()[0]}')    
+        print(f'Erro na conexão do socket...{sys.exc_info()[0]}')    
         exit()
     print('\nBaixando a imagem...')
     #Recebendo os dados

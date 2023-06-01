@@ -33,7 +33,8 @@ elif protocolo =='http':
     # realizando toda conexão/envio/recebimento com função no protocolo HTTPS
     data_ret = Functions_Socket.socket_http(url_image, url_host, buffer_size)
 else:
-    print('\nProtocolo não suportado, em desenvolvimento.... (Utilize URLs HTTP ou HTTPS)\n'); print('='*100); exit()
+    print('\nProtocolo não suportado, em desenvolvimento.... (Utilize URLs HTTP ou HTTPS)\n'); print('='*100)
+    exit()
 
 # ------------------------------------------------------------------------------------------------------------
 
@@ -54,7 +55,8 @@ try:
     with open(dir1, 'w', encoding='utf-8') as header:
         header.write(headers.decode('utf-8'))
 except:
-    print(f'Erro...{sys.exc_info()[0]}'); exit()
+    print(f'Erro no save do header...{sys.exc_info()[0]}')
+    exit()
 
 # ------------------------------------------------------------------------------------------------------------
 
@@ -70,7 +72,8 @@ try:
                 # se for True, ele vai pegar essa linha do "content-type" e retirar apenas a extensão
                 extensão_head = x.split('/')[1].strip()
 except:
-    print(f'Erro...{sys.exc_info()[0]}'); exit()
+    print(f'Erro na procura do content-type...{sys.exc_info()[0]}')
+    exit()
 
 # ------------------------------------------------------------------------------------------------------------
 
@@ -81,6 +84,7 @@ try:
     with open(dir2, 'wb') as imagem:
         imagem.write(image)
 except:
-    print(f'Erro...{sys.exc_info()[0]}'); exit()
+    print(f'Erro no save da imagem...{sys.exc_info()[0]}')
+    exit()
 
 # ------------------------------------------------------------------------------------------------------------
