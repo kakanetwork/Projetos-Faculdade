@@ -169,7 +169,6 @@ except:
 
 # ------------------------------------------------------------------------------------------------------------
 
-
 dir_head = diretorio_atual + f'\\{arq_txt}'
 chave_extensão = 'Content-Type'
 try:
@@ -183,7 +182,7 @@ except:
 
 # ------------------------------------------------------------------------------------------------------------
 
-nome_imagem = 'image' + f'.{extensão_head}'
+nome_imagem = 'imagem' + f'.{extensão_head}'
 dir2 = diretorio_atual + f'\\{nome_imagem}'
 # Salvando a imagem
 try:
