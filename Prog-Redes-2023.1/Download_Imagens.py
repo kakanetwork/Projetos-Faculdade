@@ -18,7 +18,6 @@ url_host, url_image, arq_image, extensão, arq_txt, protocolo = Functions_Simple
 
 print('\n'+'='*100)
 print(f"\nhostname: {url_host}\nlocal_da_imagem: {url_image}\nnome_da_imagem: {arq_image}\nextensão: {extensão}\nprotocolo: {protocolo}\n")
-print(arq_txt)
 print('='*100)
 
 # ------------------------------------------------------------------------------------------------------------

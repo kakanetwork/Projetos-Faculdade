@@ -1,6 +1,5 @@
 import requests, os, sys
 
-
 #  Input de algumas informações para requisição
 
 try:
