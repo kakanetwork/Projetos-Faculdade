@@ -22,7 +22,7 @@ def socket_https(url_image, url_host, buffer_size):
     except:
         print(f'Erro...{sys.exc_info()[0]}')
         exit()
-    print('\nBaixando a imagem...\n')
+    print('\nBaixando a imagem...')
     # recebendo a resposta 
     data_ret = b''
     dados_recebidos = 0
@@ -39,13 +39,16 @@ def socket_https(url_image, url_host, buffer_size):
             headers   = data_ret[:position] 
             inicio_length = headers.find(b'Content-Length:')
             final_length = headers.find(b'\r\n', inicio_length)
-            content_length = headers[inicio_length+15:final_length]
+            content_length = int(headers[inicio_length+16:final_length])
+            sys.stdout.write(f'\rBytes baixados: {dados_recebidos} / {content_length} bytes')
+            sys.stdout.flush()
+        print('\nDownload Concluído...\n')
     except:
         print(f'Erro...{sys.exc_info(0)}')  
         exit()  
     # fechando conexão
     socket_conexão.close()
-    return data_ret, headers, content_length
+    return data_ret, headers
 
 def socket_http (url_image, url_host, buffer_size):
     # define a requisição 
