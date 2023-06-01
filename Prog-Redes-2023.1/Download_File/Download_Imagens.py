@@ -1,12 +1,8 @@
-import platform
-from Functions_01 import *
+import platform, Functions_Socket, Functions_Simple
 
 # ------------------------------------------------------------------------------------------------------------
 
-if platform.system() == 'Windows':
-    os.system('cls')
-else:
-    os.system('clear')
+clear_terminal()
 
 # ------------------------------------------------------------------------------------------------------------
 
