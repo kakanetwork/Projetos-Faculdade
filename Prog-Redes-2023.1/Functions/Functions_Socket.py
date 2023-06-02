@@ -1,9 +1,9 @@
-import socket, ssl, sys, time, Functions_Decorative
+import socket, ssl, sys, time, Functions_Simple
 
 # verifica se a url é HTTP ou HTTPS
 def socket_https(url_image, url_host, buffer_size):
     # define a requisição 
-    url_request = f'GET {url_image} HTTP/1.1\r\nHOST: {url_host}\r\n\r\n' 
+    url_request = f'GET {url_image} HTTP/1.1\r\nHOST: {url_host}\r\nConnection:close\r\n\r\n' 
     # criação do contexto SSL para conexão HTTPS
     context = ssl.create_default_context()
     # desativa a verificação do nome do host durante a autenticação SSL.
@@ -26,7 +26,6 @@ def socket_https(url_image, url_host, buffer_size):
     # recebendo a resposta 
     data_ret = b''
     dados_recebidos = 0
-    content_length = 0
     try:
         start_time = time.time()
         while True:
@@ -40,28 +39,19 @@ def socket_https(url_image, url_host, buffer_size):
             # pegando o cabeçalho 
             position  = data_ret.find('\r\n\r\n'.encode())
             headers   = data_ret[:position] 
-            # procuro no header a posição inicial do 'content_length' que vai me informar o tamanho da imagem + posição final
-            inicio_length = headers.find(b'Content-Length:')
-            if inicio_length != -1:
-                final_length = headers.find(b'\r\n', inicio_length)
-                # pego apenas a variavel do tamanho e transformo em inteiro (+16 corresponde ao nome 'content_length: ')
-                content_length = int(headers[inicio_length+16:final_length])
-                # printando na tela usando Dtdout.write (para escrever print sob print)
-                sys.stdout.write(f'\rBytes baixados: {dados_recebidos} / {content_length} bytes')
-                # flush para criar um buffer dos prints e ter sensação de carregamento
-                sys.stdout.flush()
-                # verifico se a quantidade de bytes recebidos é maior ou igual ao tamanho da imagem, se sim ele para o while True
-                if dados_recebidos >= content_length:
-                    break
-            
+            # função para capturar o content length no header
+            content_length = Functions_Simple.Content_Length(headers)
+            # printando na tela usando Dtdout.write (para escrever print sob print)
+            sys.stdout.write(f'\rBytes baixados: {dados_recebidos} / {content_length} bytes')
+            # flush para criar um buffer dos prints e ter sensação de carregamento
+            sys.stdout.flush()
         print('\nDownload Concluído...\n')
         end_time = time.time()
         tempo_total = end_time - start_time
         # para ver o tempo total decorrido
         print(f'Tempo total: {tempo_total:.2f}s\n')
-
     except:
-        print(f'Erro no recebimento dos dados...{sys.exc_info(0)}')  
+        print(f'Erro no recebimento dos dados...{sys.exc_info()[0]}')  
         exit()  
     # fechando conexão
     socket_conexão.close()
