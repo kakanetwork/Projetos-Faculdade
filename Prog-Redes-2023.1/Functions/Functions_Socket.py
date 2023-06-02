@@ -22,12 +22,12 @@ def socket_https(url_image, url_host, buffer_size):
     except:
         print(f'Erro na conexão do socket...{sys.exc_info()[0]}')
         exit()
-    print('\nBaixando a imagem...')
+    print('\nBaixando o arquivo...')
     # recebendo a resposta 
     data_ret = b''
     dados_recebidos = 0
-    type_arq = ''
     try:
+        content_length = -1
         start_time = time.time()
         while True:
             # recebe a resposta em pedaços de Xbytes (x = buffer_size)
@@ -39,14 +39,21 @@ def socket_https(url_image, url_host, buffer_size):
             dados_recebidos += len(data)
             # pegando o cabeçalho 
             position  = data_ret.find('\r\n\r\n'.encode())
-            headers   = data_ret[:position] 
+            headers   = data_ret[:position].decode('utf-8')
             # função para capturar o content length no header
-            content_length = Functions_Simple.content_length(headers)
-            Content_type = Functions_Simple.content_type(headers)
-            # printando na tela usando Dtdout.write (para escrever print sob print)
-            sys.stdout.write(f'\rBytes baixados: {dados_recebidos} / {content_length} bytes')
-            # flush para criar um buffer dos prints e ter sensação de carregamento
-            sys.stdout.flush()
+            try:
+                content_length = Functions_Simple.content_length(headers)
+                # printando na tela usando Dtdout.write (para escrever print sob print)
+                sys.stdout.write(f'\rBytes baixados: {dados_recebidos} / {content_length} bytes')
+                # flush para criar um buffer dos prints e ter sensação de carregamento
+                sys.stdout.flush()
+            except:
+                pass
+        if content_length == -1:
+            print('Não foi possivel capturar o Content_Lenght...')
+        else:
+            pass
+        Content_type = Functions_Simple.content_type(headers)
         print('\nDownload Concluído...\n')
         end_time = time.time()
         tempo_total = end_time - start_time
@@ -58,6 +65,16 @@ def socket_https(url_image, url_host, buffer_size):
     # fechando conexão
     socket_conexão.close()
     return data_ret, headers, Content_type
+
+
+
+
+
+
+
+
+
+
 
 def socket_http (url_image, url_host, buffer_size):
     # define a requisição 

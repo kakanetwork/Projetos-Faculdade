@@ -26,21 +26,23 @@ def split_url (url):
         print(f'\nErro na Fragmentação da URL...{sys.exc_info()[0]}\n')
 
 def content_length (headers):
-    try:
-        inicio_length = headers.find(b'Content-Length:')
-        final_length = headers.find(b'\r\n', inicio_length)
-        # pego apenas a variavel do tamanho e transformo em inteiro (+16 corresponde ao nome 'content_length: ')
-        content_length = int(headers[inicio_length+16:final_length])
-        return content_length
-    except: 
-        print(f'\nErro na captura do Content-Length...{sys.exc_info()[0]}\n')
+    linhas = headers.strip().split('\n')
+    for x in linhas:
+        if x.startswith('Content-Length:'):
+            linha_length = x
+            break
+    return int(linha_length[16:])
 
 def content_type (headers):
     try:
-        inicio_type = headers.find(b'Content-Type:')       
-        final_type = headers.find(b'\r\n', inicio_type)
-        type_complete = headers[inicio_type+14:final_type]
-        type_resume = type_complete.decode('utf-8').split('/')[1]
-        return type_resume
+        linhas = headers.strip().split('\n')
+        for x in linhas:
+            if x.startswith('Content-Type:'):
+                extensão = x.strip().split('/')[1]
+                break
+        html_verification = extensão.find(';')
+        if html_verification != -1:
+            extensão = extensão.split(';')[0]
+        return extensão
     except:
         print(f'\nErro na captura do Content-Type...{sys.exc_info()[0]}\n')

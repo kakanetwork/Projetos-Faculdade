@@ -46,21 +46,21 @@ image     = data_ret[position+4:]
 
 # printando o head
 print('='*100,'\n')
-print(str(headers, 'utf-8'),'\n')
+print(str(headers),'\n')
 print('='*100)
 
 dir1 = diretorio_atual + f'\\{arq_txt}'
 # salvando o head em um arquivo
 try:
     with open(dir1, 'w', encoding='utf-8') as header:
-        header.write(headers.decode('utf-8'))
+        header.write(headers)
 except:
     print(f'Erro no save do header...{sys.exc_info()[0]}')
     exit()
 
 # ------------------------------------------------------------------------------------------------------------
 
-nome_imagem = 'arquivo' + f'.{Content_type}'
+nome_imagem = 'arquivo.' + Content_type
 dir2 = diretorio_atual + f'\\{nome_imagem}'
 # Salvando a imagem com o formato (extensão) que conseguimos na parte anterior
 try:
