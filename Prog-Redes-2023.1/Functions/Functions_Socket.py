@@ -3,7 +3,7 @@ import socket, ssl, sys, time, Functions_Simple
 # verifica se a url é HTTP ou HTTPS
 def socket_https(url_image, url_host, buffer_size):
     # define a requisição 
-    url_request = f'GET {url_image} HTTP/1.1\r\nHOST: {url_host}\r\nConnection:close\r\n\r\n' 
+    url_request = f'GET {url_image} HTTP/1.1\r\nHOST: {url_host}\r\nConnection: close\r\n\r\n' 
     # criação do contexto SSL para conexão HTTPS
     context = ssl.create_default_context()
     # desativa a verificação do nome do host durante a autenticação SSL.
@@ -26,6 +26,7 @@ def socket_https(url_image, url_host, buffer_size):
     # recebendo a resposta 
     data_ret = b''
     dados_recebidos = 0
+    type_arq = ''
     try:
         start_time = time.time()
         while True:
@@ -40,7 +41,8 @@ def socket_https(url_image, url_host, buffer_size):
             position  = data_ret.find('\r\n\r\n'.encode())
             headers   = data_ret[:position] 
             # função para capturar o content length no header
-            content_length = Functions_Simple.Content_Length(headers)
+            content_length = Functions_Simple.content_length(headers)
+            Content_type = Functions_Simple.content_type(headers)
             # printando na tela usando Dtdout.write (para escrever print sob print)
             sys.stdout.write(f'\rBytes baixados: {dados_recebidos} / {content_length} bytes')
             # flush para criar um buffer dos prints e ter sensação de carregamento
@@ -55,7 +57,7 @@ def socket_https(url_image, url_host, buffer_size):
         exit()  
     # fechando conexão
     socket_conexão.close()
-    return data_ret, headers
+    return data_ret, headers, Content_type
 
 def socket_http (url_image, url_host, buffer_size):
     # define a requisição 

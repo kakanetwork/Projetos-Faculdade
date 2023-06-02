@@ -81,7 +81,7 @@ automaticamente (Recomendado realizar antes de qualquer Pull ou Push.)!\n')
 
 def Sair ():
     print('='*100)
-    print('\nPrograma Encerrado com Sucesso! :(')
+    print('\nPrograma Encerrado com Sucesso! :(\n')
     exit()
 
 opções = {

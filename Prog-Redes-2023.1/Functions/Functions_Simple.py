@@ -1,11 +1,10 @@
-import os
+import os, sys
 
 def clear_terminal():
     if os.name == 'nt':
         os.system('cls')
     else:
         os.system('clear')
-
 
 def split_url (url):
     try:
@@ -25,7 +24,8 @@ def split_url (url):
         return url_host, url_image, arq_image, extensão, arq_txt, protocolo
     except:
         print(f'\nErro na Fragmentação da URL...{sys.exc_info()[0]}\n')
-def Content_Length (headers):
+
+def content_length (headers):
     try:
         inicio_length = headers.find(b'Content-Length:')
         final_length = headers.find(b'\r\n', inicio_length)
@@ -34,3 +34,13 @@ def Content_Length (headers):
         return content_length
     except: 
         print(f'\nErro na captura do Content-Length...{sys.exc_info()[0]}\n')
+
+def content_type (headers):
+    try:
+        inicio_type = headers.find(b'Content-Type:')       
+        final_type = headers.find(b'\r\n', inicio_type)
+        type_complete = headers[inicio_type+14:final_type]
+        type_resume = type_complete.decode('utf-8').split('/')[1]
+        return type_resume
+    except:
+        print(f'\nErro na captura do Content-Type...{sys.exc_info()[0]}\n')
