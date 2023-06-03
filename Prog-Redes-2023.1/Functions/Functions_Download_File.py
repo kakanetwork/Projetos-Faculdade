@@ -42,6 +42,7 @@ def download_file_https(localarquive, hostname, buffer_size):
         print(f'Tempo total: {tempo_total:.2f}s\n') # informando o tempo total de download
     except KeyboardInterrupt:
         print('\nVocê encerrou o programa com sucesso!\n')
+        exit() 
     except:
         print(f'\nErro no recebimento dos dados...{sys.exc_info()[0]}')  
         exit()  

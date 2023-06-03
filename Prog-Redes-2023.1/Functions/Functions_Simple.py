@@ -16,6 +16,9 @@ def split_url (url):
         nameheader = arquivename.replace(extensão, 'txt')
         protocol = url.split(':')[0]
         return hostname, localarquive, arquivename, extensão, nameheader, protocol
+    except IndexError:
+        print('\nInforme a URL corretamente... (tente novamente)!\n')
+        exit()
     except:
         print(f'\nErro na Fragmentação da URL...{sys.exc_info()[0]}\n')
         exit()
