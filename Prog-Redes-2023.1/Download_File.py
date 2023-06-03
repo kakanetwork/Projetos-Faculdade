@@ -2,6 +2,8 @@ import sys, os
 diretorio_atual = os.path.dirname(os.path.abspath(__file__)); sys.path.append(diretorio_atual + '\\Functions')
 import Functions_Download_File, Functions_Simple, Functions_Decorative
 
+"IMPORTANTE: ANTES DA EXECUÇÃO DO CÓDIGO FAÇA O DOWNLOAD DA PASTA (FUNCTIONS) ONDE CONTÉM AS FUNÇÕES PARA O FUNCIONAMENTO DESTE CÓDIGO!"
+
 # ------------------------------------------------------------------------------------------------------------
 Functions_Simple.clear_terminal() # utilizando função para dar clear no terminal
 print('='*100); frase = 'Downloader Files'; Functions_Decorative.ascii_art(frase); print('\t\t\tCreated by Kakanetwork')
@@ -24,10 +26,10 @@ buffer_size = 4096
 
 if protocol == 'https':
     # realizando toda conexão/envio/recebimento com função no protocolo HTTPS
-    data_ret,headers, arquivo_dados, Content_type = Functions_Download_File.download_file_https(localarquive, hostname, buffer_size)
+    data_ret, headers, arquivo_dados, Content_type = Functions_Download_File.download_file_https(localarquive, hostname, buffer_size)
 elif protocol =='http':
     # realizando toda conexão/envio/recebimento com função no protocolo HTTPS
-    data_ret = Functions_Download_File.socket_http(localarquive, hostname, buffer_size)
+    data_ret, headers, arquivo_dados, Content_type = Functions_Download_File.socket_http(localarquive, hostname, buffer_size)
 else:
     print('\nprotocolo não suportado, em desenvolvimento.... (Utilize URLs HTTP ou HTTPS)\n'); print('='*100)
     exit()
