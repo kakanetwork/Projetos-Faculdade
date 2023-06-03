@@ -1,6 +1,6 @@
 import socket, sys, ssl
     
-    
+
 def socket_https(localarquive, hostname):
     requisição = f'GET {localarquive} HTTP/1.1\r\nHOST: {hostname}\r\nConnection: close\r\n\r\n'    # define a requisição 
     context = ssl.create_default_context()      # criação do contexto SSL para conexão HTTPS
@@ -18,37 +18,6 @@ def socket_https(localarquive, hostname):
         print(f'Erro na conexão do socket...{sys.exc_info()[0]}')
         exit()
     return socket_conexão # retornando conexão 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 def socket_http(localarquive, hostname):
