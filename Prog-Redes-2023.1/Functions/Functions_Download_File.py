@@ -1,4 +1,5 @@
-import socket, ssl, sys, time, Functions_Simple
+import socket, ssl, sys, time
+from Functions_Simple import content_length, content_type
 
 "IMPORTANTE: ANTES DA EXECUÇÃO DO CÓDIGO FAÇA O DOWNLOAD DA PASTA (FUNCTIONS) ONDE CONTÉM AS FUNÇÕES PARA O FUNCIONAMENTO DESTE CÓDIGO!"
 
@@ -24,8 +25,7 @@ def download_file(socket_conexão, buffer_size):
             try:
                 content_length = Functions_Simple.content_length(headers)    # função para capturar o content length no header
                 print(f'\rBytes baixados: {dados_recebidos} / {content_length} bytes', end='')
-            except:
-                pass    # passando pois o content_length não é vital para o código
+            except: pass  # passando pois o content_length não é vital para o código
         if content_length == -1:
             print('Não foi possivel capturar o Content_Lenght...')  # criando um aviso para quando o content lenght não for pego 
         arquivo_dados = data_ret[position+4:]   # pegando os dados do arquivo

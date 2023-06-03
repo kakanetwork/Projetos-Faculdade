@@ -1,6 +1,7 @@
 import pyfiglet
 
 def ascii_art(frase):
-    arte = pyfiglet.figlet_format(frase)
-    print(arte, end='')
-    
+    try:
+        arte = pyfiglet.figlet_format(frase)
+        print(arte, end='')
+    except: pass

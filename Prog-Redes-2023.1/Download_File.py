@@ -1,6 +1,8 @@
 import sys, os
 diretorio_atual = os.path.dirname(os.path.abspath(__file__)); sys.path.append(diretorio_atual + '\\Functions')
-import Functions_Download_File, Functions_Simple, Functions_Decorative, Functions_Socket_Connection
+import Functions_Download_File, Functions_Socket_Connection
+from Functions_Simple import clear_terminal, split_url
+from Functions_Decorative import ascii_art
 
 "IMPORTANTE: ANTES DA EXECUÇÃO DO CÓDIGO FAÇA O DOWNLOAD DA PASTA (FUNCTIONS) ONDE CONTÉM AS FUNÇÕES PARA O FUNCIONAMENTO DESTE CÓDIGO!"
 
@@ -57,6 +59,9 @@ except:
     exit()
 
 # -----------------------------------------------------------------------------------------------------------
+
+if Content_type == 'Javascript':
+    Content_type = 'js'
 
 nome_arquivo = f'{arquivename}.' + Content_type
 diretorio_arquivo = diretorio_atual + f'\\{nome_arquivo}'
