@@ -4,25 +4,7 @@ import socket, ssl, sys, time, Functions_Simple
 
 # -----------------------------------------------------------------------------------------------------------
 
-def download_file_https(localarquive, hostname, buffer_size):
-    requisição = f'GET {localarquive} HTTP/1.1\r\nHOST: {hostname}\r\nConnection: close\r\n\r\n'    # define a requisição 
-    context = ssl.create_default_context()      # criação do contexto SSL para conexão HTTPS
-    context.check_hostname = False      # desativa a verificação do nome do host durante a autenticação SSL.
-    context.verify_mode = ssl.CERT_NONE     # o certificado do servidor não será verificado
-    socket_TCP_IPV4 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)     # criação do socket/ conexão com o server (IPV4/TCP)
-    socket_conexão = context.wrap_socket(socket_TCP_IPV4, server_hostname=hostname)     # Envolve o socket criado anteriormente em uma conexão segura (wrap_socket)
-    
-    # -----------------------------------------------------------------------------------------------------------
-
-    try:
-        socket_conexão.connect((hostname, 443))     # estabelece a conexão
-        socket_conexão.send(requisição.encode('utf-8'))     # enviando requisição pedida acima
-    except:
-        print(f'Erro na conexão do socket...{sys.exc_info()[0]}')
-        exit()
-
-    # -----------------------------------------------------------------------------------------------------------
-
+def download_file(socket_conexão, buffer_size):
     print('\nBaixando o arquivo...')
     data_ret = b'' 
     dados_recebidos = 0
@@ -39,7 +21,6 @@ def download_file_https(localarquive, hostname, buffer_size):
             headers   = data_ret[:position].decode('utf-8')   # pegando o cabeçalho 
 
             # -----------------------------------------------------------------------------------------------------------
-
             try:
                 content_length = Functions_Simple.content_length(headers)    # função para capturar o content length no header
                 print(f'\rBytes baixados: {dados_recebidos} / {content_length} bytes', end='')
@@ -55,7 +36,6 @@ def download_file_https(localarquive, hostname, buffer_size):
         print(f'Tempo total: {tempo_total:.2f}s\n') # informando o tempo total de download
 
         # -----------------------------------------------------------------------------------------------------------
-
     except KeyboardInterrupt:
         print('\nVocê encerrou o programa com sucesso!\n')
         exit() 
@@ -63,63 +43,5 @@ def download_file_https(localarquive, hostname, buffer_size):
         print(f'\nErro no recebimento dos dados...{sys.exc_info()[0]}')  
         exit()  
     socket_conexão.close() # fechando a conexão
-    return data_ret, headers, arquivo_dados, Content_type
-
+    return headers, arquivo_dados, Content_type
 # -----------------------------------------------------------------------------------------------------------
-
-def download_file_http (localarquive, hostname, buffer_size):
-
-    # -----------------------------------------------------------------------------------------------------------
-
-    requisição = f'GET {localarquive} HTTP/1.1\r\nHOST: {hostname}\r\nConnection: close\r\n\r\n'
-    socket_conexão = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    try:
-        socket_conexão.connect((hostname, 80))
-        socket_conexão.sendall(requisição.encode('utf-8'))
-    except:
-        print(f'Erro na conexão do socket...{sys.exc_info()[0]}')    
-        exit()
-
-    # -----------------------------------------------------------------------------------------------------------
-
-    print('\nBaixando o arquivo...')
-    data_ret = b'' 
-    dados_recebidos = 0
-    try:
-        content_length = -1
-        start_time = time.time()  
-        while True:    
-            data = socket_conexão.recv(buffer_size)   
-            if not data: 
-                break
-            data_ret += data
-            dados_recebidos += len(data)    
-            position  = data_ret.find('\r\n\r\n'.encode())
-            headers   = data_ret[:position].decode('utf-8')   
-
-            # -----------------------------------------------------------------------------------------------------------
-
-            try:
-                content_length = Functions_Simple.content_length(headers)   
-                print(f'\rBytes baixados: {dados_recebidos} / {content_length} bytes', end='')
-            except:
-                pass    
-        if content_length == -1:
-            print('Não foi possivel capturar o Content_Lenght...') 
-        arquivo_dados = data_ret[position+4:]   
-        Content_type = Functions_Simple.content_type(headers) 
-        print('\nDownload Concluído...\n')
-        end_time = time.time() 
-        tempo_total = end_time - start_time
-        print(f'Tempo total: {tempo_total:.2f}s\n')
-
-        # -----------------------------------------------------------------------------------------------------------
-
-    except KeyboardInterrupt:
-        print('\nVocê encerrou o programa com sucesso!\n')
-        exit() 
-    except:
-        print(f'\nErro no recebimento dos dados...{sys.exc_info()[0]}')  
-        exit()  
-    socket_conexão.close() 
-    return data_ret, headers, arquivo_dados, Content_type
