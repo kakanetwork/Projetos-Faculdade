@@ -5,11 +5,12 @@ from Functions_Simple import clear_terminal, split_url
 from Functions_Decorative import ascii_art
 
 "IMPORTANTE: ANTES DA EXECUÇÃO DO CÓDIGO FAÇA O DOWNLOAD DA PASTA (FUNCTIONS) ONDE CONTÉM AS FUNÇÕES PARA O FUNCIONAMENTO DESTE CÓDIGO!"
+"BIBLIOTECAS NECESSÁRIAS: SYS, OS, SSL, SOCKET, TIME, PYFIGLET(OPCIONAL)"
 
 # ------------------------------------------------------------------------------------------------------------
 
-Functions_Simple.clear_terminal() # utilizando função para dar clear no terminal
-print('='*100); frase = 'Downloader Files'; Functions_Decorative.ascii_art(frase); print('\t\t\tCreated by Kakanetwork')
+clear_terminal() # utilizando função para dar clear no terminal
+print('='*100); frase = 'Downloader Files'; ascii_art(frase); print('\t\t\tCreated by Kakanetwork')
 print('Extensões Suportadas: Todas Extensões de Aúdio,Vídeo e Imagem, além de PDF, JS, HTML,')
 
 # ------------------------------------------------------------------------------------------------------------
@@ -25,7 +26,7 @@ except:
 
 # ------------------------------------------------------------------------------------------------------------
 
-hostname, localarquive, arquivename, nameheader, protocol = Functions_Simple.split_url(url) # utilizando função fragmentar a url e pegar apenas o pedido
+hostname, localarquive, arquivename, nameheader, protocol = split_url(url) # utilizando função fragmentar a url e pegar apenas o pedido
 
 print('\n'+'='*100)
 print(f"\nhostname: {hostname}\nlocal_do_arquivo: {localarquive}\nnome_do_arquivo: {arquivename}\nprotocolo: {protocol}\n"); print('='*100)

@@ -23,13 +23,13 @@ def download_file(socket_conexão, buffer_size):
 
             # -----------------------------------------------------------------------------------------------------------
             try:
-                content_length = Functions_Simple.content_length(headers)    # função para capturar o content length no header
+                content_length = content_length(headers)    # função para capturar o content length no header
                 print(f'\rBytes baixados: {dados_recebidos} / {content_length} bytes', end='')
             except: pass  # passando pois o content_length não é vital para o código
         if content_length == -1:
             print('Não foi possivel capturar o Content_Lenght...')  # criando um aviso para quando o content lenght não for pego 
         arquivo_dados = data_ret[position+4:]   # pegando os dados do arquivo
-        Content_type = Functions_Simple.content_type(headers) # usando a função para pegar a extensão do arquivo pelo header
+        Content_type = content_type(headers) # usando a função para pegar a extensão do arquivo pelo header
         print('\nDownload Concluído...\n')
         end_time = time.time() 
         tempo_total = end_time - start_time

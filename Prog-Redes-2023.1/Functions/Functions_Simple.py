@@ -35,7 +35,7 @@ def split_url (url): # FUNÇÃO PARA QUEBRAR A URL E PEGAR INFORMAÇÕES IMPORTA
 def content_length (headers): # FUNÇÃO PARA RETIRAR O CONTENT-LENGTH DO HEADER DE UM ARQUIVO
     linhas = headers.strip().split('\n')  # pego o header já decodificado e quebro ele em linhas
     for x in linhas:
-        if x.startswith('Content-Length:'): # vasculho nessas linhas o content-length por meio do startswich que retorna True quando a palavra existir
+        if x.startswith('Content-Length:') or x.startswith('content-length'): # vasculho nessas linhas o content-length por meio do startswich que retorna True quando a palavra existir
             linha_length = int(x[16:]) # transforma em int e pega somente da posição 16 em diante
             break
     return linha_length 
@@ -44,7 +44,7 @@ def content_type (headers): # FUNÇÃO PARA RETIRAR O CONTENT-TYPE DO HEADER DE 
     try:
         linhas = headers.strip().split('\n') # pego o header já decodificado e quebro ele em linhas
         for x in linhas:
-            if x.startswith('Content-Type:'): # vasculho nessas linhas o content-type por meio do startswich que retorna True quando a palavra existir
+            if x.startswith('Content-Type:') or x.startswith('content-type'): # vasculho nessas linhas o content-type por meio do startswich que retorna True quando a palavra existir
                 extensão = x.strip().split('/')[1] # pego a linha do Content-type, retiro os espaços com strip() e quebro com split() onde tiver uma barra
                 break # com isso para o for, pois já tenho a extensão
         html_verification = extensão.find(';') # EXCEÇÃO: quando a url é de um arquivo HTML, temos que fazer um filtro diferente para conseguir pegar a extensão
@@ -53,4 +53,4 @@ def content_type (headers): # FUNÇÃO PARA RETIRAR O CONTENT-TYPE DO HEADER DE 
                                               # formato content type HTML -> html; charset = utf-8
         return extensão
     except:
-        print(f'\nErro na captura do Content-Type...{sys.exc_info()[0]}\n')
+        print(f'\nErro na captura do Content-Type...{sys.exc_info()[0]}')
