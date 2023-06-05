@@ -3,6 +3,9 @@
 
 import subprocess, time, os, platform
 
+"IMPORTANTE: ANTES DA EXECUÇÃO DO CÓDIGO FAÇA O DOWNLOAD DA PASTA (FUNCTIONS) ONDE CONTÉM AS FUNÇÕES PARA O FUNCIONAMENTO DESTE CÓDIGO!"
+"BIBLIOTECAS NECESSÁRIAS: SUBPROCESS, TIME, OS, PLATFORM"
+
 if platform.system() == 'Windows':
     os.system('cls')
 else:

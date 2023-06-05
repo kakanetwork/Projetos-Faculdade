@@ -1,3 +1,0 @@
-python -m venv c:\path\to\myenv
-PS C:\Users\...\Documents> python -m venv c:\Users\20222014050026\Documents\ambiente
-PS C:\Users\....\Documents> ambiente\Scripts\Activate.ps1

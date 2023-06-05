@@ -17,7 +17,9 @@
 
 <ul>
   <li><code>Functions_Simple.py</code>: Nesse arquivo temos funções mais simples, como a Clear Terminal (Limpar o terminal) e a Split URL (Pegar infos especificas na URL) Etc...
-  <li><code>Functions_Sockets.p</code>: Nesse arquivo temos funções relacionadas a conexão com sockets, como a Socket Http que realiza a conexão completa (TCP/IP , IPV4).
+  <li><code>Functions_Socket_Connection.py</code>: Nesse arquivo temos funções relacionadas a conexão com sockets, em HTTP e HTTPS.
+  <li><code>Functions_Download_File.py</code>: Nesse arquivo temos funções relacionadas a recebimento e filtro de arquivos baixados por um conexão realizada via Sockets (o filtro inclui como o reconhecimento da extensão do arquivo, e o seu tamanho, barra de progresso e etc...)
+  <li><code>Functions_Decorative.py</code>: Nesse arquivo temos funções relacionadas apenas a decoração do código, para legibilidade e organização.
 </ul>
 
 <h2 align="center">🚀 Como utilizar</h2>

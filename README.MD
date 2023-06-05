@@ -13,12 +13,12 @@
 <ul>
   <li><code>Prog-Comp-2022.2</code>: Este repositório contém códigos em Python que abrangem questões básicas de programação para iniciantes.</li>
   <li><code>Prog-Redes-2023.1</code>: Este repositório contém scripts em Python focados na área de Redes e manipulação de arquivos. </li>
-  <li><code>Projetos-Autorais</code>: Repositório com códigos em Python criados por mim abrangendo diversos temas de Programação em python.</li>
-  <li><code>mylibrary</code>: Projeto de biblioteca com várias funções em python</li>
+  <li><code>Projetos-Autorais</code>: Repositório com códigos em Python criados por mim abrangendo diversos temas de Programação em python. [em desenvolvimento]...</li>
+  <li><code>mylibrary</code>: Projeto de biblioteca com várias funções em python [em desenvolvimento]...</li>
 </ul>
 <h2 align="center">🚀 Como utilizar</h2>
 <p align="center">
-    Para utilizar os projetos, basta ter o Python instalado na sua máquina e executar o comando <code>python nome_do_projeto.py</code> no terminal para rodá-lo.
+    Para utilizar os projetos, basta ter o Python instalado na sua máquina e executar o comando <code>python nome_do_projeto.py</code> no terminal para rodá-lo. (Lembre-se: Verifique as Bibliotecas necessárias para a execução do código.)
 </p>
 <h2 align="center">📝 Notas</h2>
 <p align="center">

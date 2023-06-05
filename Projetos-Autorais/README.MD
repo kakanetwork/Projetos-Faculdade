@@ -12,7 +12,10 @@
 </p>
 <h2 align="center">📂 Conteúdo</h2>
 <ul>
-  <li><code>Em breve... </code> </li>
+  <li><code>Api_escolas.py</code>: Projeto em desenvolvimento... Proposta: Requisição de dados das escolas de NATAL-RN (nome, endereço, quantidade de alunos, séries e etc..)</li>
+  <li><code>Clear_temp.py</code>: Projeto em desenvolvimento... Proposta: pequeno programa para limpeza de arquivos temporários em pastas padrões do Windows</li>
+  <li><code>Clear_temp.py</code>: Projeto Não Autoral [by: olivercalazans]... Programa que realiza o calculo de fragmentação de pacotes em redes com MTU diferentes.</li>
+  <li><code>Github_Automation.py</code>: Projeto Autoral - Em Finalização [70%]... Proposta: Consiste em um pequeno programa para Realizar Push,Pull e Conexão de conta no GITHUB sem necessitar de muito trabalho manual...</li>
 </ul>
 <h2 align="center">🚀 Como utilizar</h2>
 <p align="center">
