@@ -1,2 +1,0 @@
-[console_scripts]
-mylibrary = mylibrary.__main__:main

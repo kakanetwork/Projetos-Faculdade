@@ -34,7 +34,7 @@ def Git_Push ():
         if modo not in ['A', 'U', 'S', '?']:
             print('Tente Novamente... informe corretamente!')
     
-    commit_name = 'Atualizado'
+    commit_name = 'Atualização'
     branch_origin = 'master'
     tempo_seg = 120
     print('')

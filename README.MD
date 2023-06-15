@@ -13,8 +13,6 @@
 <ul>
   <li><code>Prog-Comp-2022.2</code>: Este repositório contém códigos em Python que abrangem questões básicas de programação para iniciantes.</li>
   <li><code>Prog-Redes-2023.1</code>: Este repositório contém scripts em Python focados na área de Redes e manipulação de arquivos. </li>
-  <li><code>Projetos-Autorais</code>: Repositório com códigos em Python criados por mim abrangendo diversos temas de Programação em python. [em desenvolvimento]...</li>
-  <li><code>mylibrary</code>: Projeto de biblioteca com várias funções em python [em desenvolvimento]...</li>
 </ul>
 <h2 align="center">🚀 Como utilizar</h2>
 <p align="center">
