@@ -43,6 +43,23 @@ echo "O valor digitado foi: $varint02 e o seu dobro é $((varint02*2))"
 #==================================================================================================
 echo '\n====================\n'
 
+# COMPARADORES 
+# -o -> ou/or
+# -a -> e/and
+# = -> igual
+# != -> diferente 
+# -n -> não é nulo
+# -z -> é nulo
+# -lt -> menor que
+# -gt -> maior que
+# -le -> menor ou igual
+# -ge -> maior ou igual
+# -eq -> igual
+# -ne -> diferente
+
+#==================================================================================================
+echo '\n====================\n'
+
 # CONDICIONAIS
 
 echo -n "Digite o número: "
@@ -59,3 +76,13 @@ elif [ "$num3" = 5 -o "$num3" = 0];then
 else
     echo "O número digitado não é o valor 100!\n"
 fi
+
+#==================================================================================================
+echo '\n====================\n'
+
+# UTILIZAR FUNÇÕES
+
+# Utilizando o $() para jogar o resultado da função whoami para a variavel função01
+função01=$(whoami)
+# para executar apenas a função é só inserir o nome dela normalmente
+whoami 
