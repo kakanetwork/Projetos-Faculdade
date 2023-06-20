@@ -66,7 +66,7 @@ echo -n "Digite o número: "
 read num3
 
 # dessa forma ele verifica se a var num3 é igual a 100, se sim então (then) será executado o echo
-# se não o else, e o (fi) indica o final
+# se não o else, e o (fi) indica o  final
 if [ "$num3" = "100" ];then
     echo "O número digitado é 100!\n"
 elif [ "$num3" = 10 ];then
