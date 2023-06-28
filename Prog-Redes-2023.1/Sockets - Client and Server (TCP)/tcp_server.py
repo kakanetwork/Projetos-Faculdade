@@ -33,7 +33,9 @@ while True:
                 dados_img = arquivo.read(BUFFER_SIZE)
                 if not data_retorno:
                     break
-                
+                socket_conexão.send(dados_img)
+        print(f'O Arquivo: {msg_client} foi enviado!')
+          
     break
 '''
 print('\nRecebendo Mensagens...\n\n')

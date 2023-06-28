@@ -34,7 +34,7 @@ while True:
     pct = 1
     while True:
         # Recebendo o conteúdo do servidor
-        dado_retorno, ip_retorno = socket_tcp.recv(BUFFER_SIZE)
+        dado_retorno = socket_tcp.recv(BUFFER_SIZE)
         if not dado_retorno: break
         print(f'Pacote ({pct}) - Dados Recebidos: {len(dado_retorno)} bytes')
         arquivo.write(dado_retorno)
