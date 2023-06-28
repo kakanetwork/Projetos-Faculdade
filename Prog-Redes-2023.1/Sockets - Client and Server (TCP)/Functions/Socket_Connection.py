@@ -9,13 +9,13 @@ def SERVER_TCP (HOST_SERVER, SOCKET_PORT, CONEXÕES):
     socket_server.listen(CONEXÕES)
     return socket_server
 
-def CLIENT_TCP (HOST_SERVER, SOCKET_PORT, DECODE):
+def CLIENT_TCP (HOST_SERVER, SOCKET_PORT, MSG, CODE_PAGE):
     socket_client.connect((HOST_SERVER, SOCKET_PORT))  
-    socket_client.send(nome_arquivo.encode(DECODE))     
+    socket_client.send(MSG.encode(CODE_PAGE)) 
     return socket_client
 
-def RECV (SOCKET_PEDIDO, BUFFER_SIZE, DECODE=None):
+def RECV (SOCKET_PEDIDO, BUFFER_SIZE, CODE_PAGE=None):
     dados = SOCKET_PEDIDO.recv(BUFFER_SIZE)
-    if DECODE:
-        dados = dados.decode(CODE_PAGE)
+    if CODE_PAGE:
+        dados = dados.CODE_PAGE(CODE_PAGE)
     return dados

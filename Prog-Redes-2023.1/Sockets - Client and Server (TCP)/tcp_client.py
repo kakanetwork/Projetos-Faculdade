@@ -1,10 +1,10 @@
 import socket, sys, os
 diretorio_atual = os.path.dirname(os.path.abspath(__file__)); sys.path.append(diretorio_atual + '\\Functions')
-from socket_constants import * ; from Socket_Connection import CLIENT_TCP, RECV
+from socket_constants import * ; from Socket_Connection import CLIENT_TCP, RECV ; from Functions_Decorative import *
 
 # ------------------------------------------------------------------------------------------------------------
 
-print('='*100); frase = 'Client - Server'; ascii_art(frase); print('\t\t\tCreated by Kakanetwork');print('='*100)
+print('='*100); frase = 'Client - Server'; ASCII_ART(frase); print('\t\t\tCreated by Kakanetwork');print('='*100)
 
 # Criando o socket TCP
 socket_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -20,7 +20,7 @@ try:
         print(f'\nSolicitando o arquivo: {nome_arquivo}')
         
         # Estabelecendo conexão 
-        socket_client = CLIENT_TCP(HOST_SERVER, SOCKET_PORT, CODE_PAGE)
+        socket_client = CLIENT_TCP(HOST_SERVER, SOCKET_PORT, nome_arquivo, CODE_PAGE)
 
 # ------------------------------------------------------------------------------------------------------------
         
