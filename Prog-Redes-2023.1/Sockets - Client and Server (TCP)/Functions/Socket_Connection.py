@@ -10,8 +10,11 @@ def SERVER_TCP (HOST_SERVER, SOCKET_PORT, CONEXÕES):
     return socket_server
 
 def CLIENT_TCP (HOST_SERVER, SOCKET_PORT, DECODE):
-    socket_client.connect((HOST_SERVER, SOCKET_PORT))     # estabelece a conexão
+    socket_client.connect((HOST_SERVER, SOCKET_PORT))  
     socket_client.send(nome_arquivo.encode(DECODE))     
     return socket_client
 
-def RECV (BUFFER_SIZE):
+def RECV (SOCKET_PEDIDO, BUFFER_SIZE, DECODE):
+    dados = SOCKET_PEDIDO.recv(BUFFER_SIZE)
+    dados = dados.decode(CODE_PAGE)
+    return dados
