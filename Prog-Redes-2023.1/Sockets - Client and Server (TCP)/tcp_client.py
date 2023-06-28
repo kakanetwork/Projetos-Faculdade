@@ -8,7 +8,7 @@ import socket, sys, os
 from socket_constants import *
 
 # Criando o socket UDP
-udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+socket_TCP_IPV4 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 while True:
     # Solicitar o arquivo
@@ -16,11 +16,12 @@ while True:
     
     # Enviando o nome do arquivo para o servidor
     print(f'\nSolicitando o arquivo {nome_arquivo}')
-    udp_socket.sendto(nome_arquivo.encode(CODE_PAGE), (HOST_SERVER, SOCKET_PORT))
-    
+    socket_TCP_IPV4.connect((HOST_SERVER, SOCKET_PORT))     # estabelece a conexão
+    socket_TCP_IPV4.send(requisição.encode('utf-8'))     
+     
     if nome_arquivo.upper() == 'EXIT': break
 
-    dado_retorno, ip_retorno = udp_socket.recvfrom(BUFFER_SIZE)
+    dado_retorno, ip_retorno = socket_TCP_IPV4.recv(BUFFER_SIZE)
     dado_retorno = dado_retorno.decode(CODE_PAGE)
     if 'Size:' in dado_retorno:
         tamanho_total = int(dado_retorno.split(':')[1])
@@ -33,7 +34,7 @@ while True:
     pct = 1
     while True:
         # Recebendo o conteúdo do servidor
-        dado_retorno, ip_retorno = udp_socket.recvfrom(BUFFER_SIZE)
+        dado_retorno, ip_retorno = socket_TCP_IPV4.recv(BUFFER_SIZE)
         if not dado_retorno: break
         print(f'Pacote ({pct}) - Dados Recebidos: {len(dado_retorno)} bytes')
         arquivo.write(dado_retorno)
@@ -44,4 +45,4 @@ while True:
     arquivo.close()
 
 # Fechando o socket
-udp_socket.close()
+socket_TCP_IPV4.close()
