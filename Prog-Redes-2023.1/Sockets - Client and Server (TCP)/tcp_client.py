@@ -7,12 +7,14 @@ import socket, sys, os
 
 from socket_constants import *
 
+print('='*100); frase = 'Downloader Files'; ascii_art(frase); print('\t\t\tCreated by Kakanetwork')
+
 # Criando o socket UDP
 socket_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 while True:
     # Solicitar o arquivo
-    nome_arquivo = input('Digite o nome do arquivo (EXIT p/ sair): ')
+    nome_arquivo = input('\nDigite o nome do arquivo (EXIT p/ sair): ')
     
     # Enviando o nome do arquivo para o servidor
     print(f'\nSolicitando o arquivo: {nome_arquivo}')
