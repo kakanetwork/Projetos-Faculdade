@@ -28,10 +28,10 @@ while True:
         size_arq = os.path.getsize(nome_arquivo)
         msg_server = f'Size: {size_arq}'.encode(CODE_PAGE)
         socket_conexão.send(msg_server)
-        with (nome_arquivo, 'rb') as arquivo:
+        with open(nome_arquivo, 'rb') as arquivo:
             while True:
                 dados_img = arquivo.read(BUFFER_SIZE)
-                if not data_retorno:
+                if not dados_img:
                     break
                 socket_conexão.send(dados_img)
         print(f'O Arquivo: {msg_client} foi enviado!')
