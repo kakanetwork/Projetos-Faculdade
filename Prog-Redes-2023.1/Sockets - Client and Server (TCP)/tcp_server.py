@@ -1,9 +1,12 @@
 import socket, sys, os, time
-
-
-
 from socket_constants import *
 
+# Criação do socket (IPV4 / TCP)
+socket_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# Vinculando ao host e porta 
+socket_tcp =
+'''
 # Criando o socket UDP
 socket_TCP_IPV4 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -44,4 +47,4 @@ except:
     print(f'\nERRO: {sys.exc_info()}')
 finally:    
     # Fechando o socket
-    socket_TCP_IPV4.close()
+    socket_TCP_IPV4.close()'''
