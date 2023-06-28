@@ -7,7 +7,7 @@ socket_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # Vinculando ao host e porta 
 socket_tcp.bind((HOST_SERVER,SOCKET_PORT))
 
-print(f'\nSERVIDOR ATIVO: {socket_tcp}')
+print(f'\nSERVIDOR ATIVO: {socket_tcp.getsockname()}')
 '''
 # Criando o socket UDP
 socket_TCP_IPV4 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
