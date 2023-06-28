@@ -12,6 +12,7 @@ socket_tcp.listen(1)
 # informações do servidor ativo (ip e porta)
 print(f'\nSERVIDOR ATIVO: {socket_tcp.getsockname()}\n')
 
+# aceitando conexões
 socket_conexão, ip_client = socket_tcp.accept()
 print(f'O cliente de ip: {ip_client[0]}\nNa porta: {ip_client[1]}\nFoi conectado com sucesso ao servidor!\n')   
 print('Esperando Recebimento de mensagens...\n')
@@ -35,48 +36,13 @@ try:
                     if not dados_img:
                         break
                     socket_conexão.send(dados_img)
-            print(f'O Arquivo: {msg_client} foi enviado!')
+            print(f'O Arquivo: {msg_client} foi enviado!\n')
 except KeyboardInterrupt:
-    print('Foi pressionado CTRL+C')
+    print('Foi pressionado CTRL+C!')
     # Fechando o socket
-    socket_TCP_IPV4.close()    
+    socket_conexão.close()    
 except:
-    print(f'\nERRO: {sys.exc_info()}')
+    print(f'ERRO: {sys.exc_info()[0]}')
 finally:    
     # Fechando o socket
-    socket_TCP_IPV4.close()'''
-'''
-print('\nRecebendo Mensagens...\n\n')
-
-try:
-    while True:
-        mensagem, ip_cliente = socket_TCP_IPV4.recv(BUFFER_SIZE)
-        mensagem = mensagem.decode(CODE_PAGE)
-        if mensagem.upper() == 'EXIT':
-            print(f'\nO {ip_cliente} SE DESCONECTOU DO SERVIDOR...\n')
-        else:
-            # Nome do arquivo a ser enviado
-            nome_arquivo = ATUAL_DIR + '\\img_server\\' + mensagem
-            print(f'Enviando arquivo {mensagem.upper()} ...')
-
-            tamanho_arquivo = os.path.getsize(nome_arquivo)
-            msg = f'Size:{tamanho_arquivo}'.encode(CODE_PAGE)
-            socket_TCP_IPV4.send(msg, ip_cliente)
-
-            arquivo = open(nome_arquivo, 'rb')
-            while True:
-                data_retorno = arquivo.read(BUFFER_SIZE)
-                if not data_retorno: break                                
-                socket_TCP_IPV4.send(data_retorno, ip_cliente)
-                time.sleep(0.02)
-            print(f'Arquivo {mensagem.upper()} Enviado...')
-            arquivo.close()
-except KeyboardInterrupt:
-    print('Foi pressionado CTRL+C')
-    # Fechando o socket
-    socket_TCP_IPV4.close()    
-except:
-    print(f'\nERRO: {sys.exc_info()}')
-finally:    
-    # Fechando o socket
-    socket_TCP_IPV4.close()
+    socket_conexão.close()

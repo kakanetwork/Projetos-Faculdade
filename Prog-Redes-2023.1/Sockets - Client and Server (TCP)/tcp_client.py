@@ -7,7 +7,7 @@ import socket, sys, os
 
 from socket_constants import *
 
-print('='*100); frase = 'Downloader Files'; ascii_art(frase); print('\t\t\tCreated by Kakanetwork')
+print('='*100); frase = 'Client - Server'; ascii_art(frase); print('\t\t\tCreated by Kakanetwork');print('='*100)
 
 # Criando o socket UDP
 socket_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
