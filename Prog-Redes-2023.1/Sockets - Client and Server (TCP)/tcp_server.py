@@ -1,4 +1,4 @@
-import socket, sys, os, time
+import socket, sys, os
 from socket_constants import *
 # Criação do socket (IPV4 / TCP)
 socket_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -43,6 +43,7 @@ except KeyboardInterrupt:
     socket_conexão.close()    
 except:
     print(f'ERRO: {sys.exc_info()[0]}')
+    socket_conexão.close()    
 finally:    
     # Fechando o socket
     socket_conexão.close()
