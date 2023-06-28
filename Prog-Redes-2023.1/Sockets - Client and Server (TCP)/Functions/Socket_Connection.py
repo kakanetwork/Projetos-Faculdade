@@ -14,7 +14,8 @@ def CLIENT_TCP (HOST_SERVER, SOCKET_PORT, DECODE):
     socket_client.send(nome_arquivo.encode(DECODE))     
     return socket_client
 
-def RECV (SOCKET_PEDIDO, BUFFER_SIZE, DECODE):
+def RECV (SOCKET_PEDIDO, BUFFER_SIZE, DECODE=None):
     dados = SOCKET_PEDIDO.recv(BUFFER_SIZE)
-    dados = dados.decode(CODE_PAGE)
+    if DECODE:
+        dados = dados.decode(CODE_PAGE)
     return dados

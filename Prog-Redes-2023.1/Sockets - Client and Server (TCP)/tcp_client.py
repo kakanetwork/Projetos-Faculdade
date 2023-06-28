@@ -27,7 +27,7 @@ try:
         if nome_arquivo.upper() == 'EXIT': break
 
         dado_retorno = RECV(socket_client, BUFFER_SIZE, CODE_PAGE)
-        
+
         if 'Size:' in dado_retorno:
             tamanho_total = int(dado_retorno.split(':')[1])
 
@@ -44,7 +44,7 @@ try:
 
         while True:
             # Recebendo o conteúdo do servidor
-            dado_retorno = socket_client.recv(BUFFER_SIZE)
+            dado_retorno = RECV(socket_client, BUFFER_SIZE)
             if not dado_retorno: break
             print(f'Pacote ({pct}) - Dados Recebidos: {len(dado_retorno)} bytes')
             arquivo.write(dado_retorno)
