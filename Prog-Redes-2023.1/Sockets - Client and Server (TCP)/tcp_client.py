@@ -21,12 +21,13 @@ try:
         
         # Estabelecendo conexão 
         socket_client = CLIENT_TCP(HOST_SERVER, SOCKET_PORT, CODE_PAGE)
+
 # ------------------------------------------------------------------------------------------------------------
         
         if nome_arquivo.upper() == 'EXIT': break
 
-        dado_retorno = socket_client.recv(BUFFER_SIZE)
-        dado_retorno = dado_retorno.decode(CODE_PAGE)
+        dado_retorno = RECV(socket_client, BUFFER_SIZE, CODE_PAGE)
+        
         if 'Size:' in dado_retorno:
             tamanho_total = int(dado_retorno.split(':')[1])
 
