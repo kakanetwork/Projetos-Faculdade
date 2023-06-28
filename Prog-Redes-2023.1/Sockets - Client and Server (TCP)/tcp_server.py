@@ -1,16 +1,10 @@
 import socket, sys, os
-from socket_constants import *
+diretorio_atual = os.path.dirname(os.path.abspath(__file__)); sys.path.append(diretorio_atual + '\\Functions')
+from socket_constants import * ; from Socket_Connection import SERVER_TCP
 
 # ------------------------------------------------------------------------------------------------------------
 
-# Criação do socket (IPV4 / TCP)
-socket_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-# Vinculando ao host e porta 
-socket_tcp.bind((HOST_SERVER,SOCKET_PORT))
-
-# definindo quantas conexões ele ira atender
-socket_tcp.listen(1)
+socket_tcp = SERVER_TCP(HOST_SERVER, SOCKET_PORT, 1)
 
 # informações do servidor ativo (ip e porta)
 print(f'\nSERVIDOR ATIVO: {socket_tcp.getsockname()}\n')
@@ -23,6 +17,7 @@ print('Esperando Recebimento de mensagens...\n')
 # ------------------------------------------------------------------------------------------------------------
 
 try:
+    arq_existe = 0
     while True:
         msg_client = socket_conexão.recv(BUFFER_SIZE)
         msg_client = msg_client.decode(CODE_PAGE)
@@ -34,6 +29,12 @@ try:
 
         else:
             nome_arquivo = ATUAL_DIR + '\\img_server\\' + msg_client
+            for arquivo in ATUAL_DIR+'\\img_server':
+                if nome_arquivo != arquivo:
+                    arq_existe = 1
+            if arq_existe != 0:
+                print(f'O Arquivo que você pediu {msg_client} não existe no servidor!')
+                break
             print(f'Enviando o arquivo: {msg_client}\n')
             size_arq = os.path.getsize(nome_arquivo)
             msg_server = f'Size: {size_arq}'.encode(CODE_PAGE)

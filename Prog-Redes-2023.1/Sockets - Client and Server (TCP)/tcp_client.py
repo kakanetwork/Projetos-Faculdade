@@ -1,11 +1,12 @@
 import socket, sys, os
-from socket_constants import *
+diretorio_atual = os.path.dirname(os.path.abspath(__file__)); sys.path.append(diretorio_atual + '\\Functions')
+from socket_constants import * ; from Socket_Connection 
 
 # ------------------------------------------------------------------------------------------------------------
 
 print('='*100); frase = 'Client - Server'; ascii_art(frase); print('\t\t\tCreated by Kakanetwork');print('='*100)
 
-# Criando o socket UDP
+# Criando o socket TCP
 socket_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # ------------------------------------------------------------------------------------------------------------

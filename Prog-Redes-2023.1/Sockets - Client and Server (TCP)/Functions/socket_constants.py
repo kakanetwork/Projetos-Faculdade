@@ -1,11 +1,4 @@
 import os
-import pyfiglet
-
-def ascii_art(frase):
-    try:
-        arte = pyfiglet.figlet_format(frase)
-        print(arte, end='')
-    except: pass
 
 HOST_SERVER = 'localhost'   # Definindo o IP do servidor
 SOCKET_PORT = 50000         # Definindo a porta
