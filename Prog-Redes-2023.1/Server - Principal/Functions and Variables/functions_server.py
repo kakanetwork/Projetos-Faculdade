@@ -11,11 +11,9 @@ def CHAT(comand=None, clients_dict=None, **kwargs):
     for chave, valor in clients_dict.items():
         sock_envio = valor[1]
         ip_envio = valor[0]
-        print(ip_destination, ip_envio)
-        print('---')
         print(port, chave)
-        if port == chave:
-            rint('SIM É IGUAL 02')
+        if port.strip() == chave.strip():  
+            print('SIM É IGUAL 02')
         if ip_destination == ip_envio and port == chave:
             print('chegou')
             sock_envio.send(msg_chat.encode(UNICODE))
