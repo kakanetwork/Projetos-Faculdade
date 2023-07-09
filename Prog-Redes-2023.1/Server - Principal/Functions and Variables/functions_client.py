@@ -12,7 +12,7 @@ def servInteraction(sock_tcp):
     while msg != b'':
         try:
             msg = sock_tcp.recv(512)
-            print ("\n"+msg.decode(UNICODE)+"\n"+PROMPT)
+            print (msg.decode(UNICODE))
         except:
             msg = b''
     closeSocket(sock_tcp)
