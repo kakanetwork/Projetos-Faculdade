@@ -1,5 +1,9 @@
 import socket
 
+def connection():
+    ...
+
+
 def cliInteraction(sockConn, addr):
     msg = b''
     while msg != b'!q':
