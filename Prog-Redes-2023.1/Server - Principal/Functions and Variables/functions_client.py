@@ -12,7 +12,7 @@ def servInteraction(sock_tcp):
     while msg != b'':
         try:
             msg = sock_tcp.recv(512)
-            print ("\n"+msg.decode('utf-8')+"\n"+PROMPT)
+            print ("\n"+msg.decode(UNICODE)+"\n"+PROMPT)
         except:
             msg = b''
     closeSocket(sock_tcp)
@@ -23,8 +23,7 @@ def userInteraction(sock_tcp):
         try:
             msg = input(PROMPT)
             if msg != '': 
-                print(sock_tcp, msg)
-                sock_tcp.send(msg.encode('utf-8'))
+                sock_tcp.send(msg.encode(UNICODE))
         except:
             msg = '/q'
     closeSocket(sock_tcp)
