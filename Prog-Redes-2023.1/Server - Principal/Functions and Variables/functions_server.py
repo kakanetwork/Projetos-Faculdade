@@ -4,51 +4,61 @@ from variables import *
 
 # ============================================================================================================
 
-def CHAT(comand=None, clients_dict=None, info_client=None, **kwargs):
+def CHAT(comand=None, clients_dict=None, info_client=None, sock=None, **kwargs):
     ip_destination = comand[1]
     port = comand[2]
-    msg_chat = comand[3]
     for chave, valor in clients_dict.items():
         port_envio = str(chave)
         sock_envio = valor[1]
         ip_envio = valor[0]
         if ip_destination == ip_envio and port == port_envio:
+            msg_chat = f"\nCliente: {info_client[0]}:{info_client[1]} > Mensagem: {comand[3]}"
             sock_envio.send(msg_chat.encode(UNICODE))
+        else:
+            msg_chat = f"\nCliente: {info_client[0]}:{info_client[1]} > Mensagem: {comand[3]}"
+            sock.send(msg_chat.encode(UNICODE))
 
             
 # ============================================================================================================
 
 def LIST_CLIENTS(clients_dict=None, sock=None, **kwargs):
-    msg_title = "\nOs Clientes conectados ao Servidor são:"
-    sock.send(msg_title.encode(UNICODE))
-    num = 0
-    for chave, valor in clients_dict.items():  
-        ip = valor[0]
-        num+=1
-        msg_list = f"\nCLIENTE {num}\nIP: {ip}\nPORT: {chave}\n"
-        sock.send(msg_list.encode(UNICODE))
-    
+    try:
+        msg_title = "\nOs Clientes conectados ao Servidor são:"
+        sock.send(msg_title.encode(UNICODE))
+        num = 0
+        for chave, valor in clients_dict.items():  
+            ip = valor[0]
+            num+=1
+            msg_list = f"\nCLIENTE {num}\nIP: {ip}\nPORT: {chave}\n"
+            sock.send(msg_list.encode(UNICODE))
+    except:
+        print(f'\nErro no List_Clients...{sys.exc_info()[0]}')  
+        exit() 
+
 # ============================================================================================================
 
 def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
-    opções = {
-        '/l': LIST_CLIENTS,
-        '/m': CHAT
-    }
-    msg = b'' 
-    while msg != b'/q': 
-        try:
-            msg = sock_client.recv(512).decode(UNICODE)
-            comand = COMAND_SPLIT(msg)
-            for opcao in opções.keys():
-                if comand[0] == opcao:
-                    print(comand)
-                    opções[opcao](clients_dict=clients_connected,sock=sock_client, comand=comand, info_client=info_client)
-        except:
-            msg = b'/q'
-    del clients_connected[info_client[1]]
-    sock_client.close()
-
+    try:
+        opções = {
+            '/l': LIST_CLIENTS,
+            '/m': CHAT
+        }
+        msg = b'' 
+        while msg != b'/q': 
+            try:
+                msg = sock_client.recv(512).decode(UNICODE)
+                comand = COMAND_SPLIT(msg)
+                for opcao in opções.keys():
+                    if comand[0] == opcao:
+                        print(comand)
+                        opções[opcao](clients_dict=clients_connected,sock=sock_client, comand=comand, info_client=info_client)
+            except:
+                msg = b'/q'
+        del clients_connected[info_client[1]]
+        sock_client.close()
+    except:
+        print(f'\nErro no Client_Interaction...{sys.exc_info()[0]}')  
+        exit() 
 # ============================================================================================================
 
 
