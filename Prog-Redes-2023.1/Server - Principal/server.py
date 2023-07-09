@@ -22,7 +22,7 @@ try:
             clients_connected[info_client[1]] = sock_client # adicionando o cliente ao dicionario de clientes conectados (PORTA:SOCKET)
             thread_client = threading.Thread(target=CLIENT_INTERACTION, args=(sock_client, info_client, clients_connected)) # adicionando uma thread para cada cliente
             thread_client.start() # iniciando a thread
-
+            
 # ============================================================================================================
 
         except:
