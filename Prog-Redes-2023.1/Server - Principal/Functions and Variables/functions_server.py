@@ -8,7 +8,9 @@ def CHAT(comand=None, clients_dict=None, **kwargs):
     ip_destination = comand[1]
     port = comand[2]
     msg_chat = comand[3]
-    if 
+    for chave, valor in clients_dict.items():
+        if ip_destination == valor[0] and port == chave:
+            valor[1].send(msg_chat.encode(UNICODE))
 
 def LIST_CLIENTS(clients_dict=None, sock=None, **kwargs):
     msg_title = "\nOs Clientes conectados ao Servidor são:"
