@@ -1,5 +1,5 @@
 
-def DIVISORIA(content):
-    print('-'*100)
-    print(content)
+def PRINT_DIV(dados):
+    print('\n'+'-'*100)
+    print(dados)
     print('-'*100)

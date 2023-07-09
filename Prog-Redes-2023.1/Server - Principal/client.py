@@ -16,12 +16,12 @@ def servInteraction():
 
 def userInteraction():
     msg = ''
-    while msg != '!q':
+    while msg != '/q':
         try:
             msg = input(PROMPT)
             if msg != '': sock.send(msg.encode('utf-8'))
         except:
-            msg = '!q'
+            msg = '/q'
     closeSocket()
 
 def closeSocket():
