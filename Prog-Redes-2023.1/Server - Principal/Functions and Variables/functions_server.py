@@ -20,7 +20,9 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
     while msg != b'/q': # o while 
         try:
             opções = {'/l': LIST_CLIENTS(clients_connected)}
+
             msg = sock_client.recv(512) 
+            print(msg.decode('utf-8'))
             for msg in opções:
                 opções[msg]()
             broadCast (msg, info_client)
