@@ -1,4 +1,5 @@
 import socket
+from variables import *
 
 def closeSocket():
     try:
