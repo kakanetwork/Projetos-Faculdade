@@ -2,21 +2,25 @@ import socket
 from functions_others import *
 from variables import *
 
+# ============================================================================================================
 
-#. /m:ip_destino:porta:mensagem → Enviar uma mensagem a um determinado cliente conectado no servidor
 def CHAT(comand=None, clients_dict=None, **kwargs):
-    print('ois')
-    ip_destination = str(comand[1])
+    ip_destination = comand[1]
     port = comand[2]
     msg_chat = comand[3]
-    print(port, ip_destination)
     for chave, valor in clients_dict.items():
         sock_envio = valor[1]
         ip_envio = valor[0]
-        print(chave, ip_envio, sock_envio)
+        print(ip_destination, ip_envio)
+        print('---')
+        print(port, chave)
+        if port == chave:
+            rint('SIM É IGUAL 02')
         if ip_destination == ip_envio and port == chave:
             print('chegou')
             sock_envio.send(msg_chat.encode(UNICODE))
+            
+# ============================================================================================================
 
 def LIST_CLIENTS(clients_dict=None, sock=None, **kwargs):
     msg_title = "\nOs Clientes conectados ao Servidor são:"
@@ -28,6 +32,7 @@ def LIST_CLIENTS(clients_dict=None, sock=None, **kwargs):
         msg_list = f"\nCLIENTE {num}\nIP: {ip}\nPORT: {chave}\n"
         sock.send(msg_list.encode(UNICODE))
     
+# ============================================================================================================
 
 def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
     opções = {
@@ -35,7 +40,6 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
         '/m': CHAT
     }
     msg = b'' 
-    print(info_client)
     while msg != b'/q': 
         try:
             msg = sock_client.recv(512).decode(UNICODE)
@@ -48,6 +52,7 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
     del clients_connected[info_client[1]]
     sock_client.close()
 
+# ============================================================================================================
 
 
 

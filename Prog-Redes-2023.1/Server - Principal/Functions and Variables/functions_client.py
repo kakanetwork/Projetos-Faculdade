@@ -2,11 +2,15 @@ import socket
 from variables import *
 from functions_others import *
 
+# ============================================================================================================
+
 def closeSocket(sock_tcp):
     try:
         sock_tcp.close()
     except:
         None
+        
+# ============================================================================================================
 
 def servInteraction(sock_tcp):
     msg = b' '
@@ -17,6 +21,8 @@ def servInteraction(sock_tcp):
         except:
             msg = b''
     closeSocket(sock_tcp)
+
+# ============================================================================================================
 
 def userInteraction(sock_tcp):
     msg = ''
@@ -29,4 +35,4 @@ def userInteraction(sock_tcp):
             msg = '/q'
     closeSocket(sock_tcp)
 
-
+# ============================================================================================================
