@@ -5,19 +5,22 @@ from variables import *
 # ============================================================================================================
 
 def CHAT(comand=None, clients_dict=None, info_client=None, sock=None, **kwargs):
-    ip_destination = comand[1]
-    port = comand[2]
-    for chave, valor in clients_dict.items():
-        port_envio = str(chave)
-        sock_envio = valor[1]
-        ip_envio = valor[0]
-        if ip_destination == ip_envio and port == port_envio:
-            msg_chat = f"\nCliente: {info_client[0]}:{info_client[1]} > Mensagem: {comand[3]}"
-            sock_envio.send(msg_chat.encode(UNICODE))
-        else:
-            msg_chat = f"\nCliente: {info_client[0]}:{info_client[1]} > Mensagem: {comand[3]}"
-            sock.send(msg_chat.encode(UNICODE))
-
+    try:
+        ip_destination = comand[1]
+        port = comand[2]
+        for chave, valor in clients_dict.items():
+            port_envio = str(chave)
+            sock_envio = valor[1]
+            ip_envio = valor[0]
+            if ip_destination == ip_envio and port == port_envio:
+                msg_chat = f"\nO Cliente: {info_client[0]}:{info_client[1]} lhe enviou uma mensagem!\nMensagem >> {comand[3]}\n"
+                sock_envio.send(msg_chat.encode(UNICODE))
+            else:
+                msg_erro = f"\nInforme um IP:PORTA Válidos\n"
+                sock.send(msg_erro.encode(UNICODE))
+    except:
+        print(f'\nErro no Chat...{sys.exc_info()[0]}')  
+        exit() 
             
 # ============================================================================================================
 
@@ -59,6 +62,8 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
     except:
         print(f'\nErro no Client_Interaction...{sys.exc_info()[0]}')  
         exit() 
+
+
 # ============================================================================================================
 
 

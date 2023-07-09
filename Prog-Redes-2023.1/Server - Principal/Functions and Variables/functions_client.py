@@ -13,26 +13,34 @@ def closeSocket(sock_tcp):
 # ============================================================================================================
 
 def servInteraction(sock_tcp):
-    msg = b' '
-    while msg != b'':
-        try:
-            msg = sock_tcp.recv(512)
-            print(msg.decode(UNICODE))
-        except:
-            msg = b''
+    try:
+        msg = b' '
+        while msg != b'':
+            try:
+                msg = sock_tcp.recv(512)
+                print(msg.decode(UNICODE))
+            except:
+                msg = b''
+    except:
+        print(f'\nErro no ServInteraction...{sys.exc_info()[0]}')  
+        exit() 
     closeSocket(sock_tcp)
 
 # ============================================================================================================
 
 def userInteraction(sock_tcp):
-    msg = ''
-    while msg != '/q':
-        try:
-            msg = input(PROMPT)
-            if msg != '': 
-                sock_tcp.send(msg.encode(UNICODE))
-        except:
-            msg = '/q'
+    try:
+        msg = ''
+        while msg != '/q':
+            try:
+                msg = input(PROMPT)
+                if msg != '': 
+                    sock_tcp.send(msg.encode(UNICODE))
+            except:
+                msg = '/q'
+    except:
+        print(f'\nErro no UserInteraction...{sys.exc_info()[0]}')  
+        exit() 
     closeSocket(sock_tcp)
 
 # ============================================================================================================
