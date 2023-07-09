@@ -4,5 +4,6 @@ def PRINT_DIV(dados):
     print(dados)
     print('-'*100)
 
-def QUEBRA():
-    ...
+def COMAND_SPLIT(msg):
+    msg_split = msg.split(':')
+    return msg_split

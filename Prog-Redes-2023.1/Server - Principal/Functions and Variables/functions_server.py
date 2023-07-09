@@ -4,11 +4,11 @@ from variables import *
 
 
 #. /m:ip_destino:porta:mensagem → Enviar uma mensagem a um determinado cliente conectado no servidor
-def CHAT():
-    ...
-
-
-
+def CHAT(comand=None, clients_dict=None, **kwargs):
+    ip_destination = comand[1]
+    port = comand[2]
+    msg_chat = comand[3]
+    if 
 
 def LIST_CLIENTS(clients_dict=None, sock=None, **kwargs):
     msg_title = "\nOs Clientes conectados ao Servidor são:"
@@ -21,8 +21,6 @@ def LIST_CLIENTS(clients_dict=None, sock=None, **kwargs):
         sock.send(msg_list.encode(UNICODE))
     
 
-
-
 def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
     opções = {
         '/l': LIST_CLIENTS,
@@ -32,10 +30,10 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
     while msg != b'/q': 
         try:
             msg = sock_client.recv(512).decode(UNICODE)
-            print(msg)
+            comand = COMAND_SPLIT(msg)
             for opcao in opções.keys():
-                if msg == opcao:
-                    opções[opcao](clients_dict=clients_connected,sock=sock_client)
+                if comand[0] == opcao:
+                    opções[opcao](clients_dict=clients_connected,sock=sock_client, comand=comand)
         except:
             msg = b'/q'
     del clients_connected[info_client[1]]
