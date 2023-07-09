@@ -6,7 +6,7 @@ def connection():
 
 def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
     msg = b'' # definindo uma mensagem binária
-    while msg != b'/q': 
+    while msg != b'/q': # o while 
         try:
             msg = sock_client.recv(512)    
             broadCast (msg, info_client)
@@ -16,7 +16,7 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
     sock_client.close()
 
 def broadCast(msg, addrSource):
-    msg = f"{addrSource} ->> {msg.decode('utf-8')}"
+    msg = f"{addrSource} -> {msg.decode('utf-8')}"
     print (msg)
     for sockConn, addr in clients_connected:
         if addr != addrSource:
