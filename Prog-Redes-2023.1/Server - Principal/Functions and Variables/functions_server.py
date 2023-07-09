@@ -5,7 +5,8 @@ from variables import *
 
 #. /m:ip_destino:porta:mensagem → Enviar uma mensagem a um determinado cliente conectado no servidor
 def CHAT(comand=None, clients_dict=None, **kwargs):
-    ip_destination = comand[1]
+    print('ois')
+    ip_destination = str(comand[1])
     port = comand[2]
     msg_chat = comand[3]
     print(port, ip_destination)
