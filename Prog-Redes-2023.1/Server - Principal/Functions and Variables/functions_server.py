@@ -4,10 +4,11 @@ from functions_others import *
 def connection():
     ...
 
-def LIST_CLIENTS(clients_connected):
-    for chave, valor in clients_connected.items():
+def LIST_CLIENTS(clients_dict=None, sock=None, client=None, **kwargs):
+    for chave, valor in clients.items():
         ip = valor[0]
         msg = f"IP: {ip}\nPORT: {chave}"
+
     
 
 def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
@@ -19,7 +20,7 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
             print(msg)
             for opcao in opções.keys():
                 if msg == opcao:
-                    opções[opcao](clients_connected)
+                    opções[opcao](clients_dict=clients_connected,sock=sock_client,client=info_client)
             #broadCast (msg, info_client)
         except:
             msg = b'/q'
