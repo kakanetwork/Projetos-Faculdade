@@ -8,12 +8,11 @@ def CHAT(comand=None, clients_dict=None, **kwargs):
     ip_destination = comand[1]
     port = comand[2]
     msg_chat = comand[3]
+    print(ip_destination, port, msg_chat)
     for chave, valor in clients_dict.items():
         sock_envio = valor[1]
         ip_envio = valor[0]
-        print(port, chave)
-        if port.strip() == chave.strip():  
-            print('SIM É IGUAL 02')
+        print(len(chave), len(port))
         if ip_destination == ip_envio and port == chave:
             print('chegou')
             sock_envio.send(msg_chat.encode(UNICODE))
@@ -44,6 +43,7 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
             comand = COMAND_SPLIT(msg)
             for opcao in opções.keys():
                 if comand[0] == opcao:
+                    print(comand)
                     opções[opcao](clients_dict=clients_connected,sock=sock_client, comand=comand)
         except:
             msg = b'/q'
