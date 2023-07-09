@@ -7,9 +7,9 @@ from functions_others import PRINT_DIV
 
 try:
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.connect((SERVER, PORT))
+    sock.connect((SERVER_CLIENT, PORT))
 
-    PRINT_DIV ("Conectado a: ", (SERVER, PORT))
+    PRINT_DIV ("Conectado a: ", (SERVER_CLIENT, PORT))
     tServer = threading.Thread(target=servInteraction)
     tUser = threading.Thread(target=userInteraction)
 
