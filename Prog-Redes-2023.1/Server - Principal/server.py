@@ -1,6 +1,7 @@
 import socket, threading, os, sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '\\Functions and Variables')
 from variables import *
+from functions_server import *
 
 try: 
     clientes = dict() # lista de clientes conectados (IP:PORTA)
@@ -10,13 +11,14 @@ try:
     sock_tcp.listen() # deixando indefinido quantidade máxima de conexões
     while True:
         try:
-            port_client, ip_client = sock.accept()
-            print ("Connection from: ", ip_client)
-            clientes.append((port_client, ip_client))
-            tClient = threading.Thread(target=cliInteraction, args=(port_client, ip_client))
-            tClient.start()
+            port_client, ip_client = sock_tcp.accept() # aceitando clientes (guardando porta e ip respectivamente do cliente)
+            print ("Connection from: ", ip_client) # informando a conexão
+            clientes[port_client] = ip_client # adicionando o cliente ao dicionario de clientes conectados
+            thread_client = threading.Thread(target=cliInteraction, args=(port_client, ip_client)) # adicionando uma thread para cada cliente
+            thread_client.start()
+
         except:
-            print('a')
+            print(sys.exc_info())
             exit()
 except:
     print ("Fail: ")
