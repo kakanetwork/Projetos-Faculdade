@@ -13,6 +13,7 @@ def CHAT(comand=None, clients_dict=None, **kwargs):
     for chave, valor in clients_dict.items():
         sock_envio = valor[1]
         ip_envio = valor[0]
+        print(chave, ip_envio, sock_envio)
         if ip_destination == ip_envio and port == chave:
             print('chegou')
             sock_envio.send(msg_chat.encode(UNICODE))
