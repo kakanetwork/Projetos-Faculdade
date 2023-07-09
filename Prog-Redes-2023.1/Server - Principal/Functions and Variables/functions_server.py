@@ -4,18 +4,15 @@ from variables import *
 
 # ============================================================================================================
 
-def CHAT(comand=None, clients_dict=None, **kwargs):
+def CHAT(comand=None, clients_dict=None, info_client=None, **kwargs):
     ip_destination = comand[1]
     port = comand[2]
     msg_chat = comand[3]
-    print(ip_destination, repr(port), repr(chave), msg_chat)
     for chave, valor in clients_dict.items():
-        print(repr(chave))
-        print(repr(port))
+        port_envio = str(chave)
         sock_envio = valor[1]
         ip_envio = valor[0]
-        if ip_destination == ip_envio and port == chave:
-            print('chegou')
+        if ip_destination == ip_envio and port == port_envio:
             sock_envio.send(msg_chat.encode(UNICODE))
 
             
@@ -46,7 +43,7 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
             for opcao in opções.keys():
                 if comand[0] == opcao:
                     print(comand)
-                    opções[opcao](clients_dict=clients_connected,sock=sock_client, comand=comand)
+                    opções[opcao](clients_dict=clients_connected,sock=sock_client, comand=comand, info_client=info_client)
         except:
             msg = b'/q'
     del clients_connected[info_client[1]]
