@@ -7,12 +7,13 @@ def connection():
 def LIST_CLIENTS(clients_connected):
     for chave, valor in clients_connected.items():
         ip = valor[0]
-        print(f"IP: {ip}\nPORT: {chave}")
+        msg = f"IP: {ip}\nPORT: {chave}"
 
 def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
     msg = b'' # definindo uma mensagem binária
     while msg != b'/q': # o while 
         try:
+            opções_descritivas = {'/l': 'Realizar Pull do GitHub'}
             msg = sock_client.recv(512)    
             broadCast (msg, info_client)
         except:
