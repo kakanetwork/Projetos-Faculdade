@@ -1,31 +1,30 @@
 import socket
 from variables import *
 
-def closeSocket():
+def closeSocket(sock_tcp):
     try:
-        sock.close()
+        sock_tcp.close()
     except:
         None
 
-def servInteraction():
+def servInteraction(sock_tcp):
     msg = b' '
     while msg != b'':
         try:
-            msg = sock.recv(512)
+            msg = sock_tcp.recv(512)
             print ("\n"+msg.decode('utf-8')+"\n"+PROMPT)
         except:
             msg = b''
-    closeSocket()
+    closeSocket(sock_tcp)
 
-def userInteraction():
+def userInteraction(sock_tcp):
     msg = ''
     while msg != '/q':
         try:
             msg = input(PROMPT)
             if msg != '': 
-                print('oi')
-                sock.send(msg.encode('utf-8'))
+                sock_tcp.send(msg.encode('utf-8'))
         except:
             msg = '/q'
-    closeSocket()
+    closeSocket(sock_tcp)
 

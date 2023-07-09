@@ -19,15 +19,13 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
     msg = b'' # definindo uma mensagem binária
     while msg != b'/q': # o while 
         try:
-
-            opções = {'/l': LIST_CLIENTS}
+            opções = {'/l': LIST_CLIENTS(clients_connected)}
             msg = sock_client.recv(512) 
             for msg in opções:
                 opções[msg]()
             broadCast (msg, info_client)
         except:
             msg = b'/q'
-    LIST_CLIENTS(clients_connected)
     del clients_connected[info_client[1]]
     sock_client.close()
     return msg

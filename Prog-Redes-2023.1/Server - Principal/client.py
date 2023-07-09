@@ -6,12 +6,12 @@ from functions_others import PRINT_DIV
 
 
 try:
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.connect((SERVER_CLIENT, PORT))
+    sock_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock_tcp.connect((SERVER_CLIENT, PORT))
 
     PRINT_DIV(f"Você se conectou com sucesso ao Server de IP: {SERVER} | Na Porta: {PORT}")
-    tServer = threading.Thread(target=servInteraction)
-    tUser = threading.Thread(target=userInteraction)
+    tServer = threading.Thread(target=servInteraction, args=sock_tcp)
+    tUser = threading.Thread(target=userInteraction, args=sock_tcp)
 
     tServer.start()
     tUser.start()
