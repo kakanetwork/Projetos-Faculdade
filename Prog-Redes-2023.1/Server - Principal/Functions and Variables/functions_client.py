@@ -23,6 +23,7 @@ def userInteraction(sock_tcp):
         try:
             msg = input(PROMPT)
             if msg != '': 
+                print(sock_tcp, msg)
                 sock_tcp.send(msg.encode('utf-8'))
         except:
             msg = '/q'

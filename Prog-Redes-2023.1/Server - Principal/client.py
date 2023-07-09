@@ -10,8 +10,8 @@ try:
     sock_tcp.connect((SERVER_CLIENT, PORT))
 
     PRINT_DIV(f"Você se conectou com sucesso ao Server de IP: {SERVER} | Na Porta: {PORT}")
-    tServer = threading.Thread(target=servInteraction, args=sock_tcp)
-    tUser = threading.Thread(target=userInteraction, args=sock_tcp)
+    tServer = threading.Thread(target=servInteraction, args=(sock_tcp,))
+    tUser = threading.Thread(target=userInteraction, args=(sock_tcp,))
 
     tServer.start()
     tUser.start()
