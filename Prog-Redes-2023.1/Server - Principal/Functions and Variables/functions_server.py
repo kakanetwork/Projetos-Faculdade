@@ -9,12 +9,19 @@ def LIST_CLIENTS(clients_connected):
         ip = valor[0]
         msg = f"IP: {ip}\nPORT: {chave}"
 
+def OPTIONS():
+    opções_descritivas = {
+        '/l': 'Realizar Pull do GitHub'
+        }
+    
 def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
     msg = b'' # definindo uma mensagem binária
     while msg != b'/q': # o while 
         try:
-            opções_descritivas = {'/l': 'Realizar Pull do GitHub'}
-            msg = sock_client.recv(512)    
+            opções = {'/l': LIST_CLIENTS}
+            msg = sock_client.recv(512) 
+            for msg in opções:
+                opções[msg]()
             broadCast (msg, info_client)
         except:
             msg = b'/q'
