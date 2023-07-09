@@ -22,7 +22,9 @@ def userInteraction():
     while msg != '/q':
         try:
             msg = input(PROMPT)
-            if msg != '': sock.send(msg.encode('utf-8'))
+            if msg != '': 
+                print('oi')
+                sock.send(msg.encode('utf-8'))
         except:
             msg = '/q'
     closeSocket()

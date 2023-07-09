@@ -15,9 +15,11 @@ def OPTIONS():
         }
     
 def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
+    print('oiii')
     msg = b'' # definindo uma mensagem binária
     while msg != b'/q': # o while 
         try:
+
             opções = {'/l': LIST_CLIENTS}
             msg = sock_client.recv(512) 
             for msg in opções:
