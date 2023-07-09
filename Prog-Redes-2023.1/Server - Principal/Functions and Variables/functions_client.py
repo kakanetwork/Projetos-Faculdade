@@ -1,5 +1,6 @@
 import socket
 from variables import *
+from functions_others import *
 
 def closeSocket(sock_tcp):
     try:
@@ -12,7 +13,7 @@ def servInteraction(sock_tcp):
     while msg != b'':
         try:
             msg = sock_tcp.recv(512)
-            print (msg.decode(UNICODE))
+            print(msg.decode(UNICODE))
         except:
             msg = b''
     closeSocket(sock_tcp)

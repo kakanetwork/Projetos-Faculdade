@@ -6,9 +6,13 @@ def connection():
     ...
 
 def LIST_CLIENTS(clients_dict=None, sock=None, **kwargs):
+    msg_title = "\nOs Clientes conectados ao Servidor são:"
+    sock.send(msg_title.encode(UNICODE))
+    num = 0
     for chave, valor in clients_dict.items():  
         ip = valor[0]
-        msg_list = f"IP: {ip}\nPORT: {chave}"
+        num+=1
+        msg_list = f"\nCLIENTE {num}\nIP: {ip}\nPORT: {chave}"
         sock.send(msg_list.encode(UNICODE))
     
 
