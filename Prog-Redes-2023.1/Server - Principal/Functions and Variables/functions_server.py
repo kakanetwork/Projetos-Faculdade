@@ -4,7 +4,7 @@ from functions_others import *
 def connection():
     ...
 
-def LIST_CLIENTS():
+def LIST_CLIENTS(clients_connected):
     ...
 
 def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
