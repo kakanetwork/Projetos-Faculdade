@@ -17,7 +17,7 @@ def servInteraction(sock_tcp):
             msg = b''
     closeSocket(sock_tcp)
 
-'''def userInteraction(sock_tcp):
+def userInteraction(sock_tcp):
     msg = ''
     while msg != '/q':
         try:
@@ -29,13 +29,4 @@ def servInteraction(sock_tcp):
             msg = '/q'
     closeSocket(sock_tcp)
 
-'''
-
-def userInteraction(sock_tcp):
-    msg = ''
-    while msg != '/q':
-        msg = input(PROMPT)
-        print(sock_tcp, msg)
-        sock_tcp.send(msg.encode('utf-8'))
-    closeSocket(sock_tcp)
 

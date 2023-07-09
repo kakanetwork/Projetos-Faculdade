@@ -21,7 +21,6 @@ try:
             PRINT_DIV(f"O Cliente de IP: {info_client[0]} | Na Porta: {info_client[1]}\nFoi conectado com sucesso!") # informando a conexão
             clients_connected[info_client[1]] = [info_client[0], sock_client] # adicionando o cliente ao dicionario de clientes conectados (PORTA:IP,SOCKET)
             thread_client = threading.Thread(target=CLIENT_INTERACTION, args=(sock_client, info_client, clients_connected)) # adicionando uma thread para cada cliente
-            print('aq')
             thread_client.start() # iniciando a thread
 
 # ============================================================================================================

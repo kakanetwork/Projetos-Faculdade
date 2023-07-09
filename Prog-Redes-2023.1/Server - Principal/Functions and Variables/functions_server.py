@@ -15,17 +15,15 @@ def OPTIONS():
         }
     
 def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
-    print('oiii')
     msg = b'' # definindo uma mensagem binária
     while msg != b'/q': # o while 
         try:
             opções = {'/l': LIST_CLIENTS(clients_connected)}
-
             msg = sock_client.recv(512) 
-            print(msg.decode('utf-8'))
-            for msg in opções:
-                opções[msg]()
-            broadCast (msg, info_client)
+            msg = f"{addrSource} -> {msg.decode('utf-8')}"
+            #for msg in opções:
+            #    opções[msg]()
+            #broadCast (msg, info_client)
         except:
             msg = b'/q'
     del clients_connected[info_client[1]]
@@ -33,7 +31,7 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
     return msg
 
 def broadCast(msg, addrSource):
-    msg = f"{addrSource} -> {msg.decode('utf-8')}"
+    #msg = f"{addrSource} -> {msg.decode('utf-8')}"
     PRINT_DIV(msg)
     for sockConn, addr in clients_connected:
         if addr != addrSource:
