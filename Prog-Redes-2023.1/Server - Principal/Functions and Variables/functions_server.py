@@ -2,8 +2,13 @@ import socket
 from functions_others import *
 from variables import *
 
-def connection():
+
+#. /m:ip_destino:porta:mensagem → Enviar uma mensagem a um determinado cliente conectado no servidor
+def CHAT():
     ...
+
+
+
 
 def LIST_CLIENTS(clients_dict=None, sock=None, **kwargs):
     msg_title = "\nOs Clientes conectados ao Servidor são:"
@@ -12,13 +17,18 @@ def LIST_CLIENTS(clients_dict=None, sock=None, **kwargs):
     for chave, valor in clients_dict.items():  
         ip = valor[0]
         num+=1
-        msg_list = f"\nCLIENTE {num}\nIP: {ip}\nPORT: {chave}"
+        msg_list = f"\nCLIENTE {num}\nIP: {ip}\nPORT: {chave}\n"
         sock.send(msg_list.encode(UNICODE))
     
 
+
+
 def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
-    opções = {'/l': LIST_CLIENTS}
-    msg = b'' # definindo uma mensagem binária
+    opções = {
+        '/l': LIST_CLIENTS,
+        '/m': CHAT
+    }
+    msg = b'' 
     while msg != b'/q': 
         try:
             msg = sock_client.recv(512).decode(UNICODE)
@@ -26,11 +36,21 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
             for opcao in opções.keys():
                 if msg == opcao:
                     opções[opcao](clients_dict=clients_connected,sock=sock_client)
-            #broadCast (msg, info_client)
         except:
             msg = b'/q'
     del clients_connected[info_client[1]]
     sock_client.close()
+
+
+
+
+
+
+
+
+
+
+
 
 def broadCast(msg, addrSource):
     #msg = f"{addrSource} -> {msg.decode(UNICODE)}"

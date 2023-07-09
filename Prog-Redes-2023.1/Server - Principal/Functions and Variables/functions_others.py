@@ -4,4 +4,5 @@ def PRINT_DIV(dados):
     print(dados)
     print('-'*100)
 
-
+def QUEBRA():
+    ...
