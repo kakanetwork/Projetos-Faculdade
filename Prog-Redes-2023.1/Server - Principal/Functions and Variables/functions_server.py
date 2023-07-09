@@ -9,6 +9,7 @@ def LIST_CLIENTS(clients_connected):
         ip = valor[0]
         msg = f"IP: {ip}\nPORT: {chave}"
     
+
 def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
     opções = {'/l': LIST_CLIENTS}
     msg = b'' # definindo uma mensagem binária
