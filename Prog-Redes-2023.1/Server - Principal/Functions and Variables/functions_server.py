@@ -4,25 +4,30 @@ from variables import *
 
 # ============================================================================================================
 
-def CHAT(comand=None, clients_dict=None, info_client=None, sock=None, **kwargs):
+''' FUNÇÃO PARA REALIZAR O CHAT ENTRE CLIENTES ESPECIFICOS  '''
+
+def CHAT(comand=None, clients_dict=None, info_client=None, sock=None, **kwargs): 
     try:
-        ip_destination = comand[1]
-        port = comand[2]
-        for chave, valor in clients_dict.items():
-            port_envio = str(chave)
-            sock_envio = valor[1]
+        ip_destination = comand[1] # guardando o ip de destino da mensagem
+        port = comand[2] # guardando a porta de destino
+        for chave, valor in clients_dict.items(): # dando um for na lista de clientes
+            port_envio = str(chave) 
+            sock_envio = valor[1] # pegando o socket do cliente destino 
             ip_envio = valor[0]
-            if ip_destination == ip_envio and port == port_envio:
-                msg_chat = f"\nO Cliente: {info_client[0]}:{info_client[1]} lhe enviou uma mensagem!\nMensagem >> {comand[3]}\n"
-                sock_envio.send(msg_chat.encode(UNICODE))
+            if ip_destination == ip_envio and port == port_envio: # verificando se o ip/porta (ou seja cliente) está conectado ao servidor
+                msg_chat = f"\nO Cliente: {info_client[0]}:{info_client[1]} lhe enviou uma mensagem!\nMensagem >> {comand[3]}\n" # formatação de mensagem
+                sock_envio.send(msg_chat.encode(UNICODE)) # realizando o envio para o socket do cliente destino
             else:
-                msg_erro = f"\nInforme um IP:PORTA Válidos\n"
+                msg_erro = f"\nO Cliente informado para encaminhar a mensagem não está conectado Servidor!\n"
                 sock.send(msg_erro.encode(UNICODE))
+                exit()
     except:
         print(f'\nErro no Chat...{sys.exc_info()[0]}')  
         exit() 
             
 # ============================================================================================================
+
+''' FUNÇÃO PARA REALIZAR A LISTAGEM DE CLIENTES CONECTADOS AO SERVIDOR '''
 
 def LIST_CLIENTS(clients_dict=None, sock=None, **kwargs):
     try:
