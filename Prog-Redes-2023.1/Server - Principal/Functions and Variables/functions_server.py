@@ -27,18 +27,19 @@ def CHAT(comand=None, clients_dict=None, info_client=None, sock=None, **kwargs):
             
 # ============================================================================================================
 
-''' FUNÇÃO PARA REALIZAR A LISTAGEM DE CLIENTES CONECTADOS AO SERVIDOR '''
+''' FUNÇÃO PARA REALIZAR O PRINT DA
+ LISTAGEM DE CLIENTES CONECTADOS AO SERVIDOR '''
 
 def LIST_CLIENTS(clients_dict=None, sock=None, **kwargs):
     try:
-        msg_title = "\nOs Clientes conectados ao Servidor são:"
-        sock.send(msg_title.encode(UNICODE))
+        msg_title = "\nOs Clientes conectados ao Servidor são:" # formatando mensagem
+        sock.send(msg_title.encode(UNICODE)) 
         num = 0
-        for chave, valor in clients_dict.items():  
-            ip = valor[0]
-            num+=1
-            msg_list = f"\nCLIENTE {num}\nIP: {ip}\nPORT: {chave}\n"
-            sock.send(msg_list.encode(UNICODE))
+        for chave, valor in clients_dict.items():  # faço um for para pegar cada cliente conectado e enviar 
+            ip = valor[0] 
+            num+=1 # formatação numeração cliente
+            msg_list = f"\nCLIENTE {num}\nIP: {ip}\nPORT: {chave}\n" # formatação listagem clientes
+            sock.send(msg_list.encode(UNICODE)) # enviando mensagens 
     except:
         print(f'\nErro no List_Clients...{sys.exc_info()[0]}')  
         exit() 
