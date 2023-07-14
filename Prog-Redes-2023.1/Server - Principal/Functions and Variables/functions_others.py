@@ -1,4 +1,4 @@
-import socket
+import sys
 from variables import *
 
 # ============================================================================================================
@@ -24,18 +24,3 @@ def COMAND_SPLIT(msg):
 
 # ============================================================================================================
 
-''' FUNÇÃO PARA REALIZAR DESCONEXÃO DO CLIENTE '''
-
-def QUIT(clients_connected, sock_client, info_client):
-    try:
-        msg = f"\nVocê será desconectado, volte sempre!\n"
-        sock_client.send(msg.encode(UNICODE))
-    except:
-        print(f'\nErro no envio da mensagem de Desconexão...{sys.exc_info()[0]}')  
-        exit() 
-    try:
-        del clients_connected[info_client[1]] # quando o cliente digitar /q ele exclui socket do cliente da lista de clientes ativos
-        sock_client.close()
-    except:
-        print(f'\nErro na Desconexão do cliente...{sys.exc_info()[0]}')  
-        exit() 

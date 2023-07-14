@@ -1,4 +1,4 @@
-import socket
+import socket, sys
 from functions_others import *
 from variables import *
 
@@ -31,8 +31,7 @@ def CHAT(comand=None, clients_dict=None, info_client=None, sock=None, **kwargs):
             
 # ============================================================================================================
 
-''' FUNÇÃO PARA REALIZAR O PRINT DA
- LISTAGEM DE CLIENTES CONECTADOS AO SERVIDOR '''
+''' FUNÇÃO PARA REALIZAR O PRINT DA LISTAGEM DE CLIENTES CONECTADOS AO SERVIDOR '''
 
 def LIST_CLIENTS(clients_dict=None, sock=None, **kwargs):
     try: 
@@ -106,7 +105,7 @@ def HELP(sock=None, **kwargs):
     except:
         print(f'\nErro no momento de listar as Opções...{sys.exc_info()[0]}')  
         exit()  
-        
+
 # ============================================================================================================
 
 ''' FUNÇÃO QUE REALIZA A INTERAÇÃO DO CLIENTE (DEFINE A FUNÇÃO A SER CHAMADA DE ACORDO COM O PEDIDO DO CLIENTE) '''
