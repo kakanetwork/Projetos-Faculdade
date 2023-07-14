@@ -1,4 +1,5 @@
-import socket, sys
+import socket
+from variables import *
 
 # ============================================================================================================
 
@@ -28,7 +29,7 @@ def COMAND_SPLIT(msg):
 def QUIT(clients_connected, sock_client, info_client):
     try:
         msg = f"\nVocê será desconectado, volte sempre!\n"
-        sock.send(msg.encode(UNICODE))
+        sock_client.send(msg.encode(UNICODE))
     except:
         print(f'\nErro no envio da mensagem de Desconexão...{sys.exc_info()[0]}')  
         exit() 
