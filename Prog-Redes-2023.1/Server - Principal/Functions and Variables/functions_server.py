@@ -54,7 +54,7 @@ def BROADCAST (clients_dict=None, info_client=None, comand=None, **kwargs):
             print(info_client)
             if valor != info_client:
                 sock_broadcast = valor[1]
-                sock_broadcast.send(msg.encode(UNICODE))
+                sock_broadcast.send(msg_broadcast.encode(UNICODE))
     except:
         print(f'\nErro no momento de enviar o Broadcast...{sys.exc_info()[0]}')  
         exit()                 
