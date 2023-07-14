@@ -48,13 +48,15 @@ def LIST_CLIENTS(clients_dict=None, sock=None, **kwargs):
 
 def BROADCAST (clients_dict=None, info_client=None, comand=None, **kwargs):
     msg_broadcast = f"\nO Cliente: {info_client[0]}:{info_client[1]} Enviou uma mensagem para Todos!\nMensagem >> {comand[1]}\n" # formatação de mensagem
+    print('deu bom')
     try:
         for chave, valor in clients_dict:
             print(valor)
             print(info_client)
-            if valor != info_client:
-                sock_broadcast = valor[1]
-                sock_broadcast.send(msg_broadcast.encode(UNICODE))
+            port_envio = str(chave)
+            #if port_envio != info_client[1]:
+            sock_broadcast = valor[1]
+            sock_broadcast.send(msg_broadcast.encode(UNICODE))
     except:
         print(f'\nErro no momento de enviar o Broadcast...{sys.exc_info()[0]}')  
         exit()                 
