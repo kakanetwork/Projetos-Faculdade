@@ -85,6 +85,16 @@ def HISTORY(history=None, sock=None, **kwargs):
 
 # ============================================================================================================
 
+def HELP(option=None, **kwargs):
+    print(option)
+    print('===')
+    for x in option:
+        print('for')
+        print(x)
+    ...
+
+# ============================================================================================================
+
 ''' FUNÇÃO QUE REALIZA A INTERAÇÃO DO CLIENTE (DEFINE A FUNÇÃO A SER CHAMADA DE ACORDO COM O PEDIDO DO CLIENTE) '''
 
 def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
@@ -94,7 +104,8 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
             '/l': LIST_CLIENTS,
             '/m': CHAT,
             '/b': BROADCAST,
-            '/h': HISTORY}
+            '/h': HISTORY,
+            '/?': HELP}
         options_choice = set(options.keys())
         msg = b'' 
         while msg != b'/q': # continuar ouvindo o cliente a menos que ele digite /q
@@ -104,7 +115,7 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
                 history_client.append(comand)   
                 if comand[0] in options_choice:  # verificando se o comando está dentro das opções disponivéis 
                     # ativando a função chamada (passando argumento depois)
-                    options[comand[0]](clients_dict=clients_connected, sock=sock_client, comand=comand, info_client=info_client, history=history_client)
+                    options[comand[0]](clients_dict=clients_connected, sock=sock_client, comand=comand, info_client=info_client, history=history_client, options=options_choice)
             except:
                 msg = b'/q'
         del clients_connected[info_client[1]] # quando o cliente digitar /q ele exclui socket do cliente da lista de clientes ativos
