@@ -69,15 +69,15 @@ def BROADCAST (clients_dict=None, info_client=None, comand=None, **kwargs):
 
 ''' FUNÇÃO PARA ENVIAR AO CLIENTE O SEU HISTÓRICO DE COMANDOS '''
 
-def HISTORY(history, sock_client):
+def HISTORY(history=None, sock=None, **kwargs):
     try:
-        msg_title = f"\nEsse é o seu histórico de comandos:\n" # formatação mensagem
+        msg_title = f"\n\nEsse é o seu histórico de comandos:" # formatação mensagem
         num = 0
-        sock_client.send(msg_title) # enviando titulo para o cliente 
+        sock.send(msg_title.encode(UNICODE)) # enviando titulo para o cliente 
         for comands in history: # pegando cada comando do histórico
             num += 1 
             msg_history = f"{num}: {comands}\n" # formatando linha:comando
-            sock_client.send(msg_history) # enviando comando por comando
+            sock.send(msg_history.encode(UNICODE)) # enviando comando por comando
     except:
         print(f'\nErro no momento de enviar o Histórico de Comandos...{sys.exc_info()[0]}')  
         exit()  
