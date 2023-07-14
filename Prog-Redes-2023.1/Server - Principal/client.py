@@ -18,5 +18,10 @@ try:
 
     tServer.join()
     tUser.join()
-except Exception as e:
-    print ("Falha ", e)
+except KeyboardInterrupt:
+    print(f'\nVocê encerrou a conexão.\nVolte Sempre!')  
+    exit()     
+
+except:
+    print(f'\nErro na Inicialização do Cliente...{sys.exc_info()[0]}')  
+    exit() 

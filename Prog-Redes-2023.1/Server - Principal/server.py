@@ -3,6 +3,9 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '\\Functions and Va
 from variables import *
 from functions_server import *
 from functions_others import PRINT_DIV
+from functions_bot import connected_client
+
+print(sys.argv)
 
 # ============================================================================================================
 
@@ -18,7 +21,9 @@ try:
     while True: 
         try:
             sock_client, info_client = sock_tcp.accept() # aceitando clientes 
-            PRINT_DIV(f"O Cliente de IP: {info_client[0]} | Na Porta: {info_client[1]}\nFoi conectado com sucesso!") # informando a conexão
+            msg_connected = f"O Cliente de IP: {info_client[0]} | Na Porta: {info_client[1]}\nFoi conectado com sucesso!"
+            PRINT_DIV(msg_connected)
+            connected_client(msg_connected)
             clients_connected[info_client[1]] = [info_client[0], sock_client] # adicionando o cliente ao dicionario de clientes conectados (PORTA:IP,SOCKET)
             thread_client = threading.Thread(target=CLIENT_INTERACTION, args=(sock_client, info_client, clients_connected)) # adicionando uma thread para cada cliente
             thread_client.start() # iniciando a thread
@@ -26,8 +31,8 @@ try:
 # ============================================================================================================
 
         except:
-            print(sys.exc_info())
-            exit()
+            print(f'\nErro na Inicialização da Thread...{sys.exc_info()[0]}')  
+            exit() 
 except:
-    print ("Fail: ")
-    exit()
+    print(f'\nErro na Inicialização do Server...{sys.exc_info()[0]}')  
+    exit() 
