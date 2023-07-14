@@ -31,7 +31,7 @@ def servInteraction(sock_tcp):
 def userInteraction(sock_tcp):
     try:
         msg = ''
-        while msg != '/q':
+        while True:
             try:
                 msg = input(PROMPT)
                 if msg != '': 

@@ -131,7 +131,14 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
                     options[comand[0]](clients_dict=clients_connected, sock=sock_client, comand=comand, info_client=info_client, history=history_client, options=options)
             except:
                 msg = b'/q'
-        QUIT(clients_connected, sock_client, info_client)
+        try:
+            msg = f"\nVocê será desconectado, volte sempre!\n"
+            sock_client.send(msg.encode(UNICODE))
+        except socket.error as e:
+            print(f'\nErro no envio da mensagem de Desconexão: {str(e)}')
+            exit() 
+        del clients_connected[info_client[1]] # quando o cliente digitar /q ele exclui socket do cliente da lista de clientes ativos
+        sock_client.close()
     except:
         print(f'\nErro na Interação do Cliente [pelo servidor]...{sys.exc_info()[0]}')  
         exit() 
