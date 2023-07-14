@@ -90,22 +90,21 @@ def HISTORY(history=None, sock=None, **kwargs):
 def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
     try:
         history_client = list()
-        opções = { # dicionário com todas as opções para o cliente (sendo o valor a função ser chamada)
+        options = { # dicionário com todas as opções para o cliente (sendo o valor a função ser chamada)
             '/l': LIST_CLIENTS,
             '/m': CHAT,
             '/b': BROADCAST,
-            '/h': HISTORY
-        }
+            '/h': HISTORY}
+        options_choice = set(options.keys())
         msg = b'' 
         while msg != b'/q': # continuar ouvindo o cliente a menos que ele digite /q
             try:
                 msg = sock_client.recv(BUFFER_SIZE01).decode(UNICODE) # recebendo mensagem do cliente
                 comand = COMAND_SPLIT(msg) # realizando split do comando do cliente 
-                history_client.append(comand)
-                for opcao in opções.keys(): # verificando se o comando está dentro das opções disponivéis 
-                    if comand[0] == opcao: # se o comando estiver dentro das opções ele entra no IF
-                        print(comand)
-                        opções[opcao](clients_dict=clients_connected,sock=sock_client, comand=comand, info_client=info_client, history=history_client) # ativando a função chamada (passando argumento depois)
+                history_client.append(comand)   
+                if comand[0] in options_choice:  # verificando se o comando está dentro das opções disponivéis 
+                    # ativando a função chamada (passando argumento depois)
+                    options[comand[0]](clients_dict=clients_connected, sock=sock_client, comand=comand, info_client=info_client, history=history_client)
             except:
                 msg = b'/q'
         del clients_connected[info_client[1]] # quando o cliente digitar /q ele exclui socket do cliente da lista de clientes ativos
