@@ -85,16 +85,20 @@ def HISTORY(history=None, sock=None, **kwargs):
 
 # ============================================================================================================
 
-def HELP ():
+''' FUNÇÃO QUE LISTA AS OPÇÕES DISPONIVEIS PARA O CLIENTE '''
+
+def HELP(sock=None, **kwargs):
+    # Criando descrição de cada comando
     descriptive_options = {
     '/l': 'Listar clientes conectados',
     '/m:ip:porta:mensagem': 'Enviar mensagem para cliente especifíco (informe IP:PORTA do cliente)',
     '/b:mensagem': 'Enviar mensagem em Broadcast (Para todos clientes conectados)',
     '/h': 'Lista o seu histórico de comandos',
-    '/?': 'Lista as opções disponiveis'}
-
-    for comando, descrição in descriptive_options.items():
-        msg_help = f"{comando} -> {descrição}"
+    '/?': 'Lista as opções disponiveis',
+    '/q': 'Desconectar do Servidor'
+    }
+    for comando, descrição in descriptive_options.items(): # listando por meio do FOR comando por comando 
+        msg_help = f"{comando} -> {descrição}" # formatação mensagem
         sock.send(msg_help.encode(UNICODE)) # enviando comando por comando
 
 # ============================================================================================================
@@ -122,8 +126,7 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
                     options[comand[0]](clients_dict=clients_connected, sock=sock_client, comand=comand, info_client=info_client, history=history_client, options=options)
             except:
                 msg = b'/q'
-        del clients_connected[info_client[1]] # quando o cliente digitar /q ele exclui socket do cliente da lista de clientes ativos
-        sock_client.close()
+        QUIT(clients_connected, sock_client, info_client)
     except:
         print(f'\nErro na Interação do Cliente [pelo servidor]...{sys.exc_info()[0]}')  
         exit() 
