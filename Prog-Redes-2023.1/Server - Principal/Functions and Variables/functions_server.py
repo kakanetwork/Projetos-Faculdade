@@ -21,6 +21,8 @@ def CHAT(comand=None, clients_dict=None, info_client=None, sock=None, **kwargs):
                 msg_erro = f"\nO Cliente informado para encaminhar a mensagem não está conectado Servidor!\n"
                 sock.send(msg_erro.encode(UNICODE))
                 exit()
+    except KeyError:
+        return "\nO Cliente informado para encaminhar a mensagem não está conectado ao servidor!\n"
     except:
         print(f'\nErro no Chat...{sys.exc_info()[0]}')  
         exit() 
