@@ -19,12 +19,18 @@ def NOTIFICATION_BOT(msg):
 def COMMAND_BOT():
     message_id = None
     while True:
-        url_req = f'https://api.telegram.org/bot{API_key}'
-        requisicao = requests.get(url_req+'/getUpdates').json().get('result', [])
+        url_req = f'https://api.telegram.org/bot{API_key}/getUpdates'
+        if message_id:
+            url_req += f'?offset={message_id + 1}'
+        requisicao = requests.get(url_req).json()
+        for x in requisicao.get('result', []):
+            print(x)
+        break
         print(requisicao)
         print('================')
-        
-req = requisicao
+
+COMMAND_BOT()
+#req = requisicao
 #print(req.get('result', []))
 
 def LIST_CLIENTS_BOT():
