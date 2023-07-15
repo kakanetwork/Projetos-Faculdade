@@ -31,8 +31,8 @@ try:
 # ============================================================================================================
 
         except:
-            print(f'\nErro na Inicialização da Thread...{sys.exc_info()[0]}')  
+            print(f'\nErro na Inicialização da Thread...{sys.exc_info()}')  
             exit() 
 except:
-    print(f'\nErro na Inicialização do Server...{sys.exc_info()[0]}')  
+    print(f'\nErro na Inicialização do Server...{sys.exc_info()}')  
     exit() 
