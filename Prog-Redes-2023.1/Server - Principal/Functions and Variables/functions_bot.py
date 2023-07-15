@@ -22,5 +22,8 @@ print(requisicao.json())
 
 print('================')
 
+req = requisicao.json()
+print(req.get('result', []))
+
 def LIST_CLIENTS_BOT():
     ...
