@@ -17,7 +17,8 @@ def COMMAND_BOT():
     while True:
         url_req = f'https://api.telegram.org/bot{API_key}'
         chat = requests.get(url_req + '/getUpdates').json().get('result', [])[-1]
-        command = chat.get('message', []).get('text', [])
+        command = chat.get('message', []).get('text', [])   
+        
         if command == '/u':
             resposta = {'chat_id':id_chat,'text':'lista clientes'}
             var = requests.post(url_req+'/sendMessage',data=resposta)
