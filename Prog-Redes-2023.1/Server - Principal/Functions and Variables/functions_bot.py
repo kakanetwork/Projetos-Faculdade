@@ -2,6 +2,7 @@
 import requests, sys
 from credentials import *
 
+# variavel de request 
 url_req = f'https://api.telegram.org/bot{API_key}'
 
 # ============================================================================================================
