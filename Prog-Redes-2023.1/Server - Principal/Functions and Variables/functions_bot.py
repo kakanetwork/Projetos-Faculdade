@@ -22,9 +22,12 @@ def COMMAND_BOT():
         url_req = f'https://api.telegram.org/bot{API_key}/getUpdates'
         if message_id:
             url_req += f'?offset={message_id + 1}'
-        requisicao = requests.get(url_req).json()
-        for x in requisicao.get('result', []):
-            print(x)
+        requisicao = requests.get(url_req).json().get('result', [])
+        for message in requisicao:
+            f = message.get('message', []).get('text', [])
+            print(f)
+
+
         break
         print(requisicao)
         print('================')
