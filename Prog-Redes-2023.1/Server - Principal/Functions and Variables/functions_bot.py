@@ -22,8 +22,8 @@ def COMMAND_BOT():
         url_req = f'https://api.telegram.org/bot{API_key}/getUpdates'
         if message_id:
             url_req += f'?offset={message_id + 1}'
-        requisicao = requests.get(url_req).json().get('result', [])
-        for message in requisicao:
+        chat = requests.get(url_req).json().get('result', [])
+        for x in requisicao:
             f = message.get('message', []).get('text', [])
             print(f)
 
