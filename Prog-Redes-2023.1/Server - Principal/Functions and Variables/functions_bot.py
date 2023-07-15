@@ -14,24 +14,17 @@ def NOTIFICATION_BOT(msg):
 
 # ============================================================================================================
 def COMMAND_BOT():
-    message_id = None
     while True:
-        url_req = f'https://api.telegram.org/bot{API_key}/getUpdates'
-        if message_id:
-            url_req += f'?offset={message_id + 1}'
-        chat = requests.get(url_req).json().get('result', [])
-        print(chat)
-        for message in chat:
-            f = message.get('message', []).get('text', [])
-            print(f)
-
-        break
-        print(requisicao)
-        print('================')
+        url_req = f'https://api.telegram.org/bot{API_key}'
+        chat = requests.get(url_req + '/getUpdates').json().get('result', [])[-1]
+        command = chat.get('message', []).get('text', [])
+        if command == '/u':
+            resposta = {'chat_id':id_chat,'text':'lista clientes'}
+            var = requests.post(url_req+'/sendMessage',data=resposta)
+            
 
 COMMAND_BOT()
-#req = requisicao
-#print(req.get('result', []))
+
 
 def LIST_CLIENTS_BOT():
     ...

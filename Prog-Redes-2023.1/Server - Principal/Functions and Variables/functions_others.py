@@ -16,7 +16,7 @@ def PRINT_DIV(dados):
 
 def COMAND_SPLIT(msg):
     try:
-        msg_split = msg.split(':')
+        msg_split = msg.lower().split(':')
     except:
         print(f'\nErro no Split do Comand...{sys.exc_info()[0]}')  
         exit() 
