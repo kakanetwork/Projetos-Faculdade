@@ -124,11 +124,10 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
         while msg != b'/q': # continuar ouvindo o cliente a menos que ele digite /q
             try:
                 msg = sock_client.recv(BUFFER_SIZE01).decode(UNICODE) # recebendo mensagem do cliente
-                   
+                print(type(msg))
+                #print(" ".join(msg))
+                history_client.append(msg)
                 comand = COMAND_SPLIT(msg) # realizando split do comando do cliente 
-                print(type(comand))
-                print(" ".join(comand))
-                history_client.append()
                 comand_prompt = comand[0].lower()
                 if comand_prompt in options_choice:  # verificando se o comando está dentro das opções disponivéis 
                     # ativando a função chamada (passando argumento depois)
