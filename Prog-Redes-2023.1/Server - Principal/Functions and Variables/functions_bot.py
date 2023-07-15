@@ -4,9 +4,6 @@ from credentials import *
 
 # ============================================================================================================
 
-
-
-
 def NOTIFICATION_BOT(msg):
     try:
         url_req = f'https://api.telegram.org/bot{API_key}'
@@ -19,26 +16,19 @@ def NOTIFICATION_BOT(msg):
 def COMMAND_BOT():
     message_id = None
     while True:
-        try:
-            url_req = f'https://api.telegram.org/bot{API_key}/getUpdates'
-            if message_id != None:
-                url_req += f'?offset={message_id + 1}'
-            print(url_req)
-            chat = requests.get(url_req).json().get('result', [])
-            print(chat)
-            for message in chat:
-                print(message)
-                f = message.get('message', []).get('text', [])
-                message_id = message['update_id']
-                print(f)
-                print(message_id)
-            print('================')
-        except:
-            print('o')
-            exit()
-        finally:
-            if message_id:
-                message_id += 1 
+        url_req = f'https://api.telegram.org/bot{API_key}/getUpdates'
+        if message_id:
+            url_req += f'?offset={message_id + 1}'
+        chat = requests.get(url_req).json().get('result', [])
+        print(chat)
+        for message in chat:
+            f = message.get('message', []).get('text', [])
+            print(f)
+
+        break
+        print(requisicao)
+        print('================')
+
 COMMAND_BOT()
 #req = requisicao
 #print(req.get('result', []))
