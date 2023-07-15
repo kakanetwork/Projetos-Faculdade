@@ -17,16 +17,17 @@ def NOTIFICATION_BOT(msg):
 
 # ============================================================================================================
 def COMMAND_BOT():
-    message_id = None
+    message_id = 1689421044
     while True:
         url_req = f'https://api.telegram.org/bot{API_key}/getUpdates'
         if message_id:
             url_req += f'?offset={message_id + 1}'
+        print(url_req)
         chat = requests.get(url_req).json().get('result', [])
-        for x in requisicao:
+        print(chat)
+        for message in chat:
             f = message.get('message', []).get('text', [])
             print(f)
-
 
         break
         print(requisicao)
