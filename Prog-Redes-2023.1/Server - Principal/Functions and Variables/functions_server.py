@@ -75,7 +75,7 @@ def HISTORY(history=None, sock=None, **kwargs):
         sock.send(msg_title.encode(UNICODE)) # enviando titulo para o cliente 
         for comands in history: # pegando cada comando do histórico
             num += 1 
-            msg_history = f"    {num} {comands[0]}\n" # formatando linha:comando
+            msg_history = f"    {num} {comands}\n" # formatando linha:comando
             sock.send(msg_history.encode(UNICODE)) # enviando comando por comando
     except:
         print(f'\nErro no momento de enviar o Histórico de Comandos...{sys.exc_info()[0]}')  
@@ -124,8 +124,6 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
         while msg != b'/q': # continuar ouvindo o cliente a menos que ele digite /q
             try:
                 msg = sock_client.recv(BUFFER_SIZE01).decode(UNICODE) # recebendo mensagem do cliente
-                print(type(msg))
-                #print(" ".join(msg))
                 history_client.append(msg)
                 comand = COMAND_SPLIT(msg) # realizando split do comando do cliente 
                 comand_prompt = comand[0].lower()
