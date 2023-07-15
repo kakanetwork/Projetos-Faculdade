@@ -21,7 +21,7 @@ def NOTIFICATION_BOT(msg):
 
 # ============================================================================================================
 
-def COMMAND_BOT():
+def COMMAND_BOT(clients_connected):
     id_message = None
     while True:
         url_req = REQUEST_BOT
@@ -29,17 +29,16 @@ def COMMAND_BOT():
         for message in chat:
             command = message.get('message', []).get('text', [])
             if command == '/u':
-                resposta = {'chat_id':id_chat,'text':'lista clientes'}
-                var = requests.post(url_req+'/sendMessage',data=resposta)
+                LIST_CLIENTS_BOT(clients_connected)
             id_message= message['update_id'] + 1
             print(id_message)
 
 # ============================================================================================================
 
-def LIST_CLIENTS_BOT(clients_dict):
+def LIST_CLIENTS_BOT(clients_connected):
     try: 
         url_req = REQUEST_BOT
-        resposta = {'chat_id':id_chat,'text':f'{clientes_dict}'}
+        resposta = {'chat_id':id_chat,'text':f'{clients_connected}'}
         var = requests.post(url_req+'/sendMessage',data=resposta)
 
 

@@ -23,12 +23,11 @@ try:
             msg_connected = f"O Cliente de IP: {info_client[0]} | Na Porta: {info_client[1]}\nFoi conectado com sucesso!"
             PRINT_DIV(msg_connected)
             NOTIFICATION_BOT(msg_connected)
-            print('oi1')
             clients_connected[info_client[1]] = [info_client[0], sock_client] # adicionando o cliente ao dicionario de clientes conectados (PORTA:IP,SOCKET)
             thread_client = threading.Thread(target=CLIENT_INTERACTION, args=(sock_client, info_client, clients_connected)) # adicionando uma thread para cada cliente
             thread_client.start() # iniciando a thread
-            COMMAND_BOT()
-            
+            COMMAND_BOT(clients_connected)
+
 # ============================================================================================================
 
         except:
