@@ -17,6 +17,7 @@ def COMMAND_BOT():
     while True:
         url_req = f'https://api.telegram.org/bot{API_key}'
         chat = requests.get(url_req + '/getUpdates').json().get('result', [])
+        
         for message in chat:
             command = message.get('message', []).get('text', [])
             if command == '/u':
