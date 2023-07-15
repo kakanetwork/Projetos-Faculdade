@@ -4,11 +4,7 @@ from credentials import *
 
 # ============================================================================================================
 
-url_req = f'https://api.telegram.org/bot{API_key}'
 
-requisicao = requests.get(url_req+'/getUpdates')
-
-print(requisicao.json())
 
 
 def NOTIFICATION_BOT(msg):
@@ -20,7 +16,11 @@ def NOTIFICATION_BOT(msg):
         print(f'\nErro no envio da mensagem para o Bot...{sys.exc_info()[0]}')  
 
 # ============================================================================================================
+url_req = f'https://api.telegram.org/bot{API_key}'
+requisicao = requests.get(url_req+'/getUpdates')
+print(requisicao.json())
 
+print('================')
 
 def LIST_CLIENTS_BOT():
     ...
