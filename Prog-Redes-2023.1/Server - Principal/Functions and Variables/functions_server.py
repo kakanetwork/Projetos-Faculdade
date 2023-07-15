@@ -20,11 +20,8 @@ def CHAT(comand=None, clients_dict=None, info_client=None, sock=None, **kwargs):
                 msg_chat = f"\nO Cliente: {info_client[0]}:{info_client[1]} lhe enviou uma mensagem!\nMensagem >> {comand[3]}\n" # formatação de mensagem
                 sock_envio.send(msg_chat.encode(UNICODE)) # realizando o envio para o socket do cliente destino
             else: # para caso do Cliente não ser achado 
-                msg_erro = f"\nO Cliente informado para encaminhar a mensagem não está conectado Servidor!\n"
+                msg_erro = f"\nO Cliente informado para encaminhar a mensagem não está conectado ao Servidor!\n"
                 sock.send(msg_erro.encode(UNICODE))
-                exit()
-    except KeyError:
-        return "\nO Cliente informado para encaminhar a mensagem não está conectado ao servidor!\n"
     except:
         print(f'\nErro no Chat...{sys.exc_info()[0]}')  
         exit() 
@@ -35,14 +32,13 @@ def CHAT(comand=None, clients_dict=None, info_client=None, sock=None, **kwargs):
 
 def LIST_CLIENTS(clients_dict=None, sock=None, **kwargs):
     try: 
-        msg_title = "\nOs Clientes conectados ao Servidor são:" # formatando mensagem 
-        sock.send(msg_title.encode(UNICODE)) 
+        msg_list = "\nOs Clientes conectados ao Servidor são:\n\n" # formatando mensagem 
         num = 0
         for chave, valor in clients_dict.items():  # faço um for para pegar cada cliente conectado e enviar 
             ip = valor[0] # Armazenamento Temporário 
             num+=1 # formatação numeração cliente
-            msg_list = f"\nCLIENTE {num}\nIP: {ip}\nPORT: {chave}\n" # formatação listagem clientes (lembrando que chave=porta e valor[0]=ip)
-            sock.send(msg_list.encode(UNICODE)) # enviando mensagens 
+            msg_list += f"\nCLIENTE {num}\nIP: {ip}\nPORT: {chave}\n\n" # formatação listagem clientes (lembrando que chave=porta e valor[0]=ip)
+        sock.send(msg_list.encode(UNICODE)) # enviando mensagens 
     except:
         print(f'\nErro no momento de Listar os Clientes Conectados...{sys.exc_info()[0]}')  
         exit() 
@@ -70,13 +66,12 @@ def BROADCAST (clients_dict=None, info_client=None, comand=None, **kwargs):
 
 def HISTORY(history=None, sock=None, **kwargs):
     try:
-        msg_title = f"\nEsse é o seu histórico de comandos:" # formatação mensagem
+        msg_history = f"\nEsse é o seu histórico de comandos:\n\n" # formatação mensagem
         num = 0
-        sock.send(msg_title.encode(UNICODE)) # enviando titulo para o cliente 
         for comands in history: # pegando cada comando do histórico
             num += 1 
-            msg_history = f"    {num} {comands}\n" # formatando linha:comando
-            sock.send(msg_history.encode(UNICODE)) # enviando comando por comando
+            msg_history += f"    {num} {comands}\n" # formatando linha:comando
+        sock.send(msg_history.encode(UNICODE)) # enviando comando por comando
     except:
         print(f'\nErro no momento de enviar o Histórico de Comandos...{sys.exc_info()[0]}')  
         exit()  
@@ -97,11 +92,10 @@ def HELP(sock=None, **kwargs):
         '/?': 'Lista as opções disponiveis',
         '/q': 'Desconectar do Servidor'
         }
-        msg_title = f"\nSegue abaixo as Opções disponiveis neste servidor:"
-        sock.send(msg_title.encode(UNICODE))
+        msg_help = f"\nSegue abaixo as Opções disponiveis neste servidor:\n\n" # formatação mensagem
         for comando, descrição in descriptive_options.items(): # listando por meio do FOR comando por comando 
-            msg_help = f"{comando} -> {descrição}\n" # formatação mensagem
-            sock.send(msg_help.encode(UNICODE)) # enviando comando por comando
+            msg_help += f"  {comando} -> {descrição}\n" # formatação mensagem
+        sock.send(msg_help.encode(UNICODE)) # enviando comando por comando
     except:
         print(f'\nErro no momento de listar as Opções...{sys.exc_info()[0]}')  
         exit()  
@@ -119,14 +113,14 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
             '/b': BROADCAST,
             '/h': HISTORY,
             '/?': HELP}
-        options_choice = set(options.keys())
+        options_choice = set(options.keys()) # usado para verificar se o comando pertence ao dicionário 
         msg = b'' 
         while msg != b'/q': # continuar ouvindo o cliente a menos que ele digite /q
             try:
                 msg = sock_client.recv(BUFFER_SIZE01).decode(UNICODE) # recebendo mensagem do cliente
-                history_client.append(msg)
+                history_client.append(msg) # histórico de comandos do cliente
                 comand = COMAND_SPLIT(msg) # realizando split do comando do cliente 
-                comand_prompt = comand[0].lower()
+                comand_prompt = comand[0].lower() # usando apenas para pegar o comando bruto "/x"
                 if comand_prompt in options_choice:  # verificando se o comando está dentro das opções disponivéis 
                     # ativando a função chamada (passando argumento depois)
                     options[comand_prompt](clients_dict=clients_connected, sock=sock_client, comand=comand, info_client=info_client, history=history_client, options=options)
