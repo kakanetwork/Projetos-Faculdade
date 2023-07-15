@@ -2,19 +2,12 @@
 import requests, sys
 from credentials import *
 
-def REQUEST_BOT():
-    try:
-        url_req = f'https://api.telegram.org/bot{API_key}'
-        return url_req
-    except:
-        print(f'\nErro no Request do Bot Telegram...{sys.exc_info()[0]}')  
-        exit()
+url_req = f'https://api.telegram.org/bot{API_key}'
 
 # ============================================================================================================
 
 def NOTIFICATION_BOT(msg_connected):
     try:
-        url_req = REQUEST_BOT
         resposta = {'chat_id':id_chat,'text':f'{msg_connected}'}
         var = requests.post(url_req+'/sendMessage',data=resposta)
     except:
@@ -25,11 +18,8 @@ def NOTIFICATION_BOT(msg_connected):
 
 def LIST_CLIENTS_BOT(clients_connected):
     try: 
-        url_req = REQUEST_BOT
         resposta = {'chat_id':id_chat,'text':f'{clients_connected}'}
         var = requests.post(url_req+'/sendMessage',data=resposta)
-
-
         #msg_title = "\nOs Clientes conectados ao Servidor são:" # formatando mensagem 
         '''num = 0
         for chave, valor in clients_dict.items():  # faço um for para pegar cada cliente conectado e enviar 
@@ -46,7 +36,6 @@ def LIST_CLIENTS_BOT(clients_connected):
 def COMMAND_BOT(clients_connected):
     id_message = None
     while True:
-        url_req = REQUEST_BOT
         chat = requests.get(url_req + '/getUpdates', params={'offset': id_message}).json().get('result', [])
         for message in chat:
             command = message.get('message', []).get('text', [])
