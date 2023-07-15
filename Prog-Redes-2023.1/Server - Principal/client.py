@@ -19,7 +19,7 @@ try:
     tServer.join()
     tUser.join()
 except KeyboardInterrupt:
-    print(f'\nVocê encerrou a conexão.\nVolte Sempre!')  
+    print(f'\n\nVocê encerrou a conexão.\nVolte Sempre!\n')  
     exit()     
 
 except:
