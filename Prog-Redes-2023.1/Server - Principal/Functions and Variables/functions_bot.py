@@ -16,14 +16,16 @@ def NOTIFICATION_BOT(msg):
         print(f'\nErro no envio da mensagem para o Bot...{sys.exc_info()[0]}')  
 
 # ============================================================================================================
-url_req = f'https://api.telegram.org/bot{API_key}'
-requisicao = requests.get(url_req+'/getUpdates')
-print(requisicao.json())
-
-print('================')
-
-req = requisicao.json()
-print(req.get('result', []))
+def COMMAND_BOT():
+    message_id = None
+    while True:
+        url_req = f'https://api.telegram.org/bot{API_key}'
+        requisicao = requests.get(url_req+'/getUpdates').json().get('result', [])
+        print(requisicao)
+        print('================')
+        
+req = requisicao
+#print(req.get('result', []))
 
 def LIST_CLIENTS_BOT():
     ...
