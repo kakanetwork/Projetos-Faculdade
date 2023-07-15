@@ -126,7 +126,9 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
                 msg = sock_client.recv(BUFFER_SIZE01).decode(UNICODE) # recebendo mensagem do cliente
                    
                 comand = COMAND_SPLIT(msg) # realizando split do comando do cliente 
-                history_client.append(comand.join())
+                print(type(comand))
+                print(" ".join(comand))
+                history_client.append()
                 comand_prompt = comand[0].lower()
                 if comand_prompt in options_choice:  # verificando se o comando está dentro das opções disponivéis 
                     # ativando a função chamada (passando argumento depois)
