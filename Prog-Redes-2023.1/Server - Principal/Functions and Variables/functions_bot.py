@@ -32,7 +32,6 @@ def LIST_CLIENTS_BOT(clients_connected):
                 msg_list += f"\nCLIENTE {num}\nIP: {ip}\nPORTA: {chave}\n\n" # formatação listagem clientes (lembrando que chave=porta e valor[0]=ip
         else:
             msg_list = "O Servidor não possui nenhum cliente conectado!"
-            continue
         resposta = {'chat_id':id_chat,'text':f'{msg_list}'} # realizo a montagem da formatação para o chat com id especificado
         var = requests.post(url_req+'/sendMessage',data=resposta) # envio a mensagem via requests.post
     except:
