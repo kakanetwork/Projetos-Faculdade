@@ -28,7 +28,7 @@ def LIST_CLIENTS_BOT(clients_connected):
         for chave, valor in clients_connected.items(): # pego cada cliente conectado (ip/porta) do dicionário já criado
             ip = valor[0] # Armazenamento Temporário 
             num+=1 # formatação numeração cliente
-            msg_list += f"\nCLIENTE {num}\nIP: {ip}\nPORT: {chave}\n\n" # formatação listagem clientes (lembrando que chave=porta e valor[0]=ip
+            msg_list += f"\nCLIENTE {num}\nIP: {ip}\nPORTA: {chave}\n\n" # formatação listagem clientes (lembrando que chave=porta e valor[0]=ip
         resposta = {'chat_id':id_chat,'text':f'{msg_list}'} # realizo a montagem da formatação para o chat com id especificado
         var = requests.post(url_req+'/sendMessage',data=resposta) # envio a mensagem via requests.post
     except:
@@ -48,6 +48,7 @@ def START_BOT(clients_connected):
         for message in chat: # pego cada mensagem das últimas mensagens
             command = message.get('message', []).get('text', []) # realizo o get dentro de cada mensagem, para me retornar apenas oque foi digitado ('text')
             if command == '/u': # verifico se o que foi digitado = /u
+                print('oi')
                 LIST_CLIENTS_BOT(clients_connected) # se sim, ativo a função de listagem dos clientes conectados
             elif command == '/log':
                 ... # EM DESENVOLVIMENTO ....
