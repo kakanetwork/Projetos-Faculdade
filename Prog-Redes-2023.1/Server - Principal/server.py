@@ -23,12 +23,11 @@ try:
         try:
             sock_client, info_client = sock_tcp.accept() # aceitando clientes 
             msg_connected = f"O Cliente de IP: {info_client[0]} | Na Porta: {info_client[1]}\nFoi conectado com sucesso!"
-            PRINT_DIV(msg_connected)
-            NOTIFICATION_BOT(msg_connected)
+            PRINT_DIV(msg_connected) # printando o cliente conectado
+            NOTIFICATION_BOT(msg_connected) # enviando mensagem para o bot do cliente que se conectou
             clients_connected[info_client[1]] = [info_client[0], sock_client] # adicionando o cliente ao dicionario de clientes conectados (PORTA:IP,SOCKET)
             thread_client = threading.Thread(target=CLIENT_INTERACTION, args=(sock_client, info_client, clients_connected)) # adicionando uma thread para cada cliente
             thread_client.start() # iniciando a thread
-
 
 # ============================================================================================================
 

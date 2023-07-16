@@ -1,5 +1,5 @@
 
-import requests, sys
+import requests, sys, time
 from credentials import *
 
 # variavel de request 
