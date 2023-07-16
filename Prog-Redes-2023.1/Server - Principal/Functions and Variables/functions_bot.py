@@ -41,15 +41,16 @@ def LIST_CLIENTS_BOT(clients_connected):
 
 def START_BOT(clients_connected):
     id_message = None # defino o id da mensagem como NONE, usado mais a frente
+    verification_command = False 
     while True: # while True para ficar "ouvindo" o chat
         # faço o get com o parametro offset = id_message, que inicialmente é NONE, transformo em .json e pego apenas oque tem dentro da variavel "RESULT"
         # isso me retorna todas as últimas mensagens do chat e seus parametros (ex: id da mensagem, pelo ID eu consigo identificar a última mensagem)
         chat = requests.get(url_req + '/getUpdates', params={'offset': id_message}).json().get('result', []) 
         for message in chat: # pego cada mensagem das últimas mensagens
             command = message.get('message', []).get('text', []) # realizo o get dentro de cada mensagem, para me retornar apenas oque foi digitado ('text')
-            if command == '/u': # verifico se o que foi digitado = /u
-                print('oi')
+            if command == '/u' and not verification_command: # verifico se o que foi digitado = /u
                 LIST_CLIENTS_BOT(clients_connected) # se sim, ativo a função de listagem dos clientes conectados
+                verification_command = True
             elif command == '/log':
                 ... # EM DESENVOLVIMENTO ....
             id_message= message['update_id'] + 1 # aqui eu defino o id message (pego ele dentro do .json), e jogo +1 pois funciona como um OFFSET
