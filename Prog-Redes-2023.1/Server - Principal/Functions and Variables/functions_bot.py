@@ -7,19 +7,6 @@ url_req = f'https://api.telegram.org/bot{API_key}'
 
 # ============================================================================================================
 
-def KEYBOARD_CUSTOM_BOT():
-    keyboard = [
-        ['Opção 1', 'Opção 2'],
-        ['Opção 3', 'Opção 4']
-    ]
-    reply_markup = {'keyboard': keyboard, 'one_time_keyboard': True}
-
-    resposta = {'chat_id': id_chat, 'text': 'Escolha uma opção:', 'reply_markup': reply_markup}
-    requests.post(f'https://api.telegram.org/bot{API_key}/sendMessage', data=resposta)
-
-KEYBOARD_CUSTOM_BOT()
-# ============================================================================================================
-
 ''' FUNÇÃO PARA NOTIFICAR O BOT A CADA CLIENTE CONECTADO '''
 
 def NOTIFICATION_BOT(msg_connected):
@@ -53,7 +40,6 @@ def LIST_CLIENTS_BOT(clients_connected):
 ''' FUNÇÃO PARA RECEBER MENSAGENS/COMANDOS DA CONVERSA COM O BOT '''
 
 def COMMAND_BOT(clients_connected):
-    KEYBOARD_CUSTOM_BOT()
     id_message = None # defino o id da mensagem como NONE, usado mais a frente
     while True: # while True para ficar "ouvindo" o chat
         # faço o get com o parametro offset = id_message, que inicialmente é NONE, transformo em .json e pego apenas oque tem dentro da variavel "RESULT"
