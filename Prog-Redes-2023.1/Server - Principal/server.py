@@ -26,7 +26,8 @@ try:
             clients_connected[info_client[1]] = [info_client[0], sock_client] # adicionando o cliente ao dicionario de clientes conectados (PORTA:IP,SOCKET)
             thread_client = threading.Thread(target=CLIENT_INTERACTION, args=(sock_client, info_client, clients_connected)) # adicionando uma thread para cada cliente
             thread_client.start() # iniciando a thread
-            COMMAND_BOT(clients_connected)
+            thread_bot = threading.Thread(target=START_BOT, args=(clients_connected,))
+            thread_bot.start()
 
 # ============================================================================================================
 
