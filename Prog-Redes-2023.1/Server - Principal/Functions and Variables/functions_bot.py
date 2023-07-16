@@ -41,8 +41,8 @@ def LIST_CLIENTS_BOT(clients_connected):
 
 def START_BOT(clients_connected):
     id_message = None # defino o id da mensagem como NONE, usado mais a frente
-    verification_command = False 
     while True: # while True para ficar "ouvindo" o chat
+        verification_command = False 
         # faço o get com o parametro offset = id_message, que inicialmente é NONE, transformo em .json e pego apenas oque tem dentro da variavel "RESULT"
         # isso me retorna todas as últimas mensagens do chat e seus parametros (ex: id da mensagem, pelo ID eu consigo identificar a última mensagem)
         chat = requests.get(url_req + '/getUpdates', params={'offset': id_message}).json().get('result', []) 
