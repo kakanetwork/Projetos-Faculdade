@@ -17,7 +17,7 @@ def KEYBOARD_CUSTOM_BOT():
     resposta = {'chat_id': id_chat, 'text': 'Escolha uma opção:', 'reply_markup': reply_markup}
     requests.post(f'https://api.telegram.org/bot{API_key}/sendMessage', data=resposta)
 
-
+KEYBOARD_CUSTOM_BOT()
 # ============================================================================================================
 
 ''' FUNÇÃO PARA NOTIFICAR O BOT A CADA CLIENTE CONECTADO '''
