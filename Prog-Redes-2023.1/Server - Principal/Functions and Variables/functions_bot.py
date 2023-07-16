@@ -23,12 +23,16 @@ def NOTIFICATION_BOT(msg_connected):
 
 def LIST_CLIENTS_BOT(clients_connected):
     try:
-        num = 0 
-        msg_list = "Os clientes conectados são:\n" # formatação mensagem
-        for chave, valor in clients_connected.items(): # pego cada cliente conectado (ip/porta) do dicionário já criado
-            ip = valor[0] # Armazenamento Temporário 
-            num+=1 # formatação numeração cliente
-            msg_list += f"\nCLIENTE {num}\nIP: {ip}\nPORTA: {chave}\n\n" # formatação listagem clientes (lembrando que chave=porta e valor[0]=ip
+        num = 0
+        if len(clients_connected) > 0:
+            msg_list = "Os clientes conectados são:\n" # formatação mensagem
+            for chave, valor in clients_connected.items(): # pego cada cliente conectado (ip/porta) do dicionário já criado
+                ip = valor[0] # Armazenamento Temporário 
+                num+=1 # formatação numeração cliente
+                msg_list += f"\nCLIENTE {num}\nIP: {ip}\nPORTA: {chave}\n\n" # formatação listagem clientes (lembrando que chave=porta e valor[0]=ip
+        else:
+            msg_list = "O Servidor não possui nenhum cliente conectado!"
+            continue
         resposta = {'chat_id':id_chat,'text':f'{msg_list}'} # realizo a montagem da formatação para o chat com id especificado
         var = requests.post(url_req+'/sendMessage',data=resposta) # envio a mensagem via requests.post
     except:
