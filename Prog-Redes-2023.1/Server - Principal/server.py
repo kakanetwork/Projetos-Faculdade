@@ -13,6 +13,8 @@ try:
     sock_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # conexão IPV4/TCP
     sock_tcp.bind((SERVER, PORT)) # atribuindo Porta e Local
     PRINT_DIV(f'Servidor: {SERVER} / {PORT}')
+    thread_bot = threading.Thread(target=START_BOT, args=(clients_connected,)) # adicionando a thread do bot (pois sem ela, eu não consegueria rodar o server e o bot ao mesmo tempo)
+    thread_bot.start() # iniciando a thread do bot
     sock_tcp.listen() # deixando indefinido quantidade máxima de conexões
 
 # ============================================================================================================
@@ -26,8 +28,7 @@ try:
             clients_connected[info_client[1]] = [info_client[0], sock_client] # adicionando o cliente ao dicionario de clientes conectados (PORTA:IP,SOCKET)
             thread_client = threading.Thread(target=CLIENT_INTERACTION, args=(sock_client, info_client, clients_connected)) # adicionando uma thread para cada cliente
             thread_client.start() # iniciando a thread
-            thread_bot = threading.Thread(target=START_BOT, args=(clients_connected,)) # adicionando a thread do bot (pois sem ela, eu não consegueria rodar o server e o bot ao mesmo tempo)
-            thread_bot.start() # iniciando a thread do bot
+
 
 # ============================================================================================================
 
