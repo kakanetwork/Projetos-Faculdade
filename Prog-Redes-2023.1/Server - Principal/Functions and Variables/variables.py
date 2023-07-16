@@ -1,5 +1,4 @@
 
-
 # definindo server/port
 BUFFER_SIZE01 = 512
 SERVER_CLIENT = 'localhost'

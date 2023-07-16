@@ -1,9 +1,18 @@
 
 import requests, sys, time
-from credentials import *
 
-# variavel de request 
+# ============================================================================================================
+
+try:
+    from credentials import API_key
+except ModuleNotFoundError:
+    print('Foi verificado que você não possui o Arquivo "Credentials"' +
+          'que contém a API_KEY do TELEGRAM_BOT\n')
+    API_key = input('Insira sua API_KEY do Telegram BOT: ')
+
 url_req = f'https://api.telegram.org/bot{API_key}'
+
+id_chat = 6104631573
 
 # ============================================================================================================
 
@@ -24,13 +33,13 @@ def NOTIFICATION_BOT(msg_connected):
 def LIST_CLIENTS_BOT(clients_connected):
     try:
         num = 0
-        if len(clients_connected) > 0:
+        if len(clients_connected) > 0: # verifica se existe algum cliente conectado
             msg_list = "Os clientes conectados são:\n" # formatação mensagem
             for chave, valor in clients_connected.items(): # pego cada cliente conectado (ip/porta) do dicionário já criado
                 ip = valor[0] # Armazenamento Temporário 
                 num+=1 # formatação numeração cliente
                 msg_list += f"\nCLIENTE {num}\nIP: {ip}\nPORTA: {chave}\n\n" # formatação listagem clientes (lembrando que chave=porta e valor[0]=ip
-        else:
+        else: # se não existir ele informa para o chat que não possui nenhum conectado
             msg_list = "O Servidor não possui nenhum cliente conectado!"
         resposta = {'chat_id':id_chat,'text':f'{msg_list}'} # realizo a montagem da formatação para o chat com id especificado
         var = requests.post(url_req+'/sendMessage',data=resposta) # envio a mensagem via requests.post
@@ -43,23 +52,26 @@ def LIST_CLIENTS_BOT(clients_connected):
 ''' FUNÇÃO PARA RECEBER MENSAGENS/COMANDOS DA CONVERSA COM O BOT '''
 
 def START_BOT(clients_connected):
-    id_message = None # defino o id da mensagem como NONE, usado mais a frente
-    while True: # while True para ficar "ouvindo" o chat
-        # faço o get com o parametro offset = id_message, que inicialmente é NONE, transformo em .json e pego apenas oque tem dentro da variavel "RESULT"
-        # isso me retorna todas as últimas mensagens do chat e seus parametros (ex: id da mensagem, pelo ID eu consigo identificar a última mensagem)
-        chat = requests.get(url_req + '/getUpdates', params={'offset': id_message}).json().get('result', [])
-        print(chat)
-        if len(chat) == 0:
-            time.sleep(1)
-            continue
-        for message in chat: # pego cada mensagem das últimas mensagens
-            command = message.get('message', []).get('text', []) # realizo o get dentro de cada mensagem, para me retornar apenas oque foi digitado ('text')
-            if command == '/u' : # verifico se o que foi digitado = /u
-                LIST_CLIENTS_BOT(clients_connected) # se sim, ativo a função de listagem dos clientes conectados
-            elif command == '/log':
-                ... # EM DESENVOLVIMENTO ....
-            id_message= message['update_id'] + 1 # aqui eu defino o id message (pego ele dentro do .json), e jogo +1 pois funciona como um OFFSET
-                # onde a cada mensagem, o seu id vai ser +1 em relação ao anterior
+    try:
+        id_message = None # defino o id da mensagem como NONE, usado mais a frente
+        while True: # while True para ficar "ouvindo" o chat
+            # faço o get com o parametro offset = id_message, que inicialmente é NONE, transformo em .json e pego apenas oque tem dentro da variavel "RESULT"
+            # isso me retorna todas as últimas mensagens do chat e seus parametros (ex: id da mensagem, pelo ID eu consigo identificar a última mensagem)
+            chat = requests.get(url_req + '/getUpdates', params={'offset': id_message}).json().get('result', [])
+            if len(chat) == 0: # verificando se o chat tá vazio, se estiver ele dá sleep de 1s, e volta pro while para não gastar processamento extra
+                time.sleep(1)
+                continue
+            for message in chat: # pego cada mensagem das últimas mensagens
+                command = message.get('message', []).get('text', []) # realizo o get dentro de cada mensagem, para me retornar apenas oque foi digitado ('text')
+                if command == '/u' : # verifico se o que foi digitado = /u
+                    LIST_CLIENTS_BOT(clients_connected) # se sim, ativo a função de listagem dos clientes conectados
+                elif command == '/log':
+                    ... # EM DESENVOLVIMENTO ....
+                id_message= message['update_id'] + 1 # aqui eu defino o id message (pego ele dentro do .json), e jogo +1 pois funciona como um OFFSET
+                    # onde a cada mensagem, o seu id vai ser +1 em relação ao anterior
+    except:
+        print(f'\nErro no momento de Ler as mensagens do Telegram...{sys.exc_info()[0]}')  
+        exit() 
 
 # ============================================================================================================
 

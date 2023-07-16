@@ -1,10 +1,43 @@
-import socket, threading, os, sys
-sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '\\Functions and Variables')
-from variables import *
-from functions_server import CLIENT_INTERACTION
-from functions_others import PRINT_DIV
-from functions_bot import *
 
+import socket, threading, os, sys, platform, subprocess
+
+if platform.system() == 'Windows':
+    print('oi')
+    subprocess.Popen(['pythonw', __file__], shell=True)
+    exit()
+# ============================================================================================================
+
+
+dir_atual = os.path.dirname(os.path.abspath(__file__))
+dir_past = dir_atual + '\\Functions and Variables'
+name_arqs = ['functions_bot.py', 'functions_client.py', 'functions_others.py', 'functions_server.py', 'variables.py']
+
+# ============================================================================================================
+
+''' VERIFICAÇÃO SE TODOS OS ARQUIVOS DE FUNÇÕES ESTÃO PRESENTES '''
+try:
+    sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '\\Functions and Variables')
+    functions_arq = os.listdir(dir_past)
+    for x in name_arqs:
+        if x not in functions_arq:
+            print(f'\nO Arquivo "{x}" não está presente dentro da pasta "Functions and Variables", faça o download dele para o funcionamento correto do código!\n')
+            exit()
+except FileNotFoundError:
+    print('\nA pasta "Functions and Variables" não foi encontrada, faça o download dela para o funcionamento correto do código [com todas suas dependencias]!\n')
+    sys.exit()
+
+# ============================================================================================================
+
+''' FUNÇÕES IMPORTADAS DOS ARQUIVOS '''
+
+try:
+    from variables import *
+    from functions_server import CLIENT_INTERACTION
+    from functions_others import PRINT_DIV
+    from functions_bot import *
+except:
+    print(f'\nErro no Import das funções...{sys.exc_info()}')  
+    sys.exit() 
 
 # ============================================================================================================
 
@@ -33,7 +66,7 @@ try:
 
         except:
             print(f'\nErro na Inicialização da Thread...{sys.exc_info()}')  
-            exit() 
+            sys.exit() 
 except:
     print(f'\nErro na Inicialização do Server...{sys.exc_info()}')  
-    exit() 
+    sys.exit() 
