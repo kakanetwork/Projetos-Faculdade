@@ -24,11 +24,11 @@ def VERIFICATION_KEY_ID():
     try:
         verification_key = requests.get(url_req + '/getUpdates').json() # fazendo uma requisição
         if verification_key.get('ok'): # verificando se a requisição foi completa
-            print('\nA API_Key informada foi validada!\n')
-            verification_id = verification_key.get('result')
-            if verification_id:
-                id_chat = verification_id[0]['message']['chat']['id']
-                return id_chat
+            print('\nA API_Key informada foi validada!\n') 
+            verification_id = verification_key.get('result') # verificando o chat com o bot 
+            if verification_id: # verificando se você possui mensagens no chat do bot para capturar id
+                id_chat = verification_id[0]['message']['chat']['id'] # havendo mensagens, ele ira capturar o seu id para prosseguir
+                return id_chat # retornando o id 
             else:
                 print('Você não possui mensagens armazenadas no Bot, por favor envie qualquer mensagem!')
                 return
@@ -41,10 +41,7 @@ def VERIFICATION_KEY_ID():
    
 id_chat = VERIFICATION_KEY_ID()
 
-
-
 # ============================================================================================================
-
 
 ''' FUNÇÃO PARA NOTIFICAR O BOT A CADA CLIENTE CONECTADO '''
 
