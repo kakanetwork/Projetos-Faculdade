@@ -6,24 +6,24 @@ import requests, sys, time
 ''' VERIFICANDO A EXISTÊNCIA DA API_key PARA O TELEGRAM BOT'''
 
 try:
-    from credentials import API_key
-except ModuleNotFoundError:
+    from credentials import API_key # verificando se a pasta com as credenciais existem (*Apenas no meu computador)
+except ModuleNotFoundError: 
     print('\nNão foi encontrado a sua API_key!\n')
-    API_key = input('Insira sua API_KEY do Telegram BOT: ')
+    API_key = input('Insira sua API_KEY do Telegram BOT: ') # pedindo a sua API_key
 except:
     print(f'\nErro na Aquisição da API_KEY...{sys.exc_info()[0]}')  
     exit()      
 
-url_req = f'https://api.telegram.org/bot{API_key}'
+url_req = f'https://api.telegram.org/bot{API_key}' # montagem variavel para requisição
 
 # ============================================================================================================
 
 ''' FAZENDO A VALIDAÇÃO DA API_KEY E PEGANDO O ID DO CHAT BOT '''
 
-def VERIFICATION_KEY_ID():
+def VERIFICATION_KEY_ID(): 
     try:
-        verification_key = requests.get(url_req + '/getUpdates').json()
-        if verification_key.get('ok'):
+        verification_key = requests.get(url_req + '/getUpdates').json() # fazendo uma requisição
+        if verification_key.get('ok'): # verificando se a requisição foi completa
             print('\nA API_Key informada foi validada!\n')
             verification_id = verification_key.get('result')
             if verification_id:
