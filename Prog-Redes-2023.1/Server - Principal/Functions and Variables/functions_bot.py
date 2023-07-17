@@ -29,9 +29,7 @@ def VERIFICATION_KEY_ID():
             verification_id = verification_key.get('result', [])
             print(verification_id)
             if verification_id:
-                print('d')
-                id_chat = verification_id.get('message')
-                print(id_chat)
+                id_chat = verification_id[0]['message']['chat']['id']
             else:
                 print('Você não possui mensagens armazenadas no Bot, porfavor envie qualquer mensagem!')
         else:
