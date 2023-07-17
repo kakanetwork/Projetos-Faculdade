@@ -27,11 +27,15 @@ def VERIFICATION_KEY_ID():
         verification_key = requests.get(url_req + '/getUpdates').json()
         if verification_key['ok'] == True:
             verification_id = verification_key.get('result', [])
-            if verification_id == None:
-                print('Você não possui mensagens armazenadas no Bot, porfavor envie qualquer mensagem!')
             print(verification_id)
+            if verification_id:
+                print('d')
+                id_chat = verification_id.get('message')
+                print(id_chat)
+            else:
+                print('Você não possui mensagens armazenadas no Bot, porfavor envie qualquer mensagem!')
         else:
-            print(verification_key)
+            print('eeror')
     except:
         print(f'\nErro na Verificação da API_KEY...{sys.exc_info()[0]}')  
         exit()    
