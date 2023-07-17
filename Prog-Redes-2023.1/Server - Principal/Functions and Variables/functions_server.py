@@ -53,7 +53,7 @@ def BROADCAST (clients_dict=None, info_client=None, comand=None, **kwargs):
         for chave, valor in clients_dict.items(): # realizando o for para mandar p/ todos os clientes
             port_envio = chave # Armazenamento Temporário 
             ip_envio = valor[0] # Armazenamento Temporário 
-            if port_envio != info_client[1]: # verificando se nn é o cliente que pediu
+            if port_envio != info_client[1]: # pegando sock de todos, exceto do cliente que pediu
                 sock_broadcast = valor[1] # Armazenamento Temporário 
                 sock_broadcast.send(msg_broadcast.encode(UNICODE)) # enviando mensagem
     except:

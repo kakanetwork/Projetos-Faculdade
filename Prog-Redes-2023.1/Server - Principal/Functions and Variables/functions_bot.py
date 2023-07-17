@@ -14,37 +14,37 @@ except:
     print(f'\nErro na Aquisição da API_KEY...{sys.exc_info()[0]}')  
     exit()      
 
-
-
 url_req = f'https://api.telegram.org/bot{API_key}'
 
-id_chat = 6104631573
-
 # ============================================================================================================
+
+''' FAZENDO A VALIDAÇÃO DA API_KEY E PEGANDO O ID DO CHAT BOT '''
 
 def VERIFICATION_KEY_ID():
     try:
         verification_key = requests.get(url_req + '/getUpdates').json()
-        if verification_key['ok'] == True:
-            verification_id = verification_key.get('result', [])
-            print(verification_id)
+        if verification_key.get('ok'):
+            verification_id = verification_key.get('result')
             if verification_id:
                 id_chat = verification_id[0]['message']['chat']['id']
+                print(id_chat)
+                return id_chat
             else:
-                print('Você não possui mensagens armazenadas no Bot, porfavor envie qualquer mensagem!')
+                print('Você não possui mensagens armazenadas no Bot, por favor envie qualquer mensagem!')
                 return
         else:
             print(f'\nA chave: {API_key}\nInformada é inválida!\n')
             return
     except:
         print(f'\nErro na Verificação da API_KEY...{sys.exc_info()[0]}')  
-        exit()    
-    ...
-VERIFICATION_KEY_ID ()
+        exit()
+   
+id_chat = VERIFICATION_KEY_ID()
 
 
 
 # ============================================================================================================
+
 
 ''' FUNÇÃO PARA NOTIFICAR O BOT A CADA CLIENTE CONECTADO '''
 
