@@ -1,6 +1,7 @@
 
 import requests, sys, time
 
+
 # ============================================================================================================
 
 ''' VERIFICANDO A EXISTÊNCIA DA API_key PARA O TELEGRAM BOT'''
@@ -14,26 +15,22 @@ except:
     print(f'\nErro na Aquisição da API_KEY...{sys.exc_info()[0]}')  
     sys.exit()      
 
+# ============================================================================================================
+
 url_req = f'https://api.telegram.org/bot{API_key}' # montagem variavel para requisição
+id_chat = 6104631573 # PREENCHA AQUI COM O ID CHAT DO SEU BOT
 
 # ============================================================================================================
 
-''' FAZENDO A VALIDAÇÃO DA API_KEY E PEGANDO O ID DO CHAT BOT '''
+''' FAZENDO A VALIDAÇÃO DA API_KEY '''
 
-def VERIFICATION_KEY_ID(): 
+def VERIFICATION_KEY(): 
     try:
         verification_key = requests.get(url_req + '/getUpdates').json() # fazendo uma requisição
         if verification_key.get('ok'): # verificando se a requisição foi completa
-            print('\nA API_Key informada foi validada!\n') 
-            verification_id = verification_key.get('result') # verificando o chat com o bot 
-            if verification_id: # verificando se você possui mensagens no chat do bot para capturar id
-                id_chat = verification_id[0]['message']['chat']['id'] # havendo mensagens, ele ira capturar o seu id para prosseguir
-                return id_chat # retornando o id 
-            else:
-                print('Você não possui mensagens armazenadas no Bot, por favor envie qualquer mensagem para ele!\n')
-                sys.exit()
+            print('\nA API_Key informada foi validada!') 
         else:
-            print(f'\nA chave: {API_key}\nInformada é inválida!\n')
+            print(f'\nA chave: {API_key}\nInformada é inválida!')
             sys.exit()
     except SystemExit:
         sys.exit()
@@ -41,14 +38,16 @@ def VERIFICATION_KEY_ID():
         print(f'\nErro na Verificação da API_KEY...{sys.exc_info()[0]}')  
         sys.exit()
    
-id_chat = VERIFICATION_KEY_ID()
+VERIFICATION_KEY()
 
 # ============================================================================================================
 
 ''' FUNÇÃO PARA NOTIFICAR O BOT A CADA CLIENTE CONECTADO '''
 
 def NOTIFICATION_BOT(msg_connected):
+    global id_chat
     try:
+        print(id_chat)
         resposta = {'chat_id':id_chat,'text':f'{msg_connected}'} # realizo a montagem da formatação para o chat com id especificado
         var = requests.post(url_req+'/sendMessage',data=resposta) # envio a mensagem via requests.post
     except:
@@ -108,12 +107,15 @@ def START_BOT(clients_connected):
     try:
         id_message = None # defino o id da mensagem como NONE, usado mais a frente
         while True: # while True para ficar "ouvindo" o chat
+            print(id_chat)
             # faço o get com o parametro offset = id_message, que inicialmente é NONE, transformo em .json e pego apenas oque tem dentro da variavel "RESULT"
             # isso me retorna todas as últimas mensagens do chat e seus parametros (ex: id da mensagem, pelo ID eu consigo identificar a última mensagem)
             chat = requests.get(url_req + '/getUpdates', params={'offset': id_message}).json().get('result', [])
+            print(chat)
             if len(chat) == 0: # verificando se o chat tá vazio, se estiver ele dá sleep de 1s, e volta pro while para não gastar processamento extra
                 time.sleep(1)
                 continue
+
             for message in chat: # pego cada mensagem das últimas mensagens
                 command = message.get('message', []).get('text', []) # realizo o get dentro de cada mensagem, para me retornar apenas oque foi digitado ('text')
                 if command == '/u' : # verifico se o que foi digitado = /u

@@ -1,6 +1,12 @@
 
 import socket, threading, os, sys, platform, subprocess
 
+'''def bg():
+    comando = ["python", "server.pyw"]
+    subprocess.Popen(comando, shell=True)
+
+bg()'''
+
 # TENTATIVA 2° PLANO
 
 '''PORT = 5678
