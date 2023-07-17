@@ -18,7 +18,6 @@ except:
 
 url_req = f'https://api.telegram.org/bot{API_key}'
 
-VERIFICATION_KEY_ID ()
 id_chat = 6104631573
 
 # ============================================================================================================
@@ -31,6 +30,7 @@ def VERIFICATION_KEY_ID():
         print(f'\nErro na Verificação da API_KEY...{sys.exc_info()[0]}')  
         exit()    
     ...
+VERIFICATION_KEY_ID ()
 
 
 
