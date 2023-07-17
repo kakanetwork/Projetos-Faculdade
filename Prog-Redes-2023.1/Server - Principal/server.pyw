@@ -38,14 +38,12 @@ except:
 
 ''' FUNÇÕES IMPORTADAS DOS ARQUIVOS '''
 
-try:
-    from variables import *
-    from functions_server import CLIENT_INTERACTION
-    from functions_others import PRINT_DIV
-    from functions_bot import *
-except:
-    print(f'\nErro no Import das funções...{sys.exc_info()[0]}')  
-    sys.exit() 
+
+from variables import *
+from functions_server import CLIENT_INTERACTION
+from functions_others import PRINT_DIV
+from functions_bot import *
+
 
 # ============================================================================================================
 

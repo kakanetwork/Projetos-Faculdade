@@ -30,7 +30,7 @@ def VERIFICATION_KEY_ID():
                 id_chat = verification_id[0]['message']['chat']['id'] # havendo mensagens, ele ira capturar o seu id para prosseguir
                 return id_chat # retornando o id 
             else:
-                print('\nVocê não possui mensagens armazenadas no Bot, por favor envie qualquer mensagem para ele!\n')
+                print('Você não possui mensagens armazenadas no Bot, por favor envie qualquer mensagem para ele!\n')
                 sys.exit()
         else:
             print(f'\nA chave: {API_key}\nInformada é inválida!\n')
