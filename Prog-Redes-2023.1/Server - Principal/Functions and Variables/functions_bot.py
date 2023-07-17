@@ -3,16 +3,30 @@ import requests, sys, time
 
 # ============================================================================================================
 
+''' VERIFICANDO A EXISTÊNCIA DA API_key PARA O TELEGRAM BOT'''
+
 try:
     from credentials import API_key
 except ModuleNotFoundError:
-    print('Foi verificado que você não possui o Arquivo "Credentials"' +
-          'que contém a API_KEY do TELEGRAM_BOT\n')
+    print('\nNão foi encontrado a sua API_key!\n')
     API_key = input('Insira sua API_KEY do Telegram BOT: ')
+except:
+    print(f'\nErro na Aquisição da API_KEY...{sys.exc_info()[0]}')  
+    exit()      
+
+
 
 url_req = f'https://api.telegram.org/bot{API_key}'
 
 id_chat = 6104631573
+
+# ============================================================================================================
+
+def VERIFICATION_KEY_ID():
+    
+    ...
+
+
 
 # ============================================================================================================
 
@@ -23,7 +37,7 @@ def NOTIFICATION_BOT(msg_connected):
         resposta = {'chat_id':id_chat,'text':f'{msg_connected}'} # realizo a montagem da formatação para o chat com id especificado
         var = requests.post(url_req+'/sendMessage',data=resposta) # envio a mensagem via requests.post
     except:
-        print(f'\nErro no envio da mensagem para o Bot...{sys.exc_info()}')  
+        print(f'\nErro no envio da mensagem para o Bot...{sys.exc_info()[0]}')  
         exit()
 
 # ============================================================================================================
