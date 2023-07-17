@@ -76,6 +76,19 @@ def LIST_CLIENTS_BOT(clients_connected):
 
 # ============================================================================================================
 
+def LOG_BOT():
+    try:
+        msg_log = "Essa função está em desenvolvimento...."
+        resposta = {'chat_id':id_chat,'text':f'{msg_list}'} 
+        var = requests.post(url_req+'/sendMessage',data=resposta) 
+    except:
+        print(f'\nErro no momento de Listar os Clientes Conectados...{sys.exc_info()[0]}')  
+        exit() 
+
+
+
+# ============================================================================================================
+
 ''' FUNÇÃO PARA RECEBER MENSAGENS/COMANDOS DA CONVERSA COM O BOT '''
 
 def START_BOT(clients_connected):
@@ -94,6 +107,8 @@ def START_BOT(clients_connected):
                     LIST_CLIENTS_BOT(clients_connected) # se sim, ativo a função de listagem dos clientes conectados
                 elif command == '/log':
                     ... # EM DESENVOLVIMENTO ....
+                elif command == '/date':
+                    ... # EM DESENVOLVIEMNTO ....
                 id_message= message['update_id'] + 1 # aqui eu defino o id message (pego ele dentro do .json), e jogo +1 pois funciona como um OFFSET
                     # onde a cada mensagem, o seu id vai ser +1 em relação ao anterior
     except:
