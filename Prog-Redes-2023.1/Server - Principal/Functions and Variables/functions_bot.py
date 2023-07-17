@@ -31,10 +31,10 @@ def VERIFICATION_KEY_ID():
                 return id_chat # retornando o id 
             else:
                 print('Você não possui mensagens armazenadas no Bot, por favor envie qualquer mensagem!')
-                return
+                return exit()
         else:
             print(f'\nA chave: {API_key}\nInformada é inválida!\n')
-            return
+            return exit()
     except:
         print(f'\nErro na Verificação da API_KEY...{sys.exc_info()[0]}')  
         exit()
@@ -79,12 +79,23 @@ def LIST_CLIENTS_BOT(clients_connected):
 def LOG_BOT():
     try:
         msg_log = "Essa função está em desenvolvimento...."
-        resposta = {'chat_id':id_chat,'text':f'{msg_list}'} 
+        resposta = {'chat_id':id_chat,'text':f'{msg_log}'} 
         var = requests.post(url_req+'/sendMessage',data=resposta) 
     except:
         print(f'\nErro no momento de Listar os Clientes Conectados...{sys.exc_info()[0]}')  
         exit() 
 
+
+# ============================================================================================================
+
+def DATE_BOT():
+    try:
+        msg_date = "Essa função está em desenvolvimento...."    
+        resposta = {'chat_id':id_chat,'text':f'{msg_date}'} 
+        var = requests.post(url_req+'/sendMessage',data=resposta) 
+    except:
+        print(f'\nErro no momento de Listar os Clientes Conectados...{sys.exc_info()[0]}')  
+        exit() 
 
 
 # ============================================================================================================
@@ -106,8 +117,10 @@ def START_BOT(clients_connected):
                 if command == '/u' : # verifico se o que foi digitado = /u
                     LIST_CLIENTS_BOT(clients_connected) # se sim, ativo a função de listagem dos clientes conectados
                 elif command == '/log':
+                    LOG_BOT()
                     ... # EM DESENVOLVIMENTO ....
                 elif command == '/date':
+                    DATE_BOT()
                     ... # EM DESENVOLVIEMNTO ....
                 id_message= message['update_id'] + 1 # aqui eu defino o id message (pego ele dentro do .json), e jogo +1 pois funciona como um OFFSET
                     # onde a cada mensagem, o seu id vai ser +1 em relação ao anterior
