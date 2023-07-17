@@ -31,10 +31,10 @@ def VERIFICATION_KEY_ID():
                 return id_chat # retornando o id 
             else:
                 print('Você não possui mensagens armazenadas no Bot, por favor envie qualquer mensagem!')
-                return exit()
+                exit() 
         else:
             print(f'\nA chave: {API_key}\nInformada é inválida!\n')
-            return exit()
+            exit()
     except:
         print(f'\nErro na Verificação da API_KEY...{sys.exc_info()[0]}')  
         exit()
