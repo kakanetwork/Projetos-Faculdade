@@ -24,8 +24,11 @@ id_chat = 6104631573
 
 def VERIFICATION_KEY_ID():
     try:
-        verification = requests.get(url_req + '/getUpdates').json()
-        print(verification)
+        verification_key = requests.get(url_req + '/getUpdates').json()
+        if verification_key['ok'] == True:
+            verification_id
+        else:
+            print(verification_key)
     except:
         print(f'\nErro na Verificação da API_KEY...{sys.exc_info()[0]}')  
         exit()    
