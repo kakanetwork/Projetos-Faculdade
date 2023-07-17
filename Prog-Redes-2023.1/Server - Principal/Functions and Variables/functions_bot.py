@@ -12,7 +12,7 @@ except ModuleNotFoundError:
     API_key = input('Insira sua API_KEY do Telegram BOT: ') # pedindo a sua API_key
 except:
     print(f'\nErro na Aquisição da API_KEY...{sys.exc_info()[0]}')  
-    exit()      
+    sys.exit()      
 
 url_req = f'https://api.telegram.org/bot{API_key}' # montagem variavel para requisição
 
@@ -30,12 +30,16 @@ def VERIFICATION_KEY_ID():
                 id_chat = verification_id[0]['message']['chat']['id'] # havendo mensagens, ele ira capturar o seu id para prosseguir
                 return id_chat # retornando o id 
             else:
-                raise SystemExit
+                print('\nVocê não possui mensagens armazenadas no Bot, por favor envie qualquer mensagem para ele!\n')
+                sys.exit()
         else:
-            raise SystemExit
+            print(f'\nA chave: {API_key}\nInformada é inválida!\n')
+            sys.exit()
+    except SystemExit:
+        sys.exit()
     except:
-        print(f'\nErro na Verificação da API_KEY...{sys.exc_info()}')  
-        exit()
+        print(f'\nErro na Verificação da API_KEY...{sys.exc_info()[0]}')  
+        sys.exit()
    
 id_chat = VERIFICATION_KEY_ID()
 
@@ -49,7 +53,7 @@ def NOTIFICATION_BOT(msg_connected):
         var = requests.post(url_req+'/sendMessage',data=resposta) # envio a mensagem via requests.post
     except:
         print(f'\nErro no envio da mensagem para o Bot...{sys.exc_info()[0]}')  
-        exit()
+        sys.exit()
 
 # ============================================================================================================
 
@@ -70,7 +74,7 @@ def LIST_CLIENTS_BOT(clients_connected):
         var = requests.post(url_req+'/sendMessage',data=resposta) # envio a mensagem via requests.post
     except:
         print(f'\nErro no momento de Listar os Clientes Conectados...{sys.exc_info()[0]}')  
-        exit() 
+        sys.exit() 
 
 # ============================================================================================================
 
@@ -81,7 +85,7 @@ def LOG_BOT():
         var = requests.post(url_req+'/sendMessage',data=resposta) 
     except:
         print(f'\nErro no momento de Listar os Clientes Conectados...{sys.exc_info()[0]}')  
-        exit() 
+        sys.exit() 
 
 
 # ============================================================================================================
@@ -93,7 +97,7 @@ def DATE_BOT():
         var = requests.post(url_req+'/sendMessage',data=resposta) 
     except:
         print(f'\nErro no momento de Listar os Clientes Conectados...{sys.exc_info()[0]}')  
-        exit() 
+        sys.exit() 
 
 
 # ============================================================================================================
@@ -124,7 +128,7 @@ def START_BOT(clients_connected):
                     # onde a cada mensagem, o seu id vai ser +1 em relação ao anterior
     except:
         print(f'\nErro no momento de Ler as mensagens do Telegram...{sys.exc_info()[0]}')  
-        exit() 
+        sys.exit() 
 
 # ============================================================================================================
 
