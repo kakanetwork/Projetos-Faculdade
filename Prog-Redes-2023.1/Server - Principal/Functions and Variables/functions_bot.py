@@ -26,7 +26,10 @@ def VERIFICATION_KEY_ID():
     try:
         verification_key = requests.get(url_req + '/getUpdates').json()
         if verification_key['ok'] == True:
-            verification_id
+            verification_id = verification_key.get('result', [])
+            if verification_id == None:
+                print('Você não possui mensagens armazenadas no Bot, porfavor envie qualquer mensagem!')
+            print(verification_id)
         else:
             print(verification_key)
     except:
