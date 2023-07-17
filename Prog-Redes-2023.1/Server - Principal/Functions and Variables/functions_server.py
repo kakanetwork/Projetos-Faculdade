@@ -1,6 +1,7 @@
 import socket, sys
 from functions_others import *
 from variables import *
+from functions_download import *
 
 ''' ATENÇÃO, TENHA A BIBLIOTECA SOCKETS INSTALADA! '''
 
@@ -102,6 +103,24 @@ def HELP(sock=None, **kwargs):
 
 # ============================================================================================================
 
+
+def LIST_FILES():
+    ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ============================================================================================================
+
 ''' FUNÇÃO QUE REALIZA A INTERAÇÃO DO CLIENTE (DEFINE A FUNÇÃO A SER CHAMADA DE ACORDO COM O PEDIDO DO CLIENTE) '''
 
 def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
@@ -112,7 +131,8 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
             '/m': CHAT,
             '/b': BROADCAST,
             '/h': HISTORY,
-            '/?': HELP}
+            '/?': HELP,
+            '/f': LIST_FILES}
         options_choice = set(options.keys()) # usado para verificar se o comando pertence ao dicionário 
         msg = b'' 
         while msg != b'/q': # continuar ouvindo o cliente a menos que ele digite /q

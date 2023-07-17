@@ -1,7 +1,6 @@
 
 import requests, sys, time
 
-
 # ============================================================================================================
 
 ''' VERIFICANDO A EXISTÊNCIA DA API_key PARA O TELEGRAM BOT'''
@@ -107,15 +106,12 @@ def START_BOT(clients_connected):
     try:
         id_message = None # defino o id da mensagem como NONE, usado mais a frente
         while True: # while True para ficar "ouvindo" o chat
-            print(id_chat)
             # faço o get com o parametro offset = id_message, que inicialmente é NONE, transformo em .json e pego apenas oque tem dentro da variavel "RESULT"
             # isso me retorna todas as últimas mensagens do chat e seus parametros (ex: id da mensagem, pelo ID eu consigo identificar a última mensagem)
             chat = requests.get(url_req + '/getUpdates', params={'offset': id_message}).json().get('result', [])
-            print(chat)
             if len(chat) == 0: # verificando se o chat tá vazio, se estiver ele dá sleep de 1s, e volta pro while para não gastar processamento extra
                 time.sleep(1)
                 continue
-
             for message in chat: # pego cada mensagem das últimas mensagens
                 command = message.get('message', []).get('text', []) # realizo o get dentro de cada mensagem, para me retornar apenas oque foi digitado ('text')
                 if command == '/u' : # verifico se o que foi digitado = /u
@@ -133,5 +129,4 @@ def START_BOT(clients_connected):
         sys.exit() 
 
 # ============================================================================================================
-
 
