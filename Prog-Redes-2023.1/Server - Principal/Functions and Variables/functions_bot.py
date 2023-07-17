@@ -10,7 +10,6 @@ try:
 except ModuleNotFoundError:
     print('\nNão foi encontrado a sua API_key!\n')
     API_key = input('Insira sua API_KEY do Telegram BOT: ')
-    VERIFICATION_KEY_ID()
 except:
     print(f'\nErro na Aquisição da API_KEY...{sys.exc_info()[0]}')  
     exit()      
@@ -19,13 +18,18 @@ except:
 
 url_req = f'https://api.telegram.org/bot{API_key}'
 
+VERIFICATION_KEY_ID ()
 id_chat = 6104631573
 
 # ============================================================================================================
 
 def VERIFICATION_KEY_ID():
-    verification = requests.get(url_req + '/getUpdates').json()
-    print(verification)
+    try:
+        verification = requests.get(url_req + '/getUpdates').json()
+        print(verification)
+    except:
+        print(f'\nErro na Verificação da API_KEY...{sys.exc_info()[0]}')  
+        exit()    
     ...
 
 
