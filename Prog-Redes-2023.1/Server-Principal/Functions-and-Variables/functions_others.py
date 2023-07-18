@@ -1,4 +1,4 @@
-import sys
+import sys, os
 from variables import *
 
 # ============================================================================================================
@@ -24,3 +24,28 @@ def COMAND_SPLIT(msg):
 
 # ============================================================================================================
 
+def CREATE_PAST(name):
+    try:
+        os.mkdir(name)
+    except FileExistsError:
+        ...
+    except:
+        print(f'\nErro na Criação da Pasta...{sys.exc_info()}')  
+        exit()      
+
+# ============================================================================================================
+
+def SEARCH_FILES(dir, name):
+    if os.path.exists(dir):
+        list_files = os.listdir(dir)
+        if name in list_files:
+            return True
+        else:
+            return False
+    else:
+        return False
+
+# ============================================================================================================
+
+def VERIFICATION_PID():
+    ...

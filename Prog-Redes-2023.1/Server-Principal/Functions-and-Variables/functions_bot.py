@@ -26,16 +26,16 @@ id_chat = 6104631573 # PREENCHA AQUI COM O ID CHAT DO SEU BOT
 def VERIFICATION_KEY(): 
     try:
         verification_key = requests.get(url_req + '/getUpdates').json() # fazendo uma requisição
+        print(verification_key)
+    except:
+        print(f'\nErro na Verificação da API_KEY...{sys.exc_info()[0]}')  
+        sys.exit()
+    else:
         if verification_key.get('ok'): # verificando se a requisição foi completa
             print('\nA API_Key informada foi validada!') 
         else:
             print(f'\nA chave: {API_key}\nInformada é inválida!')
             sys.exit()
-    except SystemExit:
-        sys.exit()
-    except:
-        print(f'\nErro na Verificação da API_KEY...{sys.exc_info()[0]}')  
-        sys.exit()
    
 VERIFICATION_KEY()
 
@@ -44,9 +44,7 @@ VERIFICATION_KEY()
 ''' FUNÇÃO PARA NOTIFICAR O BOT A CADA CLIENTE CONECTADO '''
 
 def NOTIFICATION_BOT(msg_connected):
-    global id_chat
     try:
-        print(id_chat)
         resposta = {'chat_id':id_chat,'text':f'{msg_connected}'} # realizo a montagem da formatação para o chat com id especificado
         var = requests.post(url_req+'/sendMessage',data=resposta) # envio a mensagem via requests.post
     except:

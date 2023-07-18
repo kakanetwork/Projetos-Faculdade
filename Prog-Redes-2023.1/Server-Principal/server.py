@@ -1,34 +1,17 @@
+import socket, threading, os, sys, subprocess, platform
 
-import socket, threading, os, sys, subprocess
-
-# ============================================================================================================
-
-# AREA DE TESTES
-
-'''def bg():
-    comando = ["python", "server.pyw"]
-    subprocess.Popen(comando, shell=True)
-
-bg()'''
-
-# TENTATIVA 2° PLANO
-
-'''PORT = 5678
-
-if platform.system() == 'Windows':
-    print('oi')
-    subprocess.Popen(['pythonw', __file__, str(PORT)], shell=True)  
-    exit()
-'''
+dir_atual = os.path.dirname(os.path.abspath(__file__))  # pegando a pasta atual
+dir_arq =  os.path.abspath(__file__)
+system = platform.system()
+dir_temp = dir_atual + "\\temp"
 
 # ============================================================================================================
 
 ''' VERIFICAÇÃO SE TODOS OS ARQUIVOS/PASTAS DE FUNÇÕES ESTÃO PRESENTES '''
 
 def VERIFICATION_FUNCTIONS():
-    dir_atual = os.path.dirname(os.path.abspath(__file__)) # pegando sua pasta atual
-    sys.path.append(dir_atual + '\\Functions and Variables') # adicionando a pasta de funções na config de pesquisa de funções do sistema
-    dir_past = dir_atual + '\\Functions and Variables'
+    dir_past = dir_atual + '\\Functions-and-Variables'
+    sys.path.append(dir_past) # adicionando a pasta de funções na config de pesquisa de funções do sistema
     name_arqs = [
         'functions_bot.py',
         'functions_client.py',
@@ -51,16 +34,19 @@ def VERIFICATION_FUNCTIONS():
         print(f'\nErro na Verificação dos arquivos da Pasta de Funções...{sys.exc_info()[0]}')  
         sys.exit() 
 
+VERIFICATION_FUNCTIONS()
+
 # ============================================================================================================
 
 def START_SERVER():
     try: 
 
-        ''' CRIAÇÃO THREAD BOT / CRIAÇÃO DO SERVER '''
+        ''' CRIAÇÃO THREAD BOT / CRIAÇÃO DO SERVER / CRIAÇÃO DE PASTA'''
 
         clients_connected = dict() # lista de clientes conectados (IP:PORTA)
         sock_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # conexão IPV4/TCP
         sock_tcp.bind((SERVER, PORT)) # atribuindo Porta e Local
+        CREATE_PAST(dir_atual + '\\server_files') # criando pasta onde sera guardado arquivos do server
         PRINT_DIV(f'Servidor: {SERVER} / {PORT}')
         thread_bot = threading.Thread(target=START_BOT, args=(clients_connected,)) # adicionando a thread do bot (pois sem ela, eu não consegueria rodar o server e o bot ao mesmo tempo)
         thread_bot.start() # iniciando a thread do bot
@@ -85,17 +71,54 @@ def START_SERVER():
             except:
                 print(f'\nErro na Inicialização da Thread...{sys.exc_info()[0]}')  
                 sys.exit() 
+                
+    except OSError as e: # exceção para quando a porta do servidor atual estiver ocupada
+        if e.errno == 98:
+            print('\nA porta atual do servidor se encontra ocupada\n')
+            sys.exit()
+    except SystemExit:
+        ...
     except:
-        print(f'\nErro na Inicialização do Server...{sys.exc_info()[0]}')  
+        print(f'\nErro na Inicialização do Server...{sys.exc_info()}')  
         sys.exit() 
 
 # ============================================================================================================
 
-VERIFICATION_FUNCTIONS()
-
 from variables import SERVER, PORT
 from functions_server import CLIENT_INTERACTION
-from functions_others import PRINT_DIV
+from functions_others import PRINT_DIV, CREATE_PAST, SEARCH_FILES
 from functions_bot import START_BOT, NOTIFICATION_BOT
+
+def SEARCH_FILES(dir):
+    if os.path.exists(dir):
+        list_files = os.listdir(dir)
+        if 'pid.temp' in list_files:
+            print('yes')
+
+
+if len(sys.argv) > 1:
+    arg = sys.argv[1]
+    if arg == "/start":
+        temp = SEARCH_FILES(dir_temp, 'pid.temp')
+        if temp == True:
+
+            if system == "Windows":
+                processo = subprocess.run(['powershell', 'Get-Process', '-Id', pid], capture_output=True, text=True
+                process_args = ["pythonw", "server.py"]
+            else:
+                process_args = ["python", "server.py", "&"]
+            
+        subprocess.Popen(process_args)
+        CREATE_PAST(dir_temp)
+        pid_file = os.path.join(dir_temp, "pid.temp")
+        with open(pid_file, "w") as file:
+            file.write(str(os.getpid()))
+        sys.exit()
+    elif arg == "/stop":
+
+    elif arg == "/?":
+
+    else:
+
 
 START_SERVER()
