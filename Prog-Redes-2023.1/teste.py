@@ -7,6 +7,3 @@ dir_temp = dir_atual + "\\Server-Principal"
 pid = 58552
 proc = subprocess.check_output(['tasklist', '/NH', '/FI', f'PID eq {pid}'])
 print(proc)
-
-proc2 = subprocess.run(['Get-Process', '-Id', '58552'])
-print(proc2)

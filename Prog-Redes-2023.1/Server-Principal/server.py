@@ -4,6 +4,7 @@ dir_atual = os.path.dirname(os.path.abspath(__file__))  # pegando a pasta atual
 dir_arq =  os.path.abspath(__file__)
 system = platform.system()
 dir_temp = dir_atual + "\\temp"
+pid_file = os.path.join(dir_temp, "pid.temp")
 
 # ============================================================================================================
 
@@ -101,16 +102,17 @@ if len(sys.argv) > 1:
     if arg == "/start":
         temp = SEARCH_FILES(dir_temp, 'pid.temp')
         if temp == True:
-
+            with open(pid_file, 'r') as file:
+                pid = file.read()
+                print(pid)
             if system == "Windows":
-                processo = subprocess.run(['powershell', 'Get-Process', '-Id', pid], capture_output=True, text=True
+                processo = subprocess.run(['Get-Process', '-Id', pid], capture_output=True, text=True)
                 process_args = ["pythonw", "server.py"]
             else:
                 process_args = ["python", "server.py", "&"]
             
         subprocess.Popen(process_args)
         CREATE_PAST(dir_temp)
-        pid_file = os.path.join(dir_temp, "pid.temp")
         with open(pid_file, "w") as file:
             file.write(str(os.getpid()))
         sys.exit()
