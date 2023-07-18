@@ -7,11 +7,10 @@ dir_temp = dir_atual + "\\Server-Principal"
 
 proc = subprocess.check_output(['tasklist', '/NH', '/FI', f'PID eq {pid}'])
 print(proc)'''
-pid = 58552
+pid = '58552'
 processo = subprocess.run(['Powershell', 'Get-Process', '-Id', pid], capture_output=True, text=True)
 saida = processo.stdout.strip()
 print(saida)
-print(processo)
 
 
 '''pid_file = dir_atual + '\\pid.temp'

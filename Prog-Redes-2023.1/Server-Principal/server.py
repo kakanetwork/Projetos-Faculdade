@@ -103,7 +103,8 @@ if len(sys.argv) > 1:
         temp = SEARCH_FILES(dir_temp, 'pid.temp')
         if temp == True:
             with open(pid_file, 'r') as file:
-                pid = int(file.readline().strip())
+                pid = str(file.readline().strip())
+
             if system == "Windows":
                 processo = subprocess.run(['Get-Process', '-Id', pid], capture_output=True, text=True)
                 process_args = ["pythonw", "server.py"]
