@@ -104,10 +104,10 @@ if len(sys.argv) > 1:
         if temp == True:
             with open(pid_file, 'r') as file:
                 pid = str(file.readline().strip())
-
+                
             if system == "Windows":
-                processo = subprocess.run(['Get-Process', '-Id', pid], capture_output=True, text=True)
-                process_args = ["pythonw", "server.py"]
+                processo = subprocess.run(['Powershell', 'Get-Process', '-Id', pid], capture_output=True, text=True).stdout.strip()
+saida = processo.stdout.strip()
             else:
                 process_args = ["python", "server.py", "&"]
             
