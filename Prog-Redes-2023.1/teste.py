@@ -11,5 +11,6 @@ print(proc)
 pid_file = dir_atual + '\\pid.temp'
 
 with open(pid_file, 'r') as file:
-    pid = file.readline().strip()
+    pid = int(file.readline().strip())
+    print(type(pid))
     print(pid)
