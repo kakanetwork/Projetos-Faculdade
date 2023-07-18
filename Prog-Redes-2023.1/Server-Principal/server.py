@@ -107,7 +107,8 @@ if len(sys.argv) > 1:
                 
             if system == "Windows":
                 processo = subprocess.run(['Powershell', 'Get-Process', '-Id', pid], capture_output=True, text=True).stdout.strip()
-saida = processo.stdout.strip()
+
+            saida = processo.stdout.strip()
             else:
                 process_args = ["python", "server.py", "&"]
             

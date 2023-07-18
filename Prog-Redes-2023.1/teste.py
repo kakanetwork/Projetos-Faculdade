@@ -7,8 +7,12 @@ dir_temp = dir_atual + "\\Server-Principal"
 
 proc = subprocess.check_output(['tasklist', '/NH', '/FI', f'PID eq {pid}'])
 print(proc)'''
-pid = '58552'
+pid = '5855aa2'
 processo = subprocess.run(['Powershell', 'Get-Process', '-Id', pid], capture_output=True, text=True).stdout.strip()
+if processo:
+    print('ao')
+else:
+    print('o')
 
 print(processo)
 
