@@ -3,8 +3,7 @@ import socket, threading, os, sys, subprocess, platform
 dir_atual = os.path.dirname(os.path.abspath(__file__))  # pegando a pasta atual
 dir_arq =  os.path.abspath(__file__)
 system = platform.system()
-dir_temp = dir_atual + "\\temp"
-pid_file = os.path.join(dir_temp, "pid.temp")
+dir_temp = dir_atual + "\\pid.temp"
 
 # ============================================================================================================
 
@@ -64,7 +63,7 @@ def START_SERVER():
                 PRINT_DIV(msg_connected) # printando o cliente conectado
                 NOTIFICATION_BOT(msg_connected) # enviando mensagem para o bot do cliente que se conectou
                 clients_connected[info_client[1]] = [info_client[0], sock_client] # adicionando o cliente ao dicionario de clientes conectados (PORTA:IP,SOCKET)
-                thread_client = threading.Thread(target=CLIENT_INTERACTION, args=(sock_client, info_client, clients_connected)) # adicionando uma thread para cada cliente
+                thread_client = threading.Thread(target=CLIENT_INTERACTION, args=(sock_client, info_client, clients_connected, dir_atual)) # adicionando uma thread para cada cliente
                 thread_client.start() # iniciando a thread
 
     # ============================================================================================================
@@ -89,39 +88,67 @@ from variables import SERVER, PORT
 from functions_server import CLIENT_INTERACTION
 from functions_others import PRINT_DIV, CREATE_PAST, SEARCH_FILES
 from functions_bot import START_BOT, NOTIFICATION_BOT
+START_SERVER()
+'''def PROCESS_RUNNER():
+    process_args = ["pythonw", "server.py"] 
+    subprocess.Popen(process_args) 
+    with open(pid_file, "w") as file:
+        file.write(str(os.getpid()))
+    sys.exit()    
 
-def SEARCH_FILES(dir):
-    if os.path.exists(dir):
-        list_files = os.listdir(dir)
-        if 'pid.temp' in list_files:
-            print('yes')
-
-
-if len(sys.argv) > 1:
-    arg = sys.argv[1]
-    if arg == "/start":
-        temp = SEARCH_FILES(dir_temp, 'pid.temp')
-        if temp == True:
-            with open(pid_file, 'r') as file:
-                pid = str(file.readline().strip())
-                
-            if system == "Windows":
-                processo = subprocess.run(['Powershell', 'Get-Process', '-Id', pid], capture_output=True, text=True).stdout.strip()
-
-            saida = processo.stdout.strip()
-            else:
-                process_args = ["python", "server.py", "&"]
-            
-        subprocess.Popen(process_args)
-        CREATE_PAST(dir_temp)
-        with open(pid_file, "w") as file:
-            file.write(str(os.getpid()))
+def VERIFICATION_PID(pid):
+    if system == 'windows':
+        process = subprocess.run(['Powershell', 'Get-Process', '-Id', pid], capture_output=True, text=True).stdout.strip()
+    elif system == 'linux':
+        process = subprocess.run(['ps', '-p', '-Id', pid], capture_output=True, text=True).stdout.strip()
+    if process:
+        print(f'O Server já está sendo rodado em 2° Plano com o PID: {pid}')
         sys.exit()
-    elif arg == "/stop":
+    else:
+        PROCESS_RUNNER()
 
-    elif arg == "/?":
+def START():
+    if os.path.isfile('pid.temp'):
+        with open(dir_temp, 'r') as arquive:
+            pid = arquive.readline().strip()
+        VERIFICATION_PID(pid)
 
     else:
+        # QUESTIONAR: O PROCESSO QUANDO É INICIADO ELE FICA COM NOME DO EXECUTOR "PYTHONW"
+        # UMA FORMA DE CONTORNAR É USAR A LIB WIN32 PARA ALTERAR O NOME, MAS SÓ FUNCIONA NO WINDOWS
+        # USAR O SUBPROCESS PARA PROCURAR NO SUBPROCESSO
+        # PROCURAR O PROCESSO PELO NOme
+        ...
 
 
-START_SERVER()
+'''
+
+
+
+'''
+if len(sys.argv) > 1: # verificando se passou +1 argumento
+    arg = sys.argv[1] # pegando o primeiro argumento
+    if arg == "/start": # verificando se foi /start
+        temp = SEARCH_FILES(dir_temp, 'pid.temp') # utilizando função para varrer pasta e verificar se o arquivo existe
+        if temp == True: # existindo a pasta e arquivo
+            with open(pid_file, 'r') as file: # ele abre o arquivo em modo leitura
+                pid = str(file.readline().strip()) # ler somente a primeira linha, tirando os espaços e transformando em string
+            if system == "Windows": # verificando se o sistema é windows
+                # no IF abaixo, faço a busca pelo processo de acordo com o PID (capture_output = retornar captura, e text = retornar formatado) e se diferente de vazio
+                if subprocess.run(['Powershell', 'Get-Process', '-Id', pid], capture_output=True, text=True).stdout.strip() != '':
+                    print('O SERVER JÁ ESTÁ ONLINE')
+                else: 
+                    process_args = ["pythonw", "server.py"] # no caso não existindo processo com o PID, ele vai executar o código
+                    subprocess.Popen(process_args) 
+                    CREATE_PAST(dir_temp)
+                    with open(pid_file, "w") as file:
+                        file.write(str(os.getpid()))
+                    sys.exit()
+            
+    elif arg == "/stop":
+        ...
+    elif arg == "/?":
+        ...
+    else:
+        ...'''
+

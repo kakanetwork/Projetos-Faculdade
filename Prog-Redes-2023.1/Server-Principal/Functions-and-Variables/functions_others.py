@@ -26,9 +26,7 @@ def COMAND_SPLIT(msg):
 
 def CREATE_PAST(name):
     try:
-        os.mkdir(name)
-    except FileExistsError:
-        ...
+        os.makedirs(name, exist_ok=True)
     except:
         print(f'\nErro na Criação da Pasta...{sys.exc_info()}')  
         exit()      

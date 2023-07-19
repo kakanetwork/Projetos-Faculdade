@@ -26,7 +26,6 @@ id_chat = 6104631573 # PREENCHA AQUI COM O ID CHAT DO SEU BOT
 def VERIFICATION_KEY(): 
     try:
         verification_key = requests.get(url_req + '/getUpdates').json() # fazendo uma requisição
-        print(verification_key)
     except:
         print(f'\nErro na Verificação da API_KEY...{sys.exc_info()[0]}')  
         sys.exit()

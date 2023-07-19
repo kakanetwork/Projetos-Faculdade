@@ -3,6 +3,7 @@ from functions_others import *
 from variables import *
 from functions_download import *
 
+
 ''' ATENÇÃO, TENHA A BIBLIOTECA SOCKETS INSTALADA! '''
 
 # ============================================================================================================
@@ -103,10 +104,23 @@ def HELP(sock=None, **kwargs):
 
 # ============================================================================================================
 
+''' FUNÇÃO PARA LISTAR OS ARQUIVOS DISPONIVEIS PARA DOWNLOAD '''
 
-def LIST_FILES():
-    ...
+def LIST_FILES(sock=None, dir=None, **kwargs):
+    try:
+        past_arquives = os.listdir(dir + '\\server_files') # faço a listagem de arquivos na pasta referente
+        msg_list = f"\nOs arquivos disponiveis para download são:\n" # formatação da mensagem
+        num = 0
+        for arquives in past_arquives: # percorro cada arquivo da pasta
+            num += 1 
+            msg_list += f"   {num}: {arquives}\n" # formatação da mensagem
+        sock.send(msg_list.encode(UNICODE)) # envio da mensagem
+    except:
+        print(f'\nErro no momento de listar os Arquivos para Download...{sys.exc_info()[0]}')  
+        exit()  
 
+
+# ============================================================================================================
 
 
 
@@ -123,7 +137,7 @@ def LIST_FILES():
 
 ''' FUNÇÃO QUE REALIZA A INTERAÇÃO DO CLIENTE (DEFINE A FUNÇÃO A SER CHAMADA DE ACORDO COM O PEDIDO DO CLIENTE) '''
 
-def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
+def CLIENT_INTERACTION(sock_client, info_client, clients_connected, dir_atual):
     try:
         history_client = list()
         options = { # dicionário com todas as opções para o cliente (sendo o valor a função ser chamada)
@@ -143,7 +157,7 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected):
                 comand_prompt = comand[0].lower() # usando apenas para pegar o comando bruto "/x"
                 if comand_prompt in options_choice:  # verificando se o comando está dentro das opções disponivéis 
                     # ativando a função chamada (passando argumento depois)
-                    options[comand_prompt](clients_dict=clients_connected, sock=sock_client, comand=comand, info_client=info_client, history=history_client, options=options)
+                    options[comand_prompt](clients_dict=clients_connected, sock=sock_client, comand=comand, info_client=info_client, history=history_client, options=options, dir=dir_atual)
             except:
                 msg = b'/q'
         del clients_connected[info_client[1]] # quando o cliente digitar /q ele exclui socket do cliente da lista de clientes ativos
