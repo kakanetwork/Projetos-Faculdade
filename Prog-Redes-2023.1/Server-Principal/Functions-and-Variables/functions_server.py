@@ -22,7 +22,7 @@ def CHAT(comand=None, clients_dict=None, info_client=None, sock=None, **kwargs):
             else: # para caso do Cliente não ser achado 
                 msg_erro = f"\nO Cliente informado para encaminhar a mensagem não está conectado ao Servidor!\n"
                 sock.send(msg_erro.encode(UNICODE))
-    except IndexError:
+    except IndexError: # para caso não seja repassado todos os argumentos de /m
         msg_erro = f"\nInforme todos os argumentos/parametros necessários para essa opção\n"
         sock.send(msg_erro.encode(UNICODE))
     except:
@@ -59,7 +59,7 @@ def BROADCAST (clients_dict=None, info_client=None, sock=None, comand=None, **kw
             if port_envio != info_client[1]: # pegando sock de todos, exceto do cliente que pediu
                 sock_broadcast = valor[1] # Armazenamento Temporário 
                 sock_broadcast.send(msg_broadcast.encode(UNICODE)) # enviando mensagem
-    except IndexError:
+    except IndexError: # para caso não seja repassado todos os argumentos de /b
         msg_erro = f"\nInforme todos os argumentos/parametros necessários para essa opção\n"
         sock.send(msg_erro.encode(UNICODE))
     except:
@@ -130,18 +130,20 @@ def LIST_FILES(sock=None, dir=None, **kwargs):
 
 # ============================================================================================================
 
+''' FUNÇÃO PARA REALIZAR O DOWNLOAD DE UM ARQUIVO LOCAL DO SERVIDOR '''
+
 def DOWNLOAD_SEND(comand=None, dir=None, sock=None, **kwargs):
     try:
         dir_arq = dir + '\\server_files' # montando diretorio de onde tá os arquivos lado server
         nome_arquivo = dir_arq + f'\\{comand[1]}' # pegando o nome do arquivo fornecido e montando caminho absoluto
         if not os.path.exists(nome_arquivo): # verificando se o arquivo fornecido existe
             msg_local = f'\nO Arquivo que você pediu "{comand[1]}" não existe no servidor!\nDê /f para consultar os arquivos existentes\n'
-            sock.send(msg_local.encode())
+            sock.send(msg_local.encode()) # se não existir ele informa que não existe
             return
-        size_arq = os.path.getsize(nome_arquivo)
-        msg_local = f'/d:{size_arq}:{comand[1]}'
+        size_arq = os.path.getsize(nome_arquivo) # existindo ele pega o tamanho do arquivo
+        msg_local = f'/d:{size_arq}:{comand[1]}' # e faço o envio do comando, nome e tamanho do arquivo 
         sock.send(msg_local.encode())
-    except IndexError:
+    except IndexError: # para caso não seja repassado todos os argumentos de /d
         msg_erro = f"\nInforme todos os argumentos/parametros necessários para essa opção\n"
         sock.send(msg_erro.encode(UNICODE))
     except:
