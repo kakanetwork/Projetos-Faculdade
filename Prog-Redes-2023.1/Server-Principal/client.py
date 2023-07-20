@@ -1,5 +1,7 @@
 import socket, threading, os, sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '\\Functions-and-Variables')
+dir_atual = os.path.dirname(os.path.abspath(__file__))  # pegando a pasta atual
+
 from variables import *
 from functions_client import *
 from functions_others import PRINT_DIV

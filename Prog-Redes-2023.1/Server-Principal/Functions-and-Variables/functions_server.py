@@ -4,8 +4,6 @@ from variables import *
 from functions_download import *
 
 
-''' ATENÇÃO, TENHA A BIBLIOTECA SOCKETS INSTALADA! '''
-
 # ============================================================================================================
 
 ''' FUNÇÃO PARA REALIZAR O CHAT ENTRE CLIENTES ESPECIFICOS  '''
@@ -91,12 +89,13 @@ def HELP(sock=None, **kwargs):
         '/m:ip:porta:mensagem': 'Enviar mensagem para cliente especifíco (informe IP:PORTA do cliente)',
         '/b:mensagem': 'Enviar mensagem em Broadcast (Para todos clientes conectados)',
         '/h': 'Lista o seu histórico de comandos',
+        '/f': 'Lista os arquivos disponiveis para download local',
         '/?': 'Lista as opções disponiveis',
         '/q': 'Desconectar do Servidor'
         }
         msg_help = f"\nSegue abaixo as Opções disponiveis neste servidor:\n\n" # formatação mensagem
         for comando, descrição in descriptive_options.items(): # listando por meio do FOR comando por comando 
-            msg_help += f"  {comando} -> {descrição}\n" # formatação mensagem
+            msg_help += f"  {comando} -> {descrição}\n" # formatação mensagem'
         sock.send(msg_help.encode(UNICODE)) # enviando comando por comando
     except:
         print(f'\nErro no momento de listar as Opções...{sys.exc_info()[0]}')  
@@ -108,29 +107,39 @@ def HELP(sock=None, **kwargs):
 
 def LIST_FILES(sock=None, dir=None, **kwargs):
     try:
-        past_arquives = os.listdir(dir + '\\server_files') # faço a listagem de arquivos na pasta referente
+        dir_arq = dir + '\\server_files'
+        past_arquives = os.listdir(dir_arq) # faço a listagem de arquivos na pasta referente
         msg_list = f"\nOs arquivos disponiveis para download são:\n" # formatação da mensagem
-        num = 0
+        num = 0 
         for arquives in past_arquives: # percorro cada arquivo da pasta
             num += 1 
-            msg_list += f"   {num}: {arquives}\n" # formatação da mensagem
+            size = os.path.getsize(dir_arq + f'\\{arquives}')
+            msg_list += f"       {num}° Name: {arquives} | Size: {size} Bytes\n" # formatação da mensagem
         sock.send(msg_list.encode(UNICODE)) # envio da mensagem
     except:
-        print(f'\nErro no momento de listar os Arquivos para Download...{sys.exc_info()[0]}')  
+        print(f'\nErro no momento de listar os Arquivos para Download...{sys.exc_info()}')  
         exit()  
 
 
 # ============================================================================================================
 
+def DOWNLOAD_LOCAL(comand=None, dir=None, sock=None, **kwargs):
+    dir_arq = dir + '\\server_files'
+    nome_arquivo = dir_arq + f'\\{comand[1]}'
+    if not os.path.exists(nome_arquivo):
+        msg_local = f'\nO Arquivo que você pediu "{comand[1]}" não existe no servidor!\n'
+        sock.send(msg_local.encode())
+        return
+    size_arq = os.path.getsize(nome_arquivo)
+    msg_local = f'/d:{size_arq}:{comand[1]}'
+    sock.send(msg_local.encode())
 
-
-
-
-
-
-
-
-
+    '''with open(nome_arquivo, 'rb') as arquivo:
+        while True:
+            dados_img = arquivo.read(1024)
+            if not dados_img:
+                break
+            sock.send(dados_img)'''
 
 
 # ============================================================================================================
@@ -146,24 +155,25 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected, dir_atual):
             '/b': BROADCAST,
             '/h': HISTORY,
             '/?': HELP,
-            '/f': LIST_FILES}
+            '/f': LIST_FILES,
+            '/d': DOWNLOAD_LOCAL}
         options_choice = set(options.keys()) # usado para verificar se o comando pertence ao dicionário 
-        msg = b'' 
-        while msg != b'/q': # continuar ouvindo o cliente a menos que ele digite /q
-            try:
-                msg = sock_client.recv(BUFFER_SIZE01).decode(UNICODE) # recebendo mensagem do cliente
-                history_client.append(msg) # histórico de comandos do cliente
-                comand = COMAND_SPLIT(msg) # realizando split do comando do cliente 
-                comand_prompt = comand[0].lower() # usando apenas para pegar o comando bruto "/x"
-                if comand_prompt in options_choice:  # verificando se o comando está dentro das opções disponivéis 
-                    # ativando a função chamada (passando argumento depois)
-                    options[comand_prompt](clients_dict=clients_connected, sock=sock_client, comand=comand, info_client=info_client, history=history_client, options=options, dir=dir_atual)
-            except:
-                msg = b'/q'
+        while True: # continuar ouvindo o cliente a menos que ele digite /q 
+            msg = sock_client.recv(BUFFER_SIZE01).decode(UNICODE) # recebendo mensagem do cliente
+            history_client.append(msg) # histórico de comandos do cliente
+            comand = COMAND_SPLIT(msg) # realizando split do comando do cliente 
+            comand_prompt = comand[0].lower() # usando apenas para pegar o comando bruto "/x"
+            if comand_prompt == '/q':
+                print(f"O cliente {info_client[1]} encerrou a conexão.")
+                break
+            if comand_prompt in options_choice:  # verificando se o comando está dentro das opções disponivéis 
+                # ativando a função chamada (passando argumento depois)
+                options[comand_prompt](clients_dict=clients_connected, sock=sock_client, comand=comand, info_client=info_client, history=history_client, options=options, dir=dir_atual)
         del clients_connected[info_client[1]] # quando o cliente digitar /q ele exclui socket do cliente da lista de clientes ativos
         sock_client.close()
     except:
         print(f'\nErro na Interação do Cliente [pelo servidor]...{sys.exc_info()[0]}')  
+        sock_client.close() 
         exit() 
 
 
