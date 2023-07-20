@@ -90,6 +90,7 @@ def HELP(sock=None, **kwargs):
         '/b:mensagem': 'Enviar mensagem em Broadcast (Para todos clientes conectados)',
         '/h': 'Lista o seu histórico de comandos',
         '/f': 'Lista os arquivos disponiveis para download local',
+        '/d:arquivo': 'faz o download de um arquivo do servidor',
         '/?': 'Lista as opções disponiveis',
         '/q': 'Desconectar do Servidor'
         }
@@ -124,16 +125,18 @@ def LIST_FILES(sock=None, dir=None, **kwargs):
 # ============================================================================================================
 
 def DOWNLOAD_LOCAL(comand=None, dir=None, sock=None, **kwargs):
-    dir_arq = dir + '\\server_files'
-    nome_arquivo = dir_arq + f'\\{comand[1]}'
-    if not os.path.exists(nome_arquivo):
-        msg_local = f'\nO Arquivo que você pediu "{comand[1]}" não existe no servidor!\n'
+    try:
+        dir_arq = dir + '\\server_files'
+        nome_arquivo = dir_arq + f'\\{comand[1]}'
+        if not os.path.exists(nome_arquivo):
+            msg_local = f'\nO Arquivo que você pediu "{comand[1]}" não existe no servidor!\n'
+            sock.send(msg_local.encode())
+            return
+        size_arq = os.path.getsize(nome_arquivo)
+        msg_local = f'/d:{size_arq}:{comand[1]}'
         sock.send(msg_local.encode())
-        return
-    size_arq = os.path.getsize(nome_arquivo)
-    msg_local = f'/d:{size_arq}:{comand[1]}'
-    sock.send(msg_local.encode())
-
+    except:
+        print(sys.exc_info())
     '''with open(nome_arquivo, 'rb') as arquivo:
         while True:
             dados_img = arquivo.read(1024)
@@ -173,7 +176,7 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected, dir_atual):
         sock_client.close()
     except:
         print(f'\nErro na Interação do Cliente [pelo servidor]...{sys.exc_info()}')  
-        del clients_connected[info_client[1]]
+        del clients_connected[info_client[1]] # caso o cliente seja desconectado por algum erro, ele apaga o cliente da lista de clientes ativos
         sock_client.close() 
         exit() 
 
