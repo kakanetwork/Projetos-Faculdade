@@ -172,7 +172,8 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected, dir_atual):
         del clients_connected[info_client[1]] # quando o cliente digitar /q ele exclui socket do cliente da lista de clientes ativos
         sock_client.close()
     except:
-        print(f'\nErro na Interação do Cliente [pelo servidor]...{sys.exc_info()[0]}')  
+        print(f'\nErro na Interação do Cliente [pelo servidor]...{sys.exc_info()}')  
+        del clients_connected[info_client[1]]
         sock_client.close() 
         exit() 
 

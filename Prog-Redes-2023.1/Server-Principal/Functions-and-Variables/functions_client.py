@@ -24,6 +24,8 @@ def servInteraction(sock_tcp):
             if msg == '/q':
                 print("\nConexão encerrada.\n")
                 break
+            if msg[:2] == '/d':
+                print('o')
             print(msg)
     except:
         print(f'\nErro na interação com o servidor... {sys.exc_info()}')
