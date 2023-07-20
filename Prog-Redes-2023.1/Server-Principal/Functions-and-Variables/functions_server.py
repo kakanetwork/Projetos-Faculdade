@@ -50,9 +50,9 @@ def LIST_CLIENTS(clients_dict=None, sock=None, **kwargs):
 
 ''' FUNÇÃO PARA ENVIAR MENSAGEM EM MODO BROADCAST (P/ TODOS CLIENTES, EXCETO QUEM PEDIU) '''
 
-def BROADCAST (clients_dict=None, info_client=None, comand=None, **kwargs):
-    msg_broadcast = f"\nO Cliente: {info_client[0]} : {info_client[1]} Enviou uma mensagem para Todos!\nMensagem >> {comand[1]}\n" # formatação de mensagem
+def BROADCAST (clients_dict=None, info_client=None, sock=None, comand=None, **kwargs):
     try:
+        msg_broadcast = f"\nO Cliente: {info_client[0]} : {info_client[1]} Enviou uma mensagem para Todos!\nMensagem >> {comand[1]}\n" # formatação de mensagem
         for chave, valor in clients_dict.items(): # realizando o for para mandar p/ todos os clientes
             port_envio = chave # Armazenamento Temporário 
             ip_envio = valor[0] # Armazenamento Temporário 
