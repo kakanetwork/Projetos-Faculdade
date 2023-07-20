@@ -22,6 +22,9 @@ def CHAT(comand=None, clients_dict=None, info_client=None, sock=None, **kwargs):
             else: # para caso do Cliente não ser achado 
                 msg_erro = f"\nO Cliente informado para encaminhar a mensagem não está conectado ao Servidor!\n"
                 sock.send(msg_erro.encode(UNICODE))
+    except IndexError:
+        msg_erro = f"\nInforme todos os argumentos/parametros necessários para essa opção\n"
+        sock.send(msg_erro.encode(UNICODE))
     except:
         print(f'\nErro no Chat...{sys.exc_info()[0]}')  
         exit() 
@@ -56,6 +59,9 @@ def BROADCAST (clients_dict=None, info_client=None, comand=None, **kwargs):
             if port_envio != info_client[1]: # pegando sock de todos, exceto do cliente que pediu
                 sock_broadcast = valor[1] # Armazenamento Temporário 
                 sock_broadcast.send(msg_broadcast.encode(UNICODE)) # enviando mensagem
+    except IndexError:
+        msg_erro = f"\nInforme todos os argumentos/parametros necessários para essa opção\n"
+        sock.send(msg_erro.encode(UNICODE))
     except:
         print(f'\nErro no momento de enviar o Broadcast...{sys.exc_info()[0]}')  
         exit()                 
@@ -135,6 +141,9 @@ def DOWNLOAD_LOCAL(comand=None, dir=None, sock=None, **kwargs):
         size_arq = os.path.getsize(nome_arquivo)
         msg_local = f'/d:{size_arq}:{comand[1]}'
         sock.send(msg_local.encode())
+    except IndexError:
+        msg_erro = f"\nInforme todos os argumentos/parametros necessários para essa opção\n"
+        sock.send(msg_erro.encode(UNICODE))
     except:
         print(sys.exc_info())
     '''with open(nome_arquivo, 'rb') as arquivo:
