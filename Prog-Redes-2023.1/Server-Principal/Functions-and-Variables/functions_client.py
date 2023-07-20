@@ -4,6 +4,9 @@ from functions_others import *
 
 
 
+def DOWNLOAD_RECV():
+    ...
+
 # ============================================================================================================
 
 def closeSocket(sock_tcp):
@@ -26,6 +29,7 @@ def servInteraction(sock_tcp):
                 break
             if msg[:2] == '/d':
                 info_arquive = COMAND_SPLIT(msg)
+                DOWNLOAD_RECV()
             print(msg)
     except:
         print(f'\nErro na interação com o servidor... {sys.exc_info()}')

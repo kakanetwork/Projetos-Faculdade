@@ -130,12 +130,12 @@ def LIST_FILES(sock=None, dir=None, **kwargs):
 
 # ============================================================================================================
 
-def DOWNLOAD_LOCAL(comand=None, dir=None, sock=None, **kwargs):
+def DOWNLOAD_SEND(comand=None, dir=None, sock=None, **kwargs):
     try:
-        dir_arq = dir + '\\server_files'
-        nome_arquivo = dir_arq + f'\\{comand[1]}'
-        if not os.path.exists(nome_arquivo):
-            msg_local = f'\nO Arquivo que você pediu "{comand[1]}" não existe no servidor!\n'
+        dir_arq = dir + '\\server_files' # montando diretorio de onde tá os arquivos lado server
+        nome_arquivo = dir_arq + f'\\{comand[1]}' # pegando o nome do arquivo fornecido e montando caminho absoluto
+        if not os.path.exists(nome_arquivo): # verificando se o arquivo fornecido existe
+            msg_local = f'\nO Arquivo que você pediu "{comand[1]}" não existe no servidor!\nDê /f para consultar os arquivos existentes\n'
             sock.send(msg_local.encode())
             return
         size_arq = os.path.getsize(nome_arquivo)
@@ -168,7 +168,7 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected, dir_atual):
             '/h': HISTORY,
             '/?': HELP,
             '/f': LIST_FILES,
-            '/d': DOWNLOAD_LOCAL}
+            '/d': DOWNLOAD_SEND}
         options_choice = set(options.keys()) # usado para verificar se o comando pertence ao dicionário 
         while True: # continuar ouvindo o cliente a menos que ele digite /q 
             msg = sock_client.recv(BUFFER_SIZE01).decode(UNICODE) # recebendo mensagem do cliente
