@@ -143,17 +143,18 @@ def DOWNLOAD_SEND(comand=None, dir=None, sock=None, **kwargs):
         size_arq = os.path.getsize(nome_arquivo) # existindo ele pega o tamanho do arquivo
         msg_local = f'/d:{size_arq}:{comand[1]}' # e faço o envio do comando, nome e tamanho do arquivo 
         sock.send(msg_local.encode())
+        with open(nome_arquivo, 'rb') as arquive:
+            while True:
+                dados_img = arquive.read(1024)
+                if not dados_img:
+                    break
+                sock.send(dados_img)
     except IndexError: # para caso não seja repassado todos os argumentos de /d
         msg_erro = f"\nInforme todos os argumentos/parametros necessários para essa opção\n"
         sock.send(msg_erro.encode(UNICODE))
     except:
         print(sys.exc_info())
-    '''with open(nome_arquivo, 'rb') as arquivo:
-        while True:
-            dados_img = arquivo.read(1024)
-            if not dados_img:
-                break
-            sock.send(dados_img)'''
+
 
 
 # ============================================================================================================
