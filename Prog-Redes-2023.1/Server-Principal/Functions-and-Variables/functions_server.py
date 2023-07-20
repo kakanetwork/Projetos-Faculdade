@@ -92,11 +92,11 @@ def HELP(sock=None, **kwargs):
         # Criando descrição de cada comando
         descriptive_options = {
         '/l': 'Listar clientes conectados',
-        '/m:ip:porta:mensagem': 'Enviar mensagem para cliente especifíco (informe IP:PORTA do cliente)',
-        '/b:mensagem': 'Enviar mensagem em Broadcast (Para todos clientes conectados)',
+        '/m:ip:porta:mensagem': 'Enviar mensagem para cliente especifíco [Informe IP:PORTA do cliente]',
+        '/b:mensagem': 'Enviar mensagem em Broadcast [Informe mensagem]',
         '/h': 'Lista o seu histórico de comandos',
         '/f': 'Lista os arquivos disponiveis para download local',
-        '/d:arquivo': 'faz o download de um arquivo do servidor',
+        '/d:arquivo': 'faz o download de um arquivo do servidor [Informe nome do arquivo]',
         '/?': 'Lista as opções disponiveis',
         '/q': 'Desconectar do Servidor'
         }

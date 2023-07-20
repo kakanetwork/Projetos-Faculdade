@@ -25,7 +25,7 @@ def servInteraction(sock_tcp):
                 print("\nConexão encerrada.\n")
                 break
             if msg[:2] == '/d':
-                print('o')
+                info_arquive = COMAND_SPLIT(msg)
             print(msg)
     except:
         print(f'\nErro na interação com o servidor... {sys.exc_info()}')
