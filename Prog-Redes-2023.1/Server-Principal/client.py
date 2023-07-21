@@ -12,8 +12,8 @@ try:
     sock_tcp.connect((SERVER_CLIENT, PORT))
 
     PRINT_DIV(f"Você se conectou com sucesso ao Server de IP: {SERVER} | Na Porta: {PORT}")
-    tServer = threading.Thread(target=servInteraction, args=(sock_tcp, dir_atual))
-    tUser = threading.Thread(target=userInteraction, args=(sock_tcp,))
+    tServer = threading.Thread(target=SERVER_INTERACTION, args=(sock_tcp, dir_atual))
+    tUser = threading.Thread(target=USER_INTERACTION, args=(sock_tcp, dir_atual))
 
     tServer.start()
     tUser.start()

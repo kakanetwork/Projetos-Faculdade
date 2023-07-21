@@ -31,7 +31,7 @@ def VERIFICATION_KEY():
         sys.exit()
     else:
         if verification_key.get('ok'): # verificando se a requisição foi completa
-            print('\nA API_Key informada foi validada!') 
+            pass # se for validada a api ira continuar normalmente o código
         else:
             print(f'\nA chave: {API_key}\nInformada é inválida!')
             sys.exit()

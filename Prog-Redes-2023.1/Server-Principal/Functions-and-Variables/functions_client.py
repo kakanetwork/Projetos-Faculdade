@@ -3,30 +3,33 @@ from variables import *
 from functions_others import *
 
 
+# ============================================================================================================
 
 def DOWNLOAD_RECV(sock_tcp, size, name, dir_atual):
-    dados_arquive = sock_tcp.recv(4096)
-    print(f'\nGravando o arquivo: {name}\nTamanho: {size} bytes')
-    local_arquive = dir_atual + f'\\{name}'
-    arquivo = open(local_arquive, 'wb')
-    bytes_recebidos = 0
-    pct = 1
+    try:
+        print(f'\nGravando o arquivo: {name}\nTamanho: {size} bytes')
+        local_arquive = dir_atual + f'\\{name}'
+        with open(local_arquive, 'wb') as arquivo:
+            bytes_recebidos = 0
+            pct = 1
+            while True:
+                # Recebendo o conteúdo do servidor
+                data_arquive = sock_tcp.recv(BUFFER)
+                if not data_arquive: break
+                arquivo.write(data_arquive)
+                bytes_recebidos += len(data_arquive)
+                print(f'Pacote ({pct}) - Dados: {bytes_recebidos}/{size} bytes')
+                if bytes_recebidos >= size: break
+                pct += 1
+        print('\nDownload Finalizado!\n')
+    except:
+        print(f'download...{sys.exc_info()}')
 
-    while True:
-        # Recebendo o conteúdo do servidor
-        dado_retorno = RECV(socket_client, BUFFER_SIZE)
-        if not dado_retorno: break
-        print(f'Pacote ({pct}) - Dados Recebidos: {len(dado_retorno)} bytes')
-        arquivo.write(dado_retorno)
-        bytes_recebidos += len(dado_retorno)
-        if bytes_recebidos >= tamanho_total: break
-        pct += 1
-    arquivo.close()
-    ...
+
 
 # ============================================================================================================
 
-def closeSocket(sock_tcp):
+def CLOSE_SOCKET(sock_tcp):
     try:
         sock_tcp.close()
     except:
@@ -34,7 +37,7 @@ def closeSocket(sock_tcp):
     
 # ============================================================================================================
 
-def servInteraction(sock_tcp, dir_atual):
+def SERVER_INTERACTION(sock_tcp, dir_atual):
     try:
         while True:
             retorno = sock_tcp.recv(512)
@@ -46,18 +49,19 @@ def servInteraction(sock_tcp, dir_atual):
                 break
             if msg[:2] == '/d':
                 info_arquive = COMAND_SPLIT(msg)
-                size = info_arquive[1]
+                size = int(info_arquive[1])
                 name = info_arquive[2]
                 DOWNLOAD_RECV(sock_tcp, size, name, dir_atual)
+                continue
             print(msg)
     except:
         print(f'\nErro na interação com o servidor... {sys.exc_info()}')
     finally:
-        closeSocket(sock_tcp)
+        CLOSE_SOCKET(sock_tcp)
 
 # ============================================================================================================
 
-def userInteraction(sock_tcp):
+def USER_INTERACTION(sock_tcp, dir_atual):
     try:
         while True:
             msg = input(PROMPT)
@@ -69,6 +73,6 @@ def userInteraction(sock_tcp):
     except:
         print(f'\nErro na interação com o Usuário... {sys.exc_info()}')
     finally:
-        closeSocket(sock_tcp)
+        CLOSE_SOCKET(sock_tcp)
 
 # ============================================================================================================

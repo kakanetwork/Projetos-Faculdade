@@ -6,3 +6,4 @@ SERVER = '0.0.0.0'
 PORT = 5678
 PROMPT = 'Digite > '
 UNICODE = 'utf-8'
+BUFFER = 4096

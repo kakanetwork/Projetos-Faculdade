@@ -88,7 +88,12 @@ from variables import SERVER, PORT
 from functions_server import CLIENT_INTERACTION
 from functions_others import PRINT_DIV, CREATE_PAST, SEARCH_FILES
 from functions_bot import START_BOT, NOTIFICATION_BOT
+
+
 START_SERVER()
+
+
+
 '''def PROCESS_RUNNER():
     process_args = ["pythonw", "server.py"] 
     subprocess.Popen(process_args) 
