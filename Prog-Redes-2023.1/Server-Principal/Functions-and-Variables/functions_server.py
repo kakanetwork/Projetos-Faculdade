@@ -10,11 +10,11 @@ from functions_download import *
 
 ''' FUNÇÃO PARA REALIZAR O CHAT ENTRE CLIENTES ESPECIFICOS  '''
 
-def CHAT(comand=None, clients_dict=None, info_client=None, sock=None, **kwargs): 
+def CHAT(comand=None, clients=None, info_client=None, sock=None, **kwargs): 
     try:
         ip_destination = comand[1] # guardando o ip de destino da mensagem
         port = comand[2] # guardando a porta de destino
-        for chave, valor in clients_dict.items(): # dando um for na lista de clientes
+        for chave, valor in clients.items(): # dando um for na lista de clientes
             port_envio = str(chave) # Armazenamento Temporário 
             ip_envio = valor[0] # Armazenamento Temporário 
             sock_envio = valor[1] # pegando o socket do cliente destino 
@@ -36,11 +36,11 @@ def CHAT(comand=None, clients_dict=None, info_client=None, sock=None, **kwargs):
 
 ''' FUNÇÃO PARA REALIZAR O PRINT DA LISTAGEM DE CLIENTES CONECTADOS AO SERVIDOR '''
 
-def LIST_CLIENTS(clients_dict=None, sock=None, **kwargs):
+def LIST_CLIENTS(clients=None, sock=None, **kwargs):
     try: 
         msg_list = "\nOs Clientes conectados ao Servidor são:\n\n" # formatando mensagem 
         num = 0
-        for chave, valor in clients_dict.items():  # faço um for para pegar cada cliente conectado e enviar 
+        for chave, valor in clients.items():  # faço um for para pegar cada cliente conectado e enviar 
             ip = valor[0] # Armazenamento Temporário 
             num+=1 # formatação numeração cliente
             msg_list += f"\nCLIENTE {num}\nIP: {ip}\nPORT: {chave}\n\n" # formatação listagem clientes (lembrando que chave=porta e valor[0]=ip)
@@ -53,10 +53,10 @@ def LIST_CLIENTS(clients_dict=None, sock=None, **kwargs):
 
 ''' FUNÇÃO PARA ENVIAR MENSAGEM EM MODO BROADCAST (P/ TODOS CLIENTES, EXCETO QUEM PEDIU) '''
 
-def BROADCAST (clients_dict=None, info_client=None, sock=None, comand=None, **kwargs):
+def BROADCAST (clients=None, info_client=None, sock=None, comand=None, **kwargs):
     try:
         msg_broadcast = f"\nO Cliente: {info_client[0]} : {info_client[1]} Enviou uma mensagem para Todos!\nMensagem >> {comand[1]}\n" # formatação de mensagem
-        for chave, valor in clients_dict.items(): # realizando o for para mandar p/ todos os clientes
+        for chave, valor in clients.items(): # realizando o for para mandar p/ todos os clientes
             port_envio = chave # Armazenamento Temporário 
             ip_envio = valor[0] # Armazenamento Temporário 
             if port_envio != info_client[1]: # pegando sock de todos, exceto do cliente que pediu
@@ -132,9 +132,35 @@ def LIST_FILES(sock=None, dir=None, **kwargs):
         exit()  
 
 # ============================================================================================================
-
-def UPLOAD():
+def DOWNLOAD_RSS():
     ...
+
+
+
+# ============================================================================================================
+
+def UPLOAD_RECV(comand=None, sock=None, dir=None, **kwargs):
+    size = comand[1]
+    name = comand[2]
+    dir_past = dir + '\\server_files'
+    try:
+        print(f'\nGravando o arquivo: {name}\nTamanho: {size} bytes')
+        local_arquive = dir_past + f'\\{name}'
+        with open(local_arquive, 'wb') as arquivo:
+            bytes_recebidos = 0
+            pct = 1
+            while True:
+                # Recebendo o conteúdo do servidor
+                data_arquive = sock_tcp.recv(BUFFER)
+                if not data_arquive: break
+                arquivo.write(data_arquive)
+                bytes_recebidos += len(data_arquive)
+                print(f'Pacote ({pct}) - Dados: {bytes_recebidos}/{size} bytes')
+                if bytes_recebidos >= size: break
+                pct += 1
+        print('\nDownload Finalizado!\n')
+    except:
+        print(f'download...{sys.exc_info()}')
 
 
 # ============================================================================================================
@@ -212,8 +238,9 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected, dir_atual):
             '/?': HELP,
             '/f': LIST_FILES,
             '/d': DOWNLOAD_SEND,
-            '/u': UPLOAD,
-            '/w': DOWNLOAD_URL}
+            '/u': UPLOAD_RECV,
+            '/w': DOWNLOAD_URL,
+            '/rss': DOWNLOAD_RSS}
         options_choice = set(options.keys()) # usado para verificar se o comando pertence ao dicionário 
         while True: # continuar ouvindo o cliente a menos que ele digite /q 
             msg = sock_client.recv(BUFFER_SIZE01).decode(UNICODE) # recebendo mensagem do cliente
@@ -225,7 +252,7 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected, dir_atual):
                 break
             if comand_prompt in options_choice:  # verificando se o comando está dentro das opções disponivéis 
                 # ativando a função chamada (passando argumento depois)
-                options[comand_prompt](clients_dict=clients_connected, sock=sock_client, comand=comand, info_client=info_client, history=history_client, options=options, dir=dir_atual, msg=msg)
+                options[comand_prompt](clients=clients_connected, sock=sock_client, comand=comand, info_client=info_client, history=history_client, options=options, dir=dir_atual, msg=msg)
         del clients_connected[info_client[1]] # quando o cliente digitar /q ele exclui socket do cliente da lista de clientes ativos
         sock_client.close()
     except:
