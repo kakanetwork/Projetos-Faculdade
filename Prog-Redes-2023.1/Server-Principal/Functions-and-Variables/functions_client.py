@@ -17,7 +17,7 @@ def UPLOAD_SEND(name_arquive, dir_atual, sock_tcp):
                 dados_arq = arquive.read(BUFFER)
                 if not dados_arq:
                     break
-                sock.send(dados_arq)
+                sock_tcp.send(dados_arq)
     except IndexError: # para caso não seja repassado todos os argumentos de /d
         print(f"\nInforme todos os argumentos/parametros necessários para essa opção\n")
     except:
@@ -27,8 +27,9 @@ def UPLOAD_SEND(name_arquive, dir_atual, sock_tcp):
 
 def DOWNLOAD_RECV(sock_tcp, size, name, dir_atual):
     try:
+        CREATE_PAST('Downloads')
         print(f'\nGravando o arquivo: {name}\nTamanho: {size} bytes')
-        local_arquive = dir_atual + f'\\{name}'
+        local_arquive = dir_atual + f'\\Downloads\\{name}'
         with open(local_arquive, 'wb') as arquivo:
             bytes_recebidos = 0
             pct = 1
@@ -85,7 +86,7 @@ def USER_INTERACTION(sock_tcp, dir_atual):
             msg = input(PROMPT)
             if msg[:2] == '/u':
                 UPLOAD_SEND(msg[3:], dir_atual, sock_tcp)
-                break
+                continue
             sock_tcp.send(msg.encode())
             if msg == '/q':
                 print("\nConexão encerrada.\n")

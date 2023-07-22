@@ -140,27 +140,30 @@ def DOWNLOAD_RSS():
 # ============================================================================================================
 
 def UPLOAD_RECV(comand=None, sock=None, dir=None, **kwargs):
-    size = comand[1]
+    size = int(comand[1])
     name = comand[2]
     dir_past = dir + '\\server_files'
     try:
-        print(f'\nGravando o arquivo: {name}\nTamanho: {size} bytes')
+        msg_upload = f'\nGravando o arquivo: {name}\nTamanho: {size} bytes'
+        MESSAGE_CLIENT(sock, msg_upload)
         local_arquive = dir_past + f'\\{name}'
         with open(local_arquive, 'wb') as arquivo:
             bytes_recebidos = 0
             pct = 1
             while True:
                 # Recebendo o conteúdo do servidor
-                data_arquive = sock_tcp.recv(BUFFER)
+                data_arquive = sock.recv(BUFFER)
                 if not data_arquive: break
                 arquivo.write(data_arquive)
                 bytes_recebidos += len(data_arquive)
-                print(f'Pacote ({pct}) - Dados: {bytes_recebidos}/{size} bytes')
+                msg_upload = f'Pacote ({pct}) - Dados: {bytes_recebidos}/{size} bytes'
+                MESSAGE_CLIENT(sock, msg_upload)
                 if bytes_recebidos >= size: break
                 pct += 1
-        print('\nDownload Finalizado!\n')
+        msg_upload = f'\nO Upload do arquivo {name} foi finalizado!\n'
+        MESSAGE_CLIENT(sock, msg_upload)
     except:
-        print(f'download...{sys.exc_info()}')
+        print(f'\nErro no recebimento dos dados pelo Upload [Lado servidor]...{sys.exc_info()}')
 
 
 # ============================================================================================================

@@ -110,9 +110,3 @@ def VERIFICATION_PID():
     ...
 
 # ============================================================================================================
-
-def BUFFER_DIVISION(size):
-    BUFFER_SIZE = size/4
-    if BUFFER_SIZE < 512:
-        BUFFER_SIZE = 512
-    return BUFFER_SIZE

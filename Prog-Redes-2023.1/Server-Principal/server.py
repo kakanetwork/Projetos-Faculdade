@@ -3,7 +3,8 @@ import socket, threading, os, sys, subprocess, platform
 dir_atual = os.path.dirname(os.path.abspath(__file__))  # pegando a pasta atual
 dir_arq =  os.path.abspath(__file__)
 system = platform.system()
-dir_temp = dir_atual + "\\pid.temp"
+pid_file = dir_atual + "\\pid.temp"
+
 
 # ============================================================================================================
 
@@ -36,124 +37,100 @@ def VERIFICATION_FUNCTIONS():
 
 VERIFICATION_FUNCTIONS()
 
-# ============================================================================================================
+'''def PROCESS_RUNNER():
+    if platform.system() == 'Windows':
+        subprocess.Popen(["python", "server.py"], creationflags=subprocess.CREATE_NEW_CONSOLE)
+    elif platform.system() == 'Linux':
+        subprocess.Popen(["python", "server.py"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, preexec_fn=os.setpgrp)
 
-def START_SERVER():
-    try: 
+    with open(pid_file, "w") as file:
+        file.write(str(os.getpid()))'''
 
-        ''' CRIAÇÃO THREAD BOT / CRIAÇÃO DO SERVER / CRIAÇÃO DE PASTA'''
+'''def VERIFICATION_PID(pid):
+    if system == 'windows':
+        process = subprocess.run(['Powershell', 'Get-Process', '-Id', pid], capture_output=True, text=True).stdout.strip()
+    elif system == 'linux':
+        process = subprocess.run(['ps', '-p', pid], capture_output=True, text=True).stdout.strip()
+    if process:
+        print(f'\nO Server já está sendo rodado em 2° Plano com o PID: {pid}\n')
+        sys.exit()
+    else:   
+        PROCESS_RUNNER()'''
+    
+caminho_do_arquivo = r"D:\\USUARIO\\Documentos\\Programação\\Projetos-Faculdade.py\\Prog-Redes-2023.1\\Server-Principal\\server.py"
 
-        clients_connected = dict() # lista de clientes conectados (IP:PORTA)
-        sock_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # conexão IPV4/TCP
-        sock_tcp.bind((SERVER, PORT)) # atribuindo Porta e Local
-        CREATE_PAST(dir_atual + '\\server_files') # criando pasta onde sera guardado arquivos do server
-        PRINT_DIV(f'Servidor: {SERVER} / {PORT}')
-        thread_bot = threading.Thread(target=START_BOT, args=(clients_connected,)) # adicionando a thread do bot (pois sem ela, eu não consegueria rodar o server e o bot ao mesmo tempo)
-        thread_bot.start() # iniciando a thread do bot
-        sock_tcp.listen() # deixando indefinido quantidade máxima de conexões
+comando_em_segundo_plano = ["python", caminho_do_arquivo]
+processo = subprocess.Popen(comando_em_segundo_plano, shell=True)
 
-    # ============================================================================================================
 
-        ''' CONEXÃO DE CLIENTES / NOTIFICAÇÃO BOT / THREAD CLIENTE ''' 
 
-        while True: 
-            try:
-                sock_client, info_client = sock_tcp.accept() # aceitando clientes 
-                msg_connected = f"O Cliente de IP: {info_client[0]} | Na Porta: {info_client[1]}\nFoi conectado com sucesso!"
-                PRINT_DIV(msg_connected) # printando o cliente conectado
-                NOTIFICATION_BOT(msg_connected) # enviando mensagem para o bot do cliente que se conectou
-                clients_connected[info_client[1]] = [info_client[0], sock_client] # adicionando o cliente ao dicionario de clientes conectados (PORTA:IP,SOCKET)
-                thread_client = threading.Thread(target=CLIENT_INTERACTION, args=(sock_client, info_client, clients_connected, dir_atual)) # adicionando uma thread para cada cliente
-                thread_client.start() # iniciando a thread
+def START():
+    #VERIFICATION_PID(pid)
+    '''    subprocess.run(['pythonw', './server.py'])
+    with open(pid_file, "w") as file:
+        file.write(str(os.getpid()))'''
+    #os.system('pythonw', './server.py')
+    '''if os.path.isfile('pid.temp'):
+    with open(pid_file, 'r') as arquive:
+        pid = arquive.readline().strip()
+    else:
+    PROCESS_RUNNER()'''
+    try:
+        from variables import SERVER, PORT
+        from functions_server import CLIENT_INTERACTION
+        from functions_others import PRINT_DIV, CREATE_PAST, SEARCH_FILES
+        from functions_bot import START_BOT, NOTIFICATION_BOT
 
-    # ============================================================================================================
+        # ============================================================================================================
 
-            except:
-                print(f'\nErro na Inicialização da Thread...{sys.exc_info()[0]}')  
-                sys.exit() 
-                
-    except OSError as e: # exceção para quando a porta do servidor atual estiver ocupada
-        if e.errno == 98:
-            print('\nA porta atual do servidor se encontra ocupada\n')
-            sys.exit()
-    except SystemExit:
-        ...
+        try: 
+
+            ''' CRIAÇÃO THREAD BOT / CRIAÇÃO DO SERVER / CRIAÇÃO DE PASTA'''
+
+            clients_connected = dict() # lista de clientes conectados (IP:PORTA)
+            sock_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # conexão IPV4/TCP
+            sock_tcp.bind((SERVER, PORT)) # atribuindo Porta e Local
+            CREATE_PAST(dir_atual + '\\server_files') # criando pasta onde sera guardado arquivos do server
+            PRINT_DIV(f'Servidor: {SERVER} / {PORT}')
+            thread_bot = threading.Thread(target=START_BOT, args=(clients_connected,)) # adicionando a thread do bot (pois sem ela, eu não consegueria rodar o server e o bot ao mesmo tempo)
+            thread_bot.start() # iniciando a thread do bot
+            sock_tcp.listen() # deixando indefinido quantidade máxima de conexões
+
+        # ============================================================================================================
+
+            ''' CONEXÃO DE CLIENTES / NOTIFICAÇÃO BOT / THREAD CLIENTE ''' 
+
+            while True: 
+                try:
+                    sock_client, info_client = sock_tcp.accept() # aceitando clientes 
+                    msg_connected = f"O Cliente de IP: {info_client[0]} | Na Porta: {info_client[1]}\nFoi conectado com sucesso!"
+                    PRINT_DIV(msg_connected) # printando o cliente conectado
+                    NOTIFICATION_BOT(msg_connected) # enviando mensagem para o bot do cliente que se conectou
+                    clients_connected[info_client[1]] = [info_client[0], sock_client] # adicionando o cliente ao dicionario de clientes conectados (PORTA:IP,SOCKET)
+                    thread_client = threading.Thread(target=CLIENT_INTERACTION, args=(sock_client, info_client, clients_connected, dir_atual)) # adicionando uma thread para cada cliente
+                    thread_client.start() # iniciando a thread
+
+        # ============================================================================================================
+
+                except:
+                    print(f'\nErro na Inicialização da Thread...{sys.exc_info()[0]}')  
+                    sys.exit() 
+                    
+        except OSError as e: # exceção para quando a porta do servidor atual estiver ocupada
+            if e.errno == 98:
+                print('\nA porta atual do servidor se encontra ocupada\n')
+                sys.exit()
+        except SystemExit:
+            ...
+        except:
+            print(f'\nErro na Inicialização do Server...{sys.exc_info()}')  
+            sys.exit() 
+
+        # ============================================================================================================
     except:
         print(f'\nErro na Inicialização do Server...{sys.exc_info()}')  
         sys.exit() 
 
-# ============================================================================================================
+START()
 
-from variables import SERVER, PORT
-from functions_server import CLIENT_INTERACTION
-from functions_others import PRINT_DIV, CREATE_PAST, SEARCH_FILES
-from functions_bot import START_BOT, NOTIFICATION_BOT
-
-
-START_SERVER()
-
-
-
-'''def PROCESS_RUNNER():
-    process_args = ["pythonw", "server.py"] 
-    subprocess.Popen(process_args) 
-    with open(pid_file, "w") as file:
-        file.write(str(os.getpid()))
-    sys.exit()    
-
-def VERIFICATION_PID(pid):
-    if system == 'windows':
-        process = subprocess.run(['Powershell', 'Get-Process', '-Id', pid], capture_output=True, text=True).stdout.strip()
-    elif system == 'linux':
-        process = subprocess.run(['ps', '-p', '-Id', pid], capture_output=True, text=True).stdout.strip()
-    if process:
-        print(f'O Server já está sendo rodado em 2° Plano com o PID: {pid}')
-        sys.exit()
-    else:
-        PROCESS_RUNNER()
-
-def START():
-    if os.path.isfile('pid.temp'):
-        with open(dir_temp, 'r') as arquive:
-            pid = arquive.readline().strip()
-        VERIFICATION_PID(pid)
-
-    else:
-        # QUESTIONAR: O PROCESSO QUANDO É INICIADO ELE FICA COM NOME DO EXECUTOR "PYTHONW"
-        # UMA FORMA DE CONTORNAR É USAR A LIB WIN32 PARA ALTERAR O NOME, MAS SÓ FUNCIONA NO WINDOWS
-        # USAR O SUBPROCESS PARA PROCURAR NO SUBPROCESSO
-        # PROCURAR O PROCESSO PELO NOme
-        ...
-
-
-'''
-
-
-
-'''
-if len(sys.argv) > 1: # verificando se passou +1 argumento
-    arg = sys.argv[1] # pegando o primeiro argumento
-    if arg == "/start": # verificando se foi /start
-        temp = SEARCH_FILES(dir_temp, 'pid.temp') # utilizando função para varrer pasta e verificar se o arquivo existe
-        if temp == True: # existindo a pasta e arquivo
-            with open(pid_file, 'r') as file: # ele abre o arquivo em modo leitura
-                pid = str(file.readline().strip()) # ler somente a primeira linha, tirando os espaços e transformando em string
-            if system == "Windows": # verificando se o sistema é windows
-                # no IF abaixo, faço a busca pelo processo de acordo com o PID (capture_output = retornar captura, e text = retornar formatado) e se diferente de vazio
-                if subprocess.run(['Powershell', 'Get-Process', '-Id', pid], capture_output=True, text=True).stdout.strip() != '':
-                    print('O SERVER JÁ ESTÁ ONLINE')
-                else: 
-                    process_args = ["pythonw", "server.py"] # no caso não existindo processo com o PID, ele vai executar o código
-                    subprocess.Popen(process_args) 
-                    CREATE_PAST(dir_temp)
-                    with open(pid_file, "w") as file:
-                        file.write(str(os.getpid()))
-                    sys.exit()
-            
-    elif arg == "/stop":
-        ...
-    elif arg == "/?":
-        ...
-    else:
-        ...'''
-
+processo.wait()
