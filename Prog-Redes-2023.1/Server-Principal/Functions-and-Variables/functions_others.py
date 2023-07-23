@@ -1,6 +1,7 @@
-import sys, os
+import sys, os, logging
 from variables import *
 
+loggerServer  = logging.getLogger('Server')
 
 # ============================================================================================================
 
@@ -11,7 +12,7 @@ def MESSAGE_CLIENT(sock, msg):
     try:
         sock.send(msg.encode(UNICODE))
     except:
-        print(f'\nErro ao enviar mensagem para o cliente...{sys.exc_info()[0]}')
+        loggerServer.error(f'\nErro ao enviar mensagem para o cliente...{sys.exc_info()[0]}')
 
 # ============================================================================================================
 
@@ -25,7 +26,7 @@ def CONTENT_LENGHT (headers): # FUNÇÃO PARA RETIRAR O CONTENT-LENGTH DO HEADER
                 linha_length = int(line[16:]) # transforma em int e pega somente da posição 16 em diante
                 return linha_length 
     except:
-        print(f'\nErro na captura do Content-Type...{sys.exc_info()[0]}')
+        loggerServer.warning(f'\nErro na captura do Content-Lenght...{sys.exc_info()[0]}')
 
 # ============================================================================================================
 
@@ -39,7 +40,7 @@ def CONTENT_TYPE (headers): # FUNÇÃO PARA RETIRAR O CONTENT-TYPE DO HEADER DE 
                 extensao = line.strip().split('/')[1] # pego a linha do Content-type, retiro os espaços com strip() e quebro com split() onde tiver uma barra
                 return extensao
     except:
-        print(f'\nErro na captura do Content-Type...{sys.exc_info()[0]}')
+        loggerServer.error(f'\nErro na captura do Content-Type...{sys.exc_info()[0]}')
 
 # ============================================================================================================
 
@@ -79,7 +80,7 @@ def COMAND_SPLIT(msg):
     try:
         msg_split = msg.split(':')
     except:
-        print(f'\nErro no Split do Comand...{sys.exc_info()[0]}')  
+        loggerServer.error(f'\nErro no Split do Comand...{sys.exc_info()[0]}')  
         exit() 
     return msg_split
 
@@ -89,24 +90,7 @@ def CREATE_PAST(name):
     try:
         os.makedirs(name, exist_ok=True)
     except:
-        print(f'\nErro na Criação da Pasta...{sys.exc_info()}')  
+        loggerServer.error(f'\nErro na Criação da Pasta...{sys.exc_info()}')  
         exit()      
-
-# ============================================================================================================
-
-def SEARCH_FILES(dir, name):
-    if os.path.exists(dir):
-        list_files = os.listdir(dir)
-        if name in list_files:
-            return True
-        else:
-            return False
-    else:
-        return False
-
-# ============================================================================================================
-
-def VERIFICATION_PID():
-    ...
 
 # ============================================================================================================

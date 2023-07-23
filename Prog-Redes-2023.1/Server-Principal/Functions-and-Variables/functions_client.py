@@ -11,7 +11,7 @@ def UPLOAD_SEND(name_arquive, dir_atual, sock_tcp):
             return
         size_arq = os.path.getsize(dir_arquivo) # existindo ele pega o tamanho do arquivo
         msg_local = f'/u:{size_arq}:{name_arquive}' # e faço o envio do comando, nome e tamanho do arquivo 
-        MESSAGE_CLIENT(sock_tcp, msg_local)
+        sock_tcp.send(msg_local.encode(UNICODE))
         with open(dir_arquivo, 'rb') as arquive:
             while True:
                 dados_arq = arquive.read(BUFFER)
@@ -27,7 +27,7 @@ def UPLOAD_SEND(name_arquive, dir_atual, sock_tcp):
 
 def DOWNLOAD_RECV(sock_tcp, size, name, dir_atual):
     try:
-        CREATE_PAST('Downloads')
+        os.makedirs('Downloads', exist_ok=True)
         print(f'\nGravando o arquivo: {name}\nTamanho: {size} bytes')
         local_arquive = dir_atual + f'\\Downloads\\{name}'
         with open(local_arquive, 'wb') as arquivo:
@@ -44,7 +44,7 @@ def DOWNLOAD_RECV(sock_tcp, size, name, dir_atual):
                 pct += 1
         print('\nDownload Finalizado!\n')
     except:
-        print(f'download...{sys.exc_info()}')
+        print(f'Erro no recebimento do download Local...{sys.exc_info()}')
 
 # ============================================================================================================
 

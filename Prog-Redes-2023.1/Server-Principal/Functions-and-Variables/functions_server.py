@@ -1,10 +1,9 @@
-import socket, sys
+import socket, sys, logging
 from functions_others import *
 from variables import *
 from functions_download import *
 
-# ============================================================================================================
-
+loggerServer  = logging.getLogger('Server')
 
 # ============================================================================================================
 
@@ -29,12 +28,12 @@ def CHAT(comand=None, clients=None, info_client=None, sock=None, **kwargs):
         msg_erro = f"\nInforme todos os argumentos/parametros necessários para essa opção\n"
         MESSAGE_CLIENT(sock, msg_erro)
     except:
-        print(f'\nErro no Chat...{sys.exc_info()[0]}')  
+        loggerServer.error(f'\nErro no Chat...{sys.exc_info()[0]}')  
         exit() 
             
 # ============================================================================================================
 
-''' FUNÇÃO PARA REALIZAR O PRINT DA LISTAGEM DE CLIENTES CONECTADOS AO SERVIDOR '''
+''' FUNÇÃO PARA REALIZAR A LISTAGEM DE CLIENTES CONECTADOS AO SERVIDOR '''
 
 def LIST_CLIENTS(clients=None, sock=None, **kwargs):
     try: 
@@ -46,7 +45,7 @@ def LIST_CLIENTS(clients=None, sock=None, **kwargs):
             msg_list += f"\nCLIENTE {num}\nIP: {ip}\nPORT: {chave}\n\n" # formatação listagem clientes (lembrando que chave=porta e valor[0]=ip)
         MESSAGE_CLIENT(sock, msg_list) # enviando mensagens 
     except:
-        print(f'\nErro no momento de Listar os Clientes Conectados...{sys.exc_info()[0]}')  
+        loggerServer.error(f'\nErro no momento de Listar os Clientes Conectados...{sys.exc_info()[0]}')  
         exit() 
 
 # ============================================================================================================
@@ -66,7 +65,7 @@ def BROADCAST (clients=None, info_client=None, sock=None, comand=None, **kwargs)
         msg_erro = f"\nInforme todos os argumentos/parametros necessários para essa opção\n"
         MESSAGE_CLIENT(sock, msg_erro)
     except:
-        print(f'\nErro no momento de enviar o Broadcast...{sys.exc_info()[0]}')  
+        loggerServer.error(f'\nErro no momento de enviar o Broadcast...{sys.exc_info()[0]}')  
         exit()                 
 
 # ============================================================================================================
@@ -82,7 +81,7 @@ def HISTORY(history=None, sock=None, **kwargs):
             msg_history += f"    {num} {comands}\n" # formatando linha:comando
         MESSAGE_CLIENT(sock, msg_history)
     except:
-        print(f'\nErro no momento de enviar o Histórico de Comandos...{sys.exc_info()[0]}')  
+        loggerServer.error(f'\nErro no momento de enviar o Histórico de Comandos...{sys.exc_info()[0]}')  
         exit()  
 
 # ============================================================================================================
@@ -109,7 +108,7 @@ def HELP(sock=None, **kwargs):
             msg_help += f"  {comando} -> {descrição}\n" # formatação mensagem'
         MESSAGE_CLIENT(sock, msg_help)
     except:
-        print(f'\nErro no momento de listar as Opções...{sys.exc_info()[0]}')  
+        loggerServer.error(f'\nErro no momento de listar as Opções...{sys.exc_info()[0]}')  
         exit()  
 
 # ============================================================================================================
@@ -128,10 +127,11 @@ def LIST_FILES(sock=None, dir=None, **kwargs):
             msg_list += f"       {num}° Name: {arquives} | Size: {size} Bytes\n" # formatação da mensagem
         MESSAGE_CLIENT(sock, msg_list)
     except:
-        print(f'\nErro no momento de listar os Arquivos para Download...{sys.exc_info()}')  
+        loggerServer.error(f'\nErro no momento de listar os Arquivos para Download...{sys.exc_info()}')  
         exit()  
 
 # ============================================================================================================
+
 def DOWNLOAD_RSS():
     ...
 
@@ -163,7 +163,7 @@ def UPLOAD_RECV(comand=None, sock=None, dir=None, **kwargs):
         msg_upload = f'\nO Upload do arquivo {name} foi finalizado!\n'
         MESSAGE_CLIENT(sock, msg_upload)
     except:
-        print(f'\nErro no recebimento dos dados pelo Upload [Lado servidor]...{sys.exc_info()}')
+        loggerServer.error(f'\nErro no recebimento dos dados pelo Upload [Lado servidor]...{sys.exc_info()}')
 
 
 # ============================================================================================================
@@ -196,7 +196,7 @@ def DOWNLOAD_URL(sock=None, msg=None, dir=None, **kwargs):
         msg_erro = "\nInforme todos os argumentos/parametros necessários para essa opção\n"
         MESSAGE_CLIENT(sock, msg_erro)
     except:
-        print(f'\nErro no momento fazer o Download da URL...{sys.exc_info()}')  
+        loggerServer.error(f'\nErro no momento fazer o Download da URL...{sys.exc_info()}')  
         exit()  
 
 # ============================================================================================================
@@ -224,7 +224,7 @@ def DOWNLOAD_SEND(comand=None, dir=None, sock=None, **kwargs):
         msg_erro = f"\nInforme todos os argumentos/parametros necessários para essa opção\n"
         MESSAGE_CLIENT(sock, msg_erro)
     except:
-        print(sys.exc_info())
+        loggerServer.error(f'\nErro no momento fazer o Envio do Download Local...{sys.exc_info()}')  
 
 # ============================================================================================================
 
@@ -251,7 +251,7 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected, dir_atual):
             comand = COMAND_SPLIT(msg) # realizando split do comando do cliente 
             comand_prompt = comand[0].lower() # usando apenas para pegar o comando bruto "/x"
             if comand_prompt == '/q':
-                print(f"O cliente {info_client[1]} encerrou a conexão.")
+                loggerServer.info(f"O cliente {info_client[1]} encerrou a conexão.")
                 break
             if comand_prompt in options_choice:  # verificando se o comando está dentro das opções disponivéis 
                 # ativando a função chamada (passando argumento depois)
@@ -259,7 +259,7 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected, dir_atual):
         del clients_connected[info_client[1]] # quando o cliente digitar /q ele exclui socket do cliente da lista de clientes ativos
         sock_client.close()
     except:
-        print(f'\nErro na Interação do Cliente [pelo servidor]...{sys.exc_info()}')  
+        loggerServer.error(f'\nErro na Interação do Cliente [pelo servidor]...{sys.exc_info()}')  
         del clients_connected[info_client[1]] # caso o cliente seja desconectado por algum erro, ele apaga o cliente da lista de clientes ativos
         sock_client.close() 
         exit() 

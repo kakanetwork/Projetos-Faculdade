@@ -1,5 +1,7 @@
 
-import requests, sys, time
+import requests, sys, time, logging
+
+loggerBot = logging.getLogger('BotTelegram')
 
 # ============================================================================================================
 
@@ -11,7 +13,7 @@ except ModuleNotFoundError:
     print('\nNão foi encontrado a sua API_key!\n')
     API_key = input('Insira sua API_KEY do Telegram BOT: ') # pedindo a sua API_key
 except:
-    print(f'\nErro na Aquisição da API_KEY...{sys.exc_info()[0]}')  
+    print(f'\nErro na Aquisição da API_KEY...{sys.exc_info()}')  
     sys.exit()      
 
 # ============================================================================================================
@@ -27,10 +29,11 @@ def VERIFICATION_KEY():
     try:
         verification_key = requests.get(url_req + '/getUpdates').json() # fazendo uma requisição
     except:
-        print(f'\nErro na Verificação da API_KEY...{sys.exc_info()[0]}')  
+        print(f'\nErro na Verificação da API_KEY...{sys.exc_info()}')  
         sys.exit()
     else:
         if verification_key.get('ok'): # verificando se a requisição foi completa
+            loggerBot.info(f'\nSua API_KEY foi verificada com sucesso!')  
             pass # se for validada a api ira continuar normalmente o código
         else:
             print(f'\nA chave: {API_key}\nInformada é inválida!')
@@ -47,7 +50,7 @@ def NOTIFICATION_BOT(msg_connected):
         resposta = {'chat_id':id_chat,'text':f'{msg_connected}'} # realizo a montagem da formatação para o chat com id especificado
         var = requests.post(url_req+'/sendMessage',data=resposta) # envio a mensagem via requests.post
     except:
-        print(f'\nErro no envio da mensagem para o Bot...{sys.exc_info()[0]}')  
+        loggerBot.error(f'\nErro no envio da mensagem de [Cliente Conectado] para o Bot...{sys.exc_info()}')  
         sys.exit()
 
 # ============================================================================================================
@@ -68,7 +71,7 @@ def LIST_CLIENTS_BOT(clients_connected):
         resposta = {'chat_id':id_chat,'text':f'{msg_list}'} # realizo a montagem da formatação para o chat com id especificado
         var = requests.post(url_req+'/sendMessage',data=resposta) # envio a mensagem via requests.post
     except:
-        print(f'\nErro no momento de Listar os Clientes Conectados...{sys.exc_info()[0]}')  
+        loggerBot.error(f'\nErro no momento de Listar os Clientes Conectados...{sys.exc_info()}')  
         sys.exit() 
 
 # ============================================================================================================
@@ -79,7 +82,7 @@ def LOG_BOT():
         resposta = {'chat_id':id_chat,'text':f'{msg_log}'} 
         var = requests.post(url_req+'/sendMessage',data=resposta) 
     except:
-        print(f'\nErro no momento de Listar os Clientes Conectados...{sys.exc_info()[0]}')  
+        loggerBot.error(f'\nErro...{sys.exc_info()}')  
         sys.exit() 
 
 
@@ -91,7 +94,7 @@ def DATE_BOT():
         resposta = {'chat_id':id_chat,'text':f'{msg_date}'} 
         var = requests.post(url_req+'/sendMessage',data=resposta) 
     except:
-        print(f'\nErro no momento de Listar os Clientes Conectados...{sys.exc_info()[0]}')  
+        loggerBot.error(f'\nErro...{sys.exc_info()}')  
         sys.exit() 
 
 
@@ -122,7 +125,7 @@ def START_BOT(clients_connected):
                 id_message= message['update_id'] + 1 # aqui eu defino o id message (pego ele dentro do .json), e jogo +1 pois funciona como um OFFSET
                     # onde a cada mensagem, o seu id vai ser +1 em relação ao anterior
     except:
-        print(f'\nErro no momento de Ler as mensagens do Telegram...{sys.exc_info()[0]}')  
+        loggerBot.error(f'\nErro no momento de Ler as mensagens do Telegram...{sys.exc_info()}')  
         sys.exit() 
 
 # ============================================================================================================

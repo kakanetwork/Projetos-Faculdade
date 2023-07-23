@@ -1,7 +1,9 @@
 
-import socket, sys, ssl
+import socket, sys, ssl, logging
 from variables import *
 from functions_others import *
+
+loggerServer  = logging.getLogger('Server')
 
 # ============================================================================================================
 
@@ -57,7 +59,7 @@ def DOWNLOAD_WEB(socket_conexão, sock_client):
         msg_download = f'\nO Download do arquivo foi concluído!\n'
         MESSAGE_CLIENT(sock_client, msg_download)
     except:
-        print(f'\nErro no recebimento dos dados...{sys.exc_info()}')  
+        loggerServer.error(f'\nErro no recebimento dos dados do Download Web...{sys.exc_info()}')  
         exit()  
     socket_conexão.close() # fechando a conexão
     return headers, arquivo_dados, content_type
