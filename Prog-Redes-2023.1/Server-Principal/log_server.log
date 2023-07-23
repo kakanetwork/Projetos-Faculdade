@@ -1,1 +1,38 @@
 2023-07-23 01:44:10,180 - BotTelegram - INFO - Foi pedido para Listar o Log Atual
+2023-07-23 13:39:13,353 - Server - INFO - Servidor Iniciado: 0.0.0.0 / 5678
+2023-07-23 13:39:48,802 - Server - INFO - O Cliente de IP: 127.0.0.1 | Na Porta: 51726 - Foi conectado com sucesso!
+2023-07-23 13:42:09,345 - Server - CRITICAL - Erro na Interação do Cliente [pelo servidor]...<class 'ConnectionResetError'>
+2023-07-23 13:42:21,753 - Server - INFO - Servidor Iniciado: 0.0.0.0 / 5678
+2023-07-23 13:42:53,990 - BotTelegram - INFO - Foi pedido para Listar os Clientes Conectados!
+2023-07-23 13:42:58,946 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:43:24,620 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:43:25,898 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:43:26,639 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:43:27,310 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:43:28,544 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:43:29,257 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:43:30,001 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:43:30,637 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:43:31,913 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:43:32,602 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:43:33,351 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:43:34,023 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:43:34,785 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:43:42,182 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:43:43,559 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:43:44,922 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:43:45,642 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:43:46,346 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:43:55,393 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:43:56,679 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:43:57,366 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:43:58,594 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:43:59,278 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:43:59,965 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:44:08,981 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:44:12,938 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:44:14,273 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:44:18,339 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:44:21,107 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:44:22,378 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!
+2023-07-23 13:44:23,157 - BotTelegram - INFO - Foi pedido para Listar o Log Atual!

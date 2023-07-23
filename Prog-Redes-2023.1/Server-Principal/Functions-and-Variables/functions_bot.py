@@ -123,10 +123,10 @@ def START_BOT(clients_connected, dir_log):
                 if 'message' in message and 'text' in message['message']: # verifico se a chave 'message' e 'text' estão presentes
                     command = message['message']['text'] # pego o texto da mensagem
                     if command == '/u' : # verifico se o que foi digitado = /u
-                        loggerBot.info('Foi pedido para Listar os Clientes Conectados')
+                        loggerBot.info('Foi pedido para Listar os Clientes Conectados!')
                         LIST_CLIENTS_BOT(clients_connected) # se sim, ativo a função de listagem dos clientes conectados
                     elif command == '/log':
-                        loggerBot.info('Foi pedido para Listar o Log Atual')
+                        loggerBot.info('Foi pedido para Listar o Log Atual!')
                         LOG_BOT(dir_log) # se sim, ativo a função de listagem do log
                     else:
                         INVALID()

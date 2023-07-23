@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8" ?><rss version="0.92">
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<channel>
+
+	<title>Globoesporte.com nos Estaduais 2008: NotÃ­cias, VÃ­deos, Tabela de Jogos e tudo sobre seu Time</title>
+	<link>http://globoesporte.globo.com/ESP/Home/0,,4271,00.html</link>
+	<description>Globoesporte.com, absolutamente tudo sobre esportes. Campeonatos, classificaÃ§Ãµes, estatÃ­sticas, fotos, games, infogrÃ¡ficos, Ãºltimas notÃ­cias, promoÃ§Ãµes, resultados, tabela de jogos, vÃ­deos e muito mais</description>
+	<language>pt-BR</language>
+	<copyright>Â© Todos os direitos reservados.</copyright>
+
+	<image>
+		<title>Globoesporte.com nos Estaduais 2008: NotÃ­cias, VÃ­deos, Tabela de Jogos e tudo sobre seu Time</title>
+		<url>http://globoesporte.globo.com/Portal/esportes/globoesporte/img/tit_header_rss.jpg</url>
+		<link>http://www.globoesportes.com</link>
+		<width>144</width>
+		<height>60</height>
+	</image>
+
+		<item>
+			<category>Futebol</category>
+			<title>LEMBRA DELE? Zenon sonhou com o Fla</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/0,,MUL422175-4274,00.html</link>
+
+			<description><![CDATA[Ex-jogador acha que fez um bom papel substituindo Rivelino no Corinthians]]></description>
+			<pubDate>Tue, 06 May 2008 09:00:58 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Futebol</category>
+			<title>Bota acerta contrataÃ§Ã£o de Carlos Alberto</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/0,,MUL454452-4274,00.html</link>
+
+			<description><![CDATA[Jogador foi dispensado pela diretoria do SÃ£o Paulo no Ãºltimo dia 16]]></description>
+			<pubDate>Tue, 06 May 2008 00:01:10 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Paulista</category>
+			<title>Palmeiras cede 4 para seleÃ§Ã£o do Paulista</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/Campeonatos/0,,MUL454449-8068,00.html</link>
+
+			<description><![CDATA[Valdivia Ã© eleito o craque da competiÃ§Ã£o. Luxa Ã© o melhor tÃ©cnico pela sexta vez]]></description>
+			<pubDate>Mon, 05 May 2008 23:52:08 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Futebol</category>
+			<title>Ronaldo Ã© o 'destaque' da festa do Carioca</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/0,,MUL454445-4274,00.html</link>
+
+			<description><![CDATA[FenÃ´meno Ã© alvo de piadas dos apresentadores em noite protagonizada por Fla e Bota]]></description>
+			<pubDate>Mon, 05 May 2008 23:40:25 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>GrÃªmio</category>
+			<title>Krieger demonstra confianÃ§a em Roth</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/Gremio/0,,MUL454412-4411,00.html</link>
+
+			<description><![CDATA[Treinador comanda treino da tarde no OlÃ­mpico e dirige a equipe na estrÃ©ia do BrasileirÃ£o]]></description>
+			<pubDate>Mon, 05 May 2008 23:23:33 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Futebol</category>
+			<title>Luxa anuncia quatro reforÃ§os para o VerdÃ£o</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/0,,MUL454432-4274,00.html</link>
+
+			<description><![CDATA[Clube acerta com Jumar, Fabinho Capixaba, JÃ©ferson e Sandro Silva]]></description>
+			<pubDate>Mon, 05 May 2008 23:20:16 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>SÃ£o Paulo</category>
+			<title>SÃ£o Paulo boicota festa da FederaÃ§Ã£o</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/Sao_Paulo/0,,MUL454407-4286,00.html</link>
+
+			<description><![CDATA[Nenhum jogador do clube compareceu Ã  premiaÃ§Ã£o dos melhores do Estadual]]></description>
+			<pubDate>Mon, 05 May 2008 22:44:12 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Botafogo</category>
+			<title>TÃ©cnico aceita reavaliaÃ§Ã£o sobre trabalho</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/Botafogo/0,,MUL454404-4399,00.html</link>
+
+			<description><![CDATA[HÃ¡ dois anos no clube, Cuca admite nÃ£o estar imune Ã  anÃ¡lise da diretoria apÃ³s outro vice]]></description>
+			<pubDate>Mon, 05 May 2008 22:29:40 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Botafogo</category>
+			<title>Dirigente se afasta do clube</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/Botafogo/0,,MUL454398-4399,00.html</link>
+
+			<description><![CDATA[Manoel Renha explica que decisÃ£o jÃ¡ estava tomada antes da decisÃ£o do Carioca]]></description>
+			<pubDate>Mon, 05 May 2008 22:26:12 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>SÃ£o Paulo</category>
+			<title>ConcentraÃ§Ã£o antecipada por vaga</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/Sao_Paulo/0,,MUL454396-4286,00.html</link>
+
+			<description><![CDATA[Elenco tricolor fica no CT desde esta segunda para jogo contra o Nacional]]></description>
+			<pubDate>Mon, 05 May 2008 22:25:21 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>GaÃºcho</category>
+			<title>Alex Ã© eleito o craque do GauchÃ£o</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/Campeonatos/0,,MUL454392-8071,00.html</link>
+
+			<description><![CDATA[Inter, Juventude e GrÃªmio tÃªm trÃªs jogadores cada na seleÃ§Ã£o do campeonato estadual]]></description>
+			<pubDate>Mon, 05 May 2008 22:20:54 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Juventude</category>
+			<title>Ju busca reforÃ§os e tenta manter Mendes</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/Juventude/0,,MUL454380-4412,00.html</link>
+
+			<description><![CDATA[Presidente Sergio Florian nÃ£o farÃ¡ grandes mudanÃ§as apÃ³s goleada na final do GauchÃ£o]]></description>
+			<pubDate>Mon, 05 May 2008 21:56:33 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>AtlÃ©tico PR</category>
+			<title>Fahel serÃ¡ apresentado nesta terÃ§a</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/Atletico_Paranaense/0,,MUL454376-4407,00.html</link>
+
+			<description><![CDATA[Volante estava no futebol portuguÃªs e reforÃ§a FuracÃ£o no Campeonato Brasileiro]]></description>
+			<pubDate>Mon, 05 May 2008 21:48:54 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Corinthians</category>
+			<title>Elias: conversa com TimÃ£o estÃ¡ avanÃ§ada</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/Corinthians/0,,MUL454369-4402,00.html</link>
+
+			<description><![CDATA[Jogador afirma que falta acerto do Corinthians com a Ponte Preta]]></description>
+			<pubDate>Mon, 05 May 2008 21:40:51 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Flamengo</category>
+			<title>Para Caio Jr., Fla Ã© igual Ã  seleÃ§Ã£o</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/Flamengo/0,,MUL454355-4282,00.html</link>
+
+			<description><![CDATA[Treinador admite que a pressÃ£o de dirigir o time rubro-negro Ã© imensa e um grande desafio]]></description>
+			<pubDate>Mon, 05 May 2008 21:17:11 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Cruzeiro</category>
+			<title>Meia Camilo se apresenta como curinga</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/Cruzeiro/0,,MUL454364-4401,00.html</link>
+
+			<description><![CDATA[Jogador de 22 anos chega como reforÃ§o para o BrasileirÃ£o elogiando o ex-meia celeste Alex]]></description>
+			<pubDate>Mon, 05 May 2008 21:16:06 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>GoiÃ¡s</category>
+			<title>GoiÃ¡s nÃ£o desiste de ir Ã  JustiÃ§a</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/Goias/0,,MUL454363-4414,00.html</link>
+
+			<description><![CDATA[Clube quer provar irregularidade dos jogadores Bida e FÃ¡bio Oliveira, do Itumbiara]]></description>
+			<pubDate>Mon, 05 May 2008 21:15:16 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Figueirense</category>
+			<title>Cleiton Xavier fica no Figueira na SÃ©rie A</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/Figueirense/0,,MUL454354-4416,00.html</link>
+
+			<description><![CDATA[Meia disputarÃ¡ o Campeonato Brasileiro pelo Alvinegro e nÃ£o quer voltar ao Internacional]]></description>
+			<pubDate>Mon, 05 May 2008 21:12:05 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Botafogo</category>
+			<title>Carinho da torcida deixa Cuca triste</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/Botafogo/0,,MUL454353-4399,00.html</link>
+
+			<description><![CDATA[Abatido, tÃ©cnico confessa decepÃ§Ã£o por nÃ£o conseguir dar tÃ­tulos aos alvinegros]]></description>
+			<pubDate>Mon, 05 May 2008 21:11:20 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Corinthians</category>
+			<title>AzulÃ£o x TimÃ£o: em RibeirÃ£o ou na Vila</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/Corinthians/0,,MUL454347-4402,00.html</link>
+
+			<description><![CDATA[SÃ£o Caetano diz que CBF negou o seu pedido de fazer a segunda partida no Morumbi]]></description>
+			<pubDate>Mon, 05 May 2008 21:07:13 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Corinthians</category>
+			<title>Com moral inÃ©dito, TimÃ£o pega SÃ£o Caetano</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/Corinthians/0,,MUL454341-4402,00.html</link>
+
+			<description><![CDATA[Embalado por âexceÃ§Ã£oâ contra GoiÃ¡s, time inicia luta nas quartas da Copa do Brasil]]></description>
+			<pubDate>Mon, 05 May 2008 21:01:25 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Copa do Brasil</category>
+			<title>Almir motivado para reencontrar o Bota</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/Campeonatos/0,,MUL454338-4278,00.html</link>
+
+			<description><![CDATA[Meia revelado pelo clube carioca quer uma vitÃ³ria do Galo para pressionar no jogo de volta]]></description>
+			<pubDate>Mon, 05 May 2008 20:58:41 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Internacional</category>
+			<title>LesÃ£o deixa MagrÃ£o fora por 15 dias</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/Internacional/0,,MUL454324-4410,00.html</link>
+
+			<description><![CDATA[Jogador desfalca o Internacional nas duas partidas contra o Sport pela Copa do Brasil]]></description>
+			<pubDate>Mon, 05 May 2008 20:38:47 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Futebol</category>
+			<title>Maicosuel interessa ao Botafogo</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/0,,MUL454313-4274,00.html</link>
+
+			<description><![CDATA[Cruzeiro espera fim da Libertadores para conversar sobre possÃ­vel transferÃªncia]]></description>
+			<pubDate>Mon, 05 May 2008 20:30:24 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>OlimpÃ­adas 2008</category>
+			<title>JudÃ´: Brasil fecha Copa com trÃªs ouros</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/0,,MUL454302-10122,00.html</link>
+
+			<description><![CDATA[Luciano CorrÃªa, Ãrika Miranda e Sarah Menezes sÃ£o campeÃµes da etapa de Belo Horizonte]]></description>
+			<pubDate>Mon, 05 May 2008 20:22:11 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Futebol</category>
+			<title>GrÃªmio apresenta o volante Makelele</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/0,,MUL454268-4274,00.html</link>
+
+			<description><![CDATA[Jogador de 23 anos chega ao EstÃ¡dio OlÃ­mpico apÃ³s comemorar a conquista do Paulista]]></description>
+			<pubDate>Mon, 05 May 2008 19:48:58 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Futebol</category>
+			<title>VerdÃ£o negocia volante campeÃ£o paulista</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/0,,MUL454253-4274,00.html</link>
+
+			<description><![CDATA[ApÃ³s a conquista do tÃ­tulo estadual, a diretoria comeÃ§a a reformular o atual elenco]]></description>
+			<pubDate>Mon, 05 May 2008 19:39:07 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Corinthians</category>
+			<title>Eduardo Ramos: relacionado para o jogo</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/Corinthians/0,,MUL454246-4402,00.html</link>
+
+			<description><![CDATA[Pela primeira vez, meia vai para uma partida como opÃ§Ã£o no banco do Corinthians]]></description>
+			<pubDate>Mon, 05 May 2008 19:36:46 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Coritiba</category>
+			<title>Diretoria anuncia pacotÃ£o de reforÃ§os</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/0,,MUL454244-4409,00.html</link>
+
+			<description><![CDATA[Cinco jogadores chegam para compor o elenco para a disputa do Campeonato Brasileiro]]></description>
+			<pubDate>Mon, 05 May 2008 19:34:10 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Coritiba</category>
+			<title>Henrique Dias jÃ¡ pensa no BrasileirÃ£o</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/0,,MUL454228-4409,00.html</link>
+
+			<description><![CDATA[Autor do gol do tÃ­tulo paranaense diz que o time tem que comemorar com moderaÃ§Ã£o]]></description>
+			<pubDate>Mon, 05 May 2008 19:25:36 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Botafogo</category>
+			<title>Wellington admite que ficou devendo na final</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/Botafogo/0,,MUL454225-4399,00.html</link>
+
+			<description><![CDATA[Atacante ressalta que Botafogo tem condiÃ§Ãµes de brigar por outros tÃ­tulos em 2008]]></description>
+			<pubDate>Mon, 05 May 2008 19:23:48 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Fluminense</category>
+			<title>Washington vibra com a volta de DodÃ´</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/Fluminense/0,,MUL454221-4284,00.html</link>
+
+			<description><![CDATA[Atacante tricolor deixa a solitÃ¡ria e sonha com a volta dos gols]]></description>
+			<pubDate>Mon, 05 May 2008 19:18:44 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Fluminense</category>
+			<title>Flu pega o Nacional de olho nas quartas</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/Fluminense/0,,MUL454214-4284,00.html</link>
+
+			<description><![CDATA[Tricolor pode atÃ© perder por 1 a 0 que estarÃ¡ classificado para a prÃ³xima fase]]></description>
+			<pubDate>Mon, 05 May 2008 19:14:50 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Fluminense</category>
+			<title>12 mil ingressos vendidos para terÃ§a</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/Fluminense/0,,MUL454216-4284,00.html</link>
+
+			<description><![CDATA[HorÃ¡rio da partida vem sendo apontado como principal vilÃ£o da venda de bilhetes]]></description>
+			<pubDate>Mon, 05 May 2008 19:13:44 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Palmeiras</category>
+			<title>Alex Mineiro enche a bola de Valdivia</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/Palmeiras/0,,MUL454211-4403,00.html</link>
+
+			<description><![CDATA[Atacante pede para a diretoria segurar o chileno para a disputa do Campeonato Brasileiro]]></description>
+			<pubDate>Mon, 05 May 2008 19:09:52 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>SÃ£o Paulo</category>
+			<title>Ceni pede calor humano da torcida em casa</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/Sao_Paulo/0,,MUL454128-4286,00.html</link>
+
+			<description><![CDATA[Hernanes diz que Tricolor ainda nÃ£o esquentou nesta Libertadores. Expectativa de 40 mil]]></description>
+			<pubDate>Mon, 05 May 2008 19:07:34 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Ipatinga</category>
+			<title>Tigre contrata lateral Baroni, ex-Ituiutaba</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/0,,MUL454185-10069,00.html</link>
+
+			<description><![CDATA[Destaque do Mineiro, jogador reforÃ§a o time na inÃ©dita disputa da SÃ©rie A do Brasileiro]]></description>
+			<pubDate>Mon, 05 May 2008 18:56:45 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Vasco</category>
+			<title>Corinthians-AL nÃ£o Ã© tÃ£o desconhecido</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/Vasco/0,,MUL454194-4283,00.html</link>
+
+			<description><![CDATA[Jogadores vascaÃ­nos mostram saber alguns pontos fortes do adversÃ¡rio desta quarta]]></description>
+			<pubDate>Mon, 05 May 2008 18:55:09 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Fluminense</category>
+			<title>Tricolor goleia em torneio sub-15</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/Fluminense/0,,MUL454189-4284,00.html</link>
+
+			<description><![CDATA[Equipe estrÃ©ia com vitÃ³ria em competiÃ§Ã£o realizada na Baixada Fluminense]]></description>
+			<pubDate>Mon, 05 May 2008 18:50:16 -0300</pubDate>
+		</item>
+
+		<item>
+			<category>Botafogo</category>
+			<title>Cuca: âAtlÃ©tico nÃ£o vai ter peninhaâ</title>
+
+			<link>http://globoesporte.globo.com/ESP/Noticia/Futebol/Botafogo/0,,MUL454183-4399,00.html</link>
+
+			<description><![CDATA[TÃ©cnico ressalta que recuperaÃ§Ã£o psicolÃ³gica Ã© prioridade atÃ© o jogo de quinta-feira]]></description>
+			<pubDate>Mon, 05 May 2008 18:48:08 -0300</pubDate>
+		</item>
+
+</channel>
+
+
+
+
+
+</rss>
