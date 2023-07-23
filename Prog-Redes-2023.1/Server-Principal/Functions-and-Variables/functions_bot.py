@@ -13,7 +13,7 @@ except ModuleNotFoundError:
     print('\nNão foi encontrado a sua API_key!\n')
     API_key = input('Insira sua API_KEY do Telegram BOT: ') # pedindo a sua API_key
 except:
-    print(f'\nErro na Aquisição da API_KEY...{sys.exc_info()}')  
+    print(f'\nErro na Aquisição da API_KEY...{sys.exc_info()[0]}')  
     sys.exit()      
 
 # ============================================================================================================
@@ -31,7 +31,7 @@ def VERIFICATION_KEY():
     try:
         verification_key = requests.get(url_req + '/getUpdates').json() # fazendo uma requisição
     except:
-        print(f'\nErro na Verificação da API_KEY...{sys.exc_info()}')  
+        print(f'\nErro na Verificação da API_KEY...{sys.exc_info()[0]}')  
         sys.exit()
     else:
         if verification_key.get('ok'): # verificando se a requisição foi completa
@@ -52,7 +52,7 @@ def NOTIFICATION_BOT(msg_connected):
         resposta = {'chat_id':id_chat,'text':f'{msg_connected}'} # realizo a montagem da formatação para o chat com id especificado
         var = requests.post(url_req+'/sendMessage',data=resposta) # envio a mensagem via requests.post
     except:
-        loggerBot.error(f'Erro no envio da mensagem de [Cliente Conectado] para o Bot...{sys.exc_info()}')  
+        loggerBot.error(f'Erro no envio da mensagem de [Cliente Conectado] para o Bot...{sys.exc_info()[0]}')  
         sys.exit()
 
 # ============================================================================================================
@@ -73,18 +73,35 @@ def LIST_CLIENTS_BOT(clients_connected):
         resposta = {'chat_id':id_chat,'text':f'{msg_list}'} # realizo a montagem da formatação para o chat com id especificado
         var = requests.post(url_req+'/sendMessage',data=resposta) # envio a mensagem via requests.post
     except:
-        loggerBot.error(f'Erro no momento de Listar os Clientes Conectados...{sys.exc_info()}')  
+        loggerBot.error(f'Erro no momento de Listar os Clientes Conectados...{sys.exc_info()[0]}')  
         sys.exit() 
 
 # ============================================================================================================
 
-def LOG_BOT():
+''' LISTANDO O LOG PARA O BOT DO TELEGRAM '''
+
+def LOG_BOT(dir_log):
     try:
-        msg_log = "Essa função está em desenvolvimento...."
-        resposta = {'chat_id':id_chat,'text':f'{msg_log}'} 
+        msg_log = "===================== LOG DO SERVIDOR =====================\nDATA - LOGGER - TIPO - INFORMAÇÃO\n"
+        with open(dir_log, 'r') as arquive: # faço a abertura do arquivo log 
+            msg_log += arquive.read() # adiciono ao msg_log
+        resposta = {'chat_id':id_chat,'text':f'{msg_log}'} # faço o envio
         var = requests.post(url_req+'/sendMessage',data=resposta) 
     except:
-        loggerBot.error(f'Erro...{sys.exc_info()}')  
+        loggerBot.error(f'Erro no momento de listar o Log para o Bot do Telegram...{sys.exc_info()[0]}')  
+        sys.exit() 
+
+# ============================================================================================================
+
+''' INFORMANDO PARA DIGITAR UM COMANDO VÁLIDO '''
+
+def INVALID():
+    try:
+        msg_invalid = "\nInforme um comando válido!\n\n/u -> Listagem de Clientes Conectados\n/log -> Listagem do Log atual do servidor"
+        resposta = {'chat_id':id_chat,'text':f'{msg_invalid}'} # faço o envio
+        var = requests.post(url_req+'/sendMessage',data=resposta) 
+    except:
+        loggerBot.error(f'Erro no momento de Informar para digitar um comando válido...{sys.exc_info()[0]}')  
         sys.exit() 
 
 # ============================================================================================================
@@ -105,16 +122,16 @@ def START_BOT(clients_connected, dir_log):
                 command = message.get('message', []).get('text', []) # realizo o get dentro de cada mensagem, para me retornar apenas oque foi digitado ('text')
                 if command == '/u' : # verifico se o que foi digitado = /u
                     LIST_CLIENTS_BOT(clients_connected) # se sim, ativo a função de listagem dos clientes conectados
+                    loggerBot.info('Foi pedido para Listar os Clientes Conectados')
                 elif command == '/log':
-                    LOG_BOT()
-                    ... # EM DESENVOLVIMENTO ....
-                elif command == '/date':
-                    DATE_BOT()
-                    ... # EM DESENVOLVIEMNTO ....
+                    LOG_BOT(dir_log) # se sim, ativo a função de listagem do log
+                    loggerBot.info('Foi pedido para Listar o Log Atual')
+                else:
+                    INVALID()
                 id_message= message['update_id'] + 1 # aqui eu defino o id message (pego ele dentro do .json), e jogo +1 pois funciona como um OFFSET
                     # onde a cada mensagem, o seu id vai ser +1 em relação ao anterior
     except:
-        loggerBot.error(f'Erro no momento de Ler as mensagens do Telegram...{sys.exc_info()}')  
+        loggerBot.error(f'Erro no momento de Ler as mensagens do Telegram...{sys.exc_info()[0]}')  
         sys.exit() 
 
 # ============================================================================================================

@@ -2,6 +2,8 @@ import socket, time
 from variables import *
 from functions_others import *
 
+# ============================================================================================================
+
 
 def UPLOAD_SEND(name_arquive, dir_atual, sock_tcp):
     try:
@@ -18,6 +20,8 @@ def UPLOAD_SEND(name_arquive, dir_atual, sock_tcp):
                 if not dados_arq:
                     break
                 sock_tcp.send(dados_arq) # enviando o arquivo
+    except FileNotFoundError:
+        print(f'\nO Arquivo que você pediu "{name_arquive}" não existe no seu diretorio atual!\n')
     except IndexError: # para caso não seja repassado todos os argumentos de /d
         print(f"\nInforme todos os argumentos/parametros necessários para essa opção\n")
     except:

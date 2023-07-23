@@ -6,7 +6,7 @@
 try:
     import socket, threading, os, sys, time, subprocess, platform, logging, logging.config
 except:
-    print(f'\nErro na Importação das Bibliotecas necessárias...{sys.exc_info()}')  
+    print(f'\nErro na Importação das Bibliotecas necessárias...{sys.exc_info()[0]}')  
     sys.exit()
 
 # ============================================================================================================
@@ -41,7 +41,7 @@ def VERIFICATION_FUNCTIONS():
         print('\nA pasta "Functions and Variables" não foi encontrada, faça o download dela [com todas suas dependencias]!\n')
         sys.exit()
     except:
-        print(f'\nErro na Verificação dos arquivos da Pasta de Funções...{sys.exc_info()}')  
+        print(f'\nErro na Verificação dos arquivos da Pasta de Funções...{sys.exc_info()[0]}')  
         sys.exit() 
     else:
         for arquivos in name_arqs: 
@@ -61,7 +61,7 @@ try:
     from functions_others import CREATE_PAST
     from functions_bot import START_BOT, NOTIFICATION_BOT
 except:
-    print(f'\nAlguma das Funções necessárias para o código não foi encontrada!...{sys.exc_info()}\n')
+    print(f'\nAlguma das Funções necessárias para o código não foi encontrada!...{sys.exc_info()[0]}\n')
     sys.exit()
 
 # ============================================================================================================
@@ -76,7 +76,7 @@ try:
     loggerBot = logging.getLogger('BotTelegram')
     loggerDebug = logging.getLogger('Debug')
 except:
-    print(f'\nErro na Inicialização da Configuração do Log!\nVerifique se seu arquivo "log.ini" está devidamente Configurado... {sys.exc_info()}\n')
+    print(f'\nErro na Inicialização da Configuração do Log!\nVerifique se seu arquivo "log.ini" está devidamente Configurado... {sys.exc_info()[0]}\n')
     sys.exit()
 
 # ============================================================================================================
@@ -101,7 +101,7 @@ try:
     while True: 
         try:
             sock_client, info_client = sock_tcp.accept() # aceitando clientes 
-            msg_connected = f"O Cliente de IP: {info_client[0]} | Na Porta: {info_client[1]}\nFoi conectado com sucesso!" 
+            msg_connected = f"O Cliente de IP: {info_client[0]} | Na Porta: {info_client[1]} - Foi conectado com sucesso!" 
             loggerServer.info(msg_connected) # informando o cliente conectado
             NOTIFICATION_BOT(msg_connected) # enviando mensagem para o bot do cliente que se conectou [Questão pedida]
             clients_connected[info_client[1]] = [info_client[0], sock_client] # adicionando o cliente ao dicionario de clientes conectados (PORTA:IP,SOCKET)
@@ -113,17 +113,20 @@ try:
             ''' EXCEÇÕES... ''' 
 
         except:
-            loggerServer.critical(f'Erro na Inicialização da Thread...{sys.exc_info()}')  
+            loggerServer.critical(f'Erro na Inicialização da Thread...{sys.exc_info()[0]}')  
             sys.exit() 
             
 except OSError as e: # exceção para quando a porta do servidor atual estiver ocupada
     if e.errno == 98:
-        loggerServer.critical('\nA porta atual do servidor se encontra ocupada\n')
+        loggerServer.critical('A porta atual do servidor se encontra ocupada!')
         sys.exit()
+except ConnectionAbortedError:
+    loggerServer.critical('O Servidor foi desligado Abruptamente!')
+    sys.exit()
 except SystemExit: # SystemExit para fins de debug
     ...
 except:
-    loggerServer.critical(f'Erro na Inicialização do Server...{sys.exc_info()}')  
+    loggerServer.critical(f'Erro na Inicialização do Server...{sys.exc_info()[0]}')  
     sys.exit() 
 
 # ============================================================================================================

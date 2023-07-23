@@ -25,9 +25,11 @@ def CHAT(comand=None, clients=None, info_client=None, sock=None, **kwargs):
             else: # para caso do Cliente não ser achado 
                 msg_erro = f"\nO Cliente informado para encaminhar a mensagem não está conectado ao Servidor!\n"
                 MESSAGE_CLIENT(sock, msg_erro)
+                return
     except IndexError: # para caso não seja repassado todos os argumentos de /m
-        msg_erro = f"\nInforme todos os argumentos/parametros necessários para essa opção\n"
+        msg_erro = f"\nInforme todos os argumentos/parametros necessários para essa opção!\n"
         MESSAGE_CLIENT(sock, msg_erro)
+        return
     except:
         loggerServer.error(f'Erro no Chat...{sys.exc_info()[0]}')  
         exit() 
@@ -94,12 +96,12 @@ def HELP(sock=None, **kwargs):
         # Criando descrição de cada comando
         descriptive_options = {
         '/l': 'Listar clientes conectados',
-        '/m:ip:porta:mensagem': 'Enviar mensagem para cliente especifíco [Informe IP:PORTA do cliente]',
+        '/m:ip:porta:mensagem': 'Enviar mensagem para cliente especifíco [Informe IP:PORTA do scliente]',
         '/b:mensagem': 'Enviar mensagem em Broadcast [Informe mensagem]',
         '/h': 'Lista o seu histórico de comandos',
         '/f': 'Lista os arquivos disponiveis para download local',
         '/d:arquivo': 'faz o download de um arquivo do servidor [Informe nome do arquivo]',
-        '/u:caminho': 'Efetua o upload de um arquivo no seu computador para o servidor [Informe o caminho do arquivo]',
+        '/u:arquivo': 'Efetua o upload de um arquivo do seu PC para o Server [Informe nome do arquivo]',
         '/w:url' : 'Faz o download do arquivo de uma URL no banco do servidor [Informe uma URL]',
         '/?': 'Lista as opções disponiveis',
         '/q': 'Desconectar do Servidor'
@@ -128,7 +130,7 @@ def LIST_FILES(sock=None, dir=None, **kwargs):
             msg_list += f"       {num}° Name: {arquives} | Size: {size} Bytes\n" # formatação da mensagem
         MESSAGE_CLIENT(sock, msg_list)
     except:
-        loggerServer.error(f'Erro no momento de listar os Arquivos para Download...{sys.exc_info()}')  
+        loggerServer.error(f'Erro no momento de listar os Arquivos para Download...{sys.exc_info()[0]}')  
         exit()  
 
 # ============================================================================================================
@@ -147,7 +149,7 @@ def UPLOAD_RECV(comand=None, sock=None, dir=None, **kwargs):
     size = int(comand[1]) # pegando o tamanho enviado antecipadamente 
     name = comand[2] # pegando o nome enviado antecipadamente 
     try:
-        msg_upload = f'\nGravando o arquivo: {name}\nTamanho: {size} bytes\nNo servidor!'
+        msg_upload = f'\nGravando Arquivo no Servidor\nNome: {name}\nTamanho: {size} bytes\n'
         MESSAGE_CLIENT(sock, msg_upload) # enviando mensagem para o cliente 
         local_arquive = dir + f'\\server_files\\{name}' # definindo o local de save
         with open(local_arquive, 'wb') as arquivo: # abrindo o arquivo em "Wb" -> Leitura Binária
@@ -158,14 +160,14 @@ def UPLOAD_RECV(comand=None, sock=None, dir=None, **kwargs):
                 if not data_arquive: break
                 arquivo.write(data_arquive) # escrevendo 
                 bytes_recebidos += len(data_arquive) # adicionando cada pacote de bytes aos bytes recebidos
-                msg_upload = f'Pacote ({pct}) - Dados: {bytes_recebidos}/{size} bytes' # informando o processamento
+                msg_upload = f'Pacote ({pct}) - Dados: {bytes_recebidos}/{size} bytes\n' # informando o processamento
                 MESSAGE_CLIENT(sock, msg_upload)
                 if bytes_recebidos >= size: break # após os bytes recebidos forem iguais ou excederem o tamanho enviado antecipadamente, ele encerra.
                 pct += 1
-        msg_upload = f'\nO Upload do arquivo {name} foi finalizado!\n' # informando que o Upload foi feito com sucesso
+        msg_upload = f'\n\nO Upload do arquivo {name} foi finalizado!\n' # informando que o Upload foi feito com sucesso
         MESSAGE_CLIENT(sock, msg_upload)
     except:
-        loggerServer.error(f'Erro no recebimento dos dados pelo Upload [Lado servidor]...{sys.exc_info()}')
+        loggerServer.error(f'Erro no recebimento dos dados pelo Upload [Lado servidor]...{sys.exc_info()[0]}')
 
 # ============================================================================================================
 
@@ -193,7 +195,6 @@ def DOWNLOAD_URL(sock=None, msg=None, dir=None, **kwargs):
             msg_erro = '\nA Requisição não teve sucesso, verifique a URL... (tente novamente)!\n'
             MESSAGE_CLIENT(sock, msg_erro)
             return
-        loggerDebug.info(f'O Cliente requisitou o download desta URL:{url_brute}') # para fins de debug/e acesso da URL 
         # Separei as funções para a DOWNLOAD_WEB realizar o bruto [motivo: debug facilitado/redução de código/modulação]
         arquivo_dados, content_type = DOWNLOAD_WEB(socket_conexão, sock) # me retorna o arquivo/extensão dele
         nome_arquivo = f'{arquivename}.{content_type}' # definindo o nome do arquivo com o nome retirado da URL + sua extensão real 
@@ -204,7 +205,7 @@ def DOWNLOAD_URL(sock=None, msg=None, dir=None, **kwargs):
         msg_erro = "\nInforme todos os argumentos/parametros necessários para essa opção\n"
         MESSAGE_CLIENT(sock, msg_erro)
     except:
-        loggerServer.error(f'Erro no momento fazer o Download da URL...{sys.exc_info()}')  
+        loggerServer.error(f'Erro no momento de fazer o Download da URL...{sys.exc_info()[0]}')  
         exit()  
 
 # ============================================================================================================
@@ -228,11 +229,14 @@ def DOWNLOAD_SEND(comand=None, dir=None, sock=None, **kwargs):
                 if not dados_img:
                     break
                 sock.send(dados_img) # enviando o arquivo
+    except FileNotFoundError:
+        msg_local = f'\nO Arquivo que você pediu "{comand[1]}" não existe no servidor!\nDê /f para consultar os arquivos existentes...\n'
+        MESSAGE_CLIENT(sock, msg_local) 
     except IndexError: # para caso não seja repassado todos os argumentos de /d
         msg_erro = f"\nInforme todos os argumentos/parametros necessários para essa opção\n"
         MESSAGE_CLIENT(sock, msg_erro)
     except:
-        loggerServer.error(f'Erro no momento fazer o Envio do Download Local...{sys.exc_info()}')  
+        loggerServer.error(f'Erro no momento fazer o Envio do Download Local...{sys.exc_info()[0]}')  
 
 # ============================================================================================================
 
@@ -259,7 +263,7 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected, dir_atual):
             comand = COMAND_SPLIT(msg) # realizando split do comando do cliente 
             comand_prompt = comand[0].lower() # usando apenas para pegar o comando bruto "/x"
             if comand_prompt == '/q':
-                loggerServer.info(f"O cliente {info_client[0]}:{info_client[1]} encerrou a conexão.")
+                loggerServer.info(f"O cliente {info_client[0]}:{info_client[1]} encerrou a conexao.")
                 break
             if comand_prompt in options_choice:  # verificando se o comando está dentro das opções disponivéis 
                 # ativando a função chamada (passando argumento depois)
@@ -267,7 +271,7 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected, dir_atual):
         del clients_connected[info_client[1]] # quando o cliente digitar /q ele exclui socket do cliente da lista de clientes ativos
         sock_client.close()
     except:
-        loggerServer.critical(f'Erro na Interação do Cliente [pelo servidor]...{sys.exc_info()}')  
+        loggerServer.critical(f'Erro na Interação do Cliente [pelo servidor]...{sys.exc_info()[0]}')  
         del clients_connected[info_client[1]] # caso o cliente seja desconectado por algum erro, ele apaga o cliente da lista de clientes ativos
         sock_client.close() 
         exit() 

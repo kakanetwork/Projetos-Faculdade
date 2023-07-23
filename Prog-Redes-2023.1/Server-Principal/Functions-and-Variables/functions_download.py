@@ -61,10 +61,10 @@ def DOWNLOAD_WEB(socket_conexão, sock_client):
             MESSAGE_CLIENT(sock_client, msg_size) # criando um aviso para quando o content lenght não for pego 
         arquivo_dados = data_ret[position+4:]   # pegando os dados do arquivo
         content_type = CONTENT_TYPE(headers) # usando a função para pegar a extensão do arquivo pelo header
-        msg_download = f'\nO Download do arquivo foi concluído!\n' # informando que o download foi concluído
+        msg_download = f'\n\nO Download do arquivo foi concluído!\n' # informando que o download foi concluído
         MESSAGE_CLIENT(sock_client, msg_download)
     except:
-        loggerServer.error(f'Erro no recebimento dos dados do Download Web...{sys.exc_info()}')  
+        loggerServer.error(f'Erro no recebimento dos dados do Download Web...{sys.exc_info()[0]}')  
         exit()  
     socket_conexão.close() # fechando a conexão
     return arquivo_dados, content_type

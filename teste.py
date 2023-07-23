@@ -4,7 +4,26 @@ import time
 import subprocess
 import psutil
 
-def is_process_running(process_name):
+dir_atual = os.path.dirname(os.path.abspath(__file__))  # pegando a pasta atual
+dir_arq =  os.path.abspath(__file__) 
+dir_pid = dir_atual + "\\pid.temp"
+dir_logconf = dir_atual + "\\log.ini"
+dir_log = dir_atual + "\\log.log"
+dir_pastdownload = dir_atual + '\\server_files'
+
+
+msg_log = "LISTAGEM LOG SERVIDOR\nDATA - LOGGER - TIPO - INFORMAÇÃO\n"
+with open(dir_log, 'r') as arquive:
+    msg_log += arquive.read()
+print(msg_log)
+
+
+
+
+
+
+
+'''def is_process_running(process_name):
     for process in psutil.process_iter(['pid', 'name']):
         if process.info['name'] == process_name:
             return True
@@ -33,3 +52,4 @@ def run_background_process():
 if __name__ == "__main__":
     print("Agora irá rodar em segundo plano.")
     run_background_process()
+'''

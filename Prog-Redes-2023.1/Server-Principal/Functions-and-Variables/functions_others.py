@@ -90,7 +90,7 @@ def CREATE_PAST(name):
     try:
         os.makedirs(name, exist_ok=True) # utilizando makedirs para ter o parametro "exist_ok=true" para caso a pasta exista, não retorne erro!
     except:
-        loggerServer.error(f'Erro na Criação da Pasta...{sys.exc_info()}')  
+        loggerServer.error(f'Erro na Criação da Pasta...{sys.exc_info()[0]}')  
         exit()      
 
 # ============================================================================================================
