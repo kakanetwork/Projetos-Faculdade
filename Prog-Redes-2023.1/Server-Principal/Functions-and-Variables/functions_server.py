@@ -14,6 +14,7 @@ def CHAT(comand=None, clients=None, info_client=None, sock=None, **kwargs):
     try:
         ip_destination = comand[1] # guardando o ip de destino da mensagem
         port = comand[2] # guardando a porta de destino
+        bool = False
         for chave, valor in clients.items(): # dando um for na lista de clientes
             port_envio = str(chave) # Armazenamento Temporário 
             ip_envio = valor[0] # Armazenamento Temporário 
@@ -21,11 +22,11 @@ def CHAT(comand=None, clients=None, info_client=None, sock=None, **kwargs):
             if ip_destination == ip_envio and port == port_envio: # verificando se o ip/porta (ou seja cliente) está conectado ao servidor
                 msg_chat = f"\nO Cliente: {info_client[0]}:{info_client[1]} lhe enviou uma mensagem!\nMensagem >> {comand[3]}\n" # formatação de mensagem
                 MESSAGE_CLIENT(sock_envio, msg_chat) # realizando o envio para o socket do cliente destino
+                bool = True
                 break
-            else: # para caso do Cliente não ser achado 
-                msg_erro = f"\nO Cliente informado para encaminhar a mensagem não está conectado ao Servidor!\n"
-                MESSAGE_CLIENT(sock, msg_erro)
-                return
+        if not bool:
+            msg_erro = f"\nO Cliente informado para encaminhar a mensagem não está conectado ao Servidor!\n"
+            MESSAGE_CLIENT(sock, msg_erro)
     except IndexError: # para caso não seja repassado todos os argumentos de /m
         msg_erro = f"\nInforme todos os argumentos/parametros necessários para essa opção!\n"
         MESSAGE_CLIENT(sock, msg_erro)
@@ -57,13 +58,18 @@ def LIST_CLIENTS(clients=None, sock=None, **kwargs):
 
 def BROADCAST (clients=None, info_client=None, sock=None, comand=None, **kwargs):
     try:
-        msg_broadcast = f"\nO Cliente: {info_client[0]} : {info_client[1]} Enviou uma mensagem para Todos!\nMensagem >> {comand[1]}\n" # formatação de mensagem
-        for chave, valor in clients.items(): # realizando o for para mandar p/ todos os clientes
-            port_envio = chave # Armazenamento Temporário 
-            ip_envio = valor[0] # Armazenamento Temporário 
-            if port_envio != info_client[1]: # pegando sock de todos, exceto do cliente que pediu
-                sock_broadcast = valor[1] # Armazenamento Temporário 
-                MESSAGE_CLIENT(sock_broadcast, msg_broadcast) # enviando mensagem
+        msg = comand[1]
+        if msg: # para caso não tenha digitado nada apenas /b:
+            msg_broadcast = f"\nO Cliente: {info_client[0]} : {info_client[1]} Enviou uma mensagem para Todos!\nMensagem >> {comand[1]}\n" # formatação de mensagem
+            for chave, valor in clients.items(): # realizando o for para mandar p/ todos os clientes
+                port_envio = chave # Armazenamento Temporário 
+                ip_envio = valor[0] # Armazenamento Temporário 
+                if port_envio != info_client[1]: # pegando sock de todos, exceto do cliente que pediu
+                    sock_broadcast = valor[1] # Armazenamento Temporário 
+                    MESSAGE_CLIENT(sock_broadcast, msg_broadcast) # enviando mensagem
+        else: # para caso cliente envie apenas vazio, peço para digitar algo
+            msg_erro = f"\nDigite algo!\n"
+            MESSAGE_CLIENT(sock, msg_erro)
     except IndexError: # para caso não seja repassado todos os argumentos de /b
         msg_erro = f"\nInforme todos os argumentos/parametros necessários para essa opção\n"
         MESSAGE_CLIENT(sock, msg_erro)
@@ -100,8 +106,8 @@ def HELP(sock=None, **kwargs):
         '/b:mensagem': 'Enviar mensagem em Broadcast [Informe mensagem]',
         '/h': 'Lista o seu histórico de comandos',
         '/f': 'Lista os arquivos disponiveis para download local',
-        '/d:arquivo': 'faz o download de um arquivo do servidor [Informe nome do arquivo]',
-        '/u:arquivo': 'Efetua o upload de um arquivo do seu PC para o Server [Informe nome do arquivo]',
+        '/d:arquivo': 'Faz o download de um arquivo do servidor [Informe nome do arquivo]',
+        '/u:arquivo': 'Faz upload do arquivo para o Server',
         '/w:url' : 'Faz o download do arquivo de uma URL no banco do servidor [Informe uma URL]',
         '/?': 'Lista as opções disponiveis',
         '/q': 'Desconectar do Servidor'
@@ -149,10 +155,10 @@ def UPLOAD_RECV(comand=None, sock=None, dir=None, **kwargs):
     size = int(comand[1]) # pegando o tamanho enviado antecipadamente 
     name = comand[2] # pegando o nome enviado antecipadamente 
     try:
-        msg_upload = f'\nGravando Arquivo no Servidor\nNome: {name}\nTamanho: {size} bytes\n'
-        MESSAGE_CLIENT(sock, msg_upload) # enviando mensagem para o cliente 
         local_arquive = dir + f'\\server_files\\{name}' # definindo o local de save
         with open(local_arquive, 'wb') as arquivo: # abrindo o arquivo em "Wb" -> Leitura Binária
+            msg_upload = f'\nGravando Arquivo no Servidor\nNome: {name}\nTamanho: {size} bytes\n'
+            MESSAGE_CLIENT(sock, msg_upload) # enviando mensagem para o cliente 
             bytes_recebidos = 0 
             pct = 1
             while True: 
@@ -166,6 +172,8 @@ def UPLOAD_RECV(comand=None, sock=None, dir=None, **kwargs):
                 pct += 1
         msg_upload = f'\n\nO Upload do arquivo {name} foi finalizado!\n' # informando que o Upload foi feito com sucesso
         MESSAGE_CLIENT(sock, msg_upload)
+    except FileNotFoundError: # erro já tratado no lado cliente, apenas para evitar logs 
+        ...
     except:
         loggerServer.error(f'Erro no recebimento dos dados pelo Upload [Lado servidor]...{sys.exc_info()[0]}')
 
@@ -230,8 +238,7 @@ def DOWNLOAD_SEND(comand=None, dir=None, sock=None, **kwargs):
                     break
                 sock.send(dados_img) # enviando o arquivo
     except FileNotFoundError:
-        msg_local = f'\nO Arquivo que você pediu "{comand[1]}" não existe no servidor!\nDê /f para consultar os arquivos existentes...\n'
-        MESSAGE_CLIENT(sock, msg_local) 
+        pass 
     except IndexError: # para caso não seja repassado todos os argumentos de /d
         msg_erro = f"\nInforme todos os argumentos/parametros necessários para essa opção\n"
         MESSAGE_CLIENT(sock, msg_erro)

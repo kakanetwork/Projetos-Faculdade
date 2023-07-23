@@ -82,7 +82,7 @@ def LIST_CLIENTS_BOT(clients_connected):
 
 def LOG_BOT(dir_log):
     try:
-        msg_log = "===================== LOG DO SERVIDOR =====================\nDATA - LOGGER - TIPO - INFORMAÇÃO\n"
+        msg_log = "=============== LOG DO SERVIDOR ===============\n\nDATA - LOGGER - TIPO - INFORMAÇÃO\n\n"
         with open(dir_log, 'r') as arquive: # faço a abertura do arquivo log 
             msg_log += arquive.read() # adiciono ao msg_log
         resposta = {'chat_id':id_chat,'text':f'{msg_log}'} # faço o envio
@@ -98,6 +98,7 @@ def LOG_BOT(dir_log):
 def INVALID():
     try:
         msg_invalid = "\nInforme um comando válido!\n\n/u -> Listagem de Clientes Conectados\n/log -> Listagem do Log atual do servidor"
+        msg_invalid += "\nBy: https://github.com/kakanetwork"
         resposta = {'chat_id':id_chat,'text':f'{msg_invalid}'} # faço o envio
         var = requests.post(url_req+'/sendMessage',data=resposta) 
     except:
@@ -119,19 +120,20 @@ def START_BOT(clients_connected, dir_log):
                 time.sleep(1)
                 continue
             for message in chat: # pego cada mensagem das últimas mensagens
-                command = message.get('message', []).get('text', []) # realizo o get dentro de cada mensagem, para me retornar apenas oque foi digitado ('text')
-                if command == '/u' : # verifico se o que foi digitado = /u
-                    LIST_CLIENTS_BOT(clients_connected) # se sim, ativo a função de listagem dos clientes conectados
-                    loggerBot.info('Foi pedido para Listar os Clientes Conectados')
-                elif command == '/log':
-                    LOG_BOT(dir_log) # se sim, ativo a função de listagem do log
-                    loggerBot.info('Foi pedido para Listar o Log Atual')
-                else:
-                    INVALID()
+                if 'message' in message and 'text' in message['message']: # verifico se a chave 'message' e 'text' estão presentes
+                    command = message['message']['text'] # pego o texto da mensagem
+                    if command == '/u' : # verifico se o que foi digitado = /u
+                        loggerBot.info('Foi pedido para Listar os Clientes Conectados')
+                        LIST_CLIENTS_BOT(clients_connected) # se sim, ativo a função de listagem dos clientes conectados
+                    elif command == '/log':
+                        loggerBot.info('Foi pedido para Listar o Log Atual')
+                        LOG_BOT(dir_log) # se sim, ativo a função de listagem do log
+                    else:
+                        INVALID()
                 id_message= message['update_id'] + 1 # aqui eu defino o id message (pego ele dentro do .json), e jogo +1 pois funciona como um OFFSET
-                    # onde a cada mensagem, o seu id vai ser +1 em relação ao anterior
+                # onde a cada mensagem, o seu id vai ser +1 em relação ao anterior
     except:
-        loggerBot.error(f'Erro no momento de Ler as mensagens do Telegram...{sys.exc_info()[0]}')  
+        loggerBot.error(f'Erro no momento de Ler as mensagens do Telegram...{sys.exc_info()}')  
         sys.exit() 
 
 # ============================================================================================================

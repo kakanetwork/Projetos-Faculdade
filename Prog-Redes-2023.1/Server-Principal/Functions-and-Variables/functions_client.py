@@ -32,11 +32,11 @@ def UPLOAD_SEND(name_arquive, dir_atual, sock_tcp):
 def DOWNLOAD_RECV(sock_tcp, size, name, dir_atual):
     try:
         os.makedirs('Downloads', exist_ok=True)
-        print(f'\nGravando o arquivo: {name}\nTamanho: {size} bytes')
         local_arquive = dir_atual + f'\\Downloads\\{name}'
         with open(local_arquive, 'wb') as arquivo:
             bytes_recebidos = 0
             pct = 1
+            print(f'\nGravando o arquivo: {name}\nTamanho: {size} bytes')
             while True:
                 # Recebendo o conteúdo do servidor
                 data_arquive = sock_tcp.recv(BUFFER)
@@ -47,6 +47,9 @@ def DOWNLOAD_RECV(sock_tcp, size, name, dir_atual):
                 if bytes_recebidos >= size: break
                 pct += 1
         print('\nDownload Finalizado!\n')
+    except FileNotFoundError:
+        print(f'\nO Arquivo que você pediu "{name}" não existe no servidor!\nDê /f para consultar os arquivos existentes...\n')
+        return
     except:
         print(f'Erro no recebimento do download Local...{sys.exc_info()}')
 
@@ -78,7 +81,7 @@ def SERVER_INTERACTION(sock_tcp, dir_atual):
                 continue
             print(msg)
     except:
-        print(f'\nErro na interação com o servidor... {sys.exc_info()}')
+        print(f'\nErro na interacao com o servidor... {sys.exc_info()}')
     finally:
         CLOSE_SOCKET(sock_tcp)
 
@@ -97,7 +100,7 @@ def USER_INTERACTION(sock_tcp, dir_atual):
                 break
             time.sleep(0.5)
     except:
-        print(f'\nErro na interação com o Usuário... {sys.exc_info()}')
+        print(f'\nErro na interacao com o Usuário... {sys.exc_info()}')
     finally:
         CLOSE_SOCKET(sock_tcp)
 
