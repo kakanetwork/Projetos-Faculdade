@@ -6,18 +6,18 @@ from functions_others import *
 def UPLOAD_SEND(name_arquive, dir_atual, sock_tcp):
     try:
         dir_arquivo = dir_atual + f'\\{name_arquive}' # pegando o nome do arquivo fornecido e montando caminho absoluto
-        if not os.path.exists(dir_arquivo): # verificando se o arquivo fornecido existe
-            print(f'\nO Arquivo que você pediu "{name_arquive}" não existe no seu diretorio atual!\n')
+        if not os.path.exists(dir_arquivo): # verificando se o arquivo fornecido existe [tem que está na mesma pasta do client.py]
+            print(f'\nO Arquivo que você pediu "{name_arquive}" não existe no seu diretorio atual!\n') # informando caso não exista
             return
         size_arq = os.path.getsize(dir_arquivo) # existindo ele pega o tamanho do arquivo
         msg_local = f'/u:{size_arq}:{name_arquive}' # e faço o envio do comando, nome e tamanho do arquivo 
-        sock_tcp.send(msg_local.encode(UNICODE))
-        with open(dir_arquivo, 'rb') as arquive:
+        sock_tcp.send(msg_local.encode(UNICODE)) # enviando antecipadamente nome e tamanho
+        with open(dir_arquivo, 'rb') as arquive: # lendo o arquivo 
             while True:
                 dados_arq = arquive.read(BUFFER)
                 if not dados_arq:
                     break
-                sock_tcp.send(dados_arq)
+                sock_tcp.send(dados_arq) # enviando o arquivo
     except IndexError: # para caso não seja repassado todos os argumentos de /d
         print(f"\nInforme todos os argumentos/parametros necessários para essa opção\n")
     except:

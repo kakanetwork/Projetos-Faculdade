@@ -5,14 +5,13 @@ loggerServer  = logging.getLogger('Server')
 
 # ============================================================================================================
 
-
 ''' FUNÇÃO PARA EVITAR A REPETIÇÃO DE CÓDIGO DE ENVIOS '''
 
 def MESSAGE_CLIENT(sock, msg):
     try:
         sock.send(msg.encode(UNICODE))
     except:
-        loggerServer.error(f'\nErro ao enviar mensagem para o cliente...{sys.exc_info()[0]}')
+        loggerServer.error(f'Erro ao enviar mensagem para o cliente...{sys.exc_info()[0]}')
 
 # ============================================================================================================
 
@@ -26,7 +25,7 @@ def CONTENT_LENGHT (headers): # FUNÇÃO PARA RETIRAR O CONTENT-LENGTH DO HEADER
                 linha_length = int(line[16:]) # transforma em int e pega somente da posição 16 em diante
                 return linha_length 
     except:
-        loggerServer.warning(f'\nErro na captura do Content-Lenght...{sys.exc_info()[0]}')
+        loggerServer.warning(f'Erro na captura do Content-Lenght...{sys.exc_info()[0]}')
 
 # ============================================================================================================
 
@@ -40,32 +39,31 @@ def CONTENT_TYPE (headers): # FUNÇÃO PARA RETIRAR O CONTENT-TYPE DO HEADER DE 
                 extensao = line.strip().split('/')[1] # pego a linha do Content-type, retiro os espaços com strip() e quebro com split() onde tiver uma barra
                 return extensao
     except:
-        loggerServer.error(f'\nErro na captura do Content-Type...{sys.exc_info()[0]}')
+        loggerServer.error(f'Erro na captura do Content-Type...{sys.exc_info()[0]}')
 
 # ============================================================================================================
 
 ''' REALIZA A QUEBRA DA URL SOMENTE NOS PARAMETROS QUE EU QUERO TER '''
 
-
 def SPLIT_URL (url): # FUNÇÃO PARA QUEBRAR A URL E PEGAR INFORMAÇÕES IMPORTANTES
     url_fragmentada = url.split('/')
-    hostname = url_fragmentada[2]
-    localarquive = '/'+'/'.join(url_fragmentada[3:])
-    if '.' in url_fragmentada[-1]:
+    hostname = url_fragmentada[2] # pegando o hostname (ex: freepik.com)
+    localarquive = '/'+'/'.join(url_fragmentada[3:]) # pegando local do arquivo (ex: /image/ocean/iceocean.png)
+    if '.' in url_fragmentada[-1]: # isso é para retirar a extensão que tiver anteriormente [Há qual as vezes não é a mesma contida no content-type]
         arquivename = url_fragmentada[-1].split('.')[0]
     else:
         arquivename = url_fragmentada[-1]
-    if len(arquivename) >= 150:
+    if len(arquivename) >= 150: # mantendo o máximo do tamanho do arquivo em 150 caracteres [Ultrapassando esse valor ele não irá salvar o arquivo corretamente]
         arquivename = arquivename[0:150]
-    caracteres_bloqueados = ['/', ':', '*', '?', '|', '<', '>', '"', '\\']
+    caracteres_bloqueados = ['/', ':', '*', '?', '|', '<', '>', '"', '\\'] 
     for x in caracteres_bloqueados: # retirando caracteres que são proibidos de ter no nome de um arquivo, para salvar...
         arquivename = arquivename.replace(x, '') 
-    protocol = url.split(':')[0]
+    protocol = url.split(':')[0] # pegando o protocolo da url
     return hostname, localarquive, arquivename, protocol
 
 # ============================================================================================================
 
-''' FUNÇÃO PARA REALIZAR PRINT ORGANIZADO '''
+''' FUNÇÃO PARA REALIZAR PRINT ORGANIZADO [Apenas lado cliente] '''
 
 def PRINT_DIV(dados):
     print('\n'+'-'*100)
@@ -76,21 +74,23 @@ def PRINT_DIV(dados):
 
 ''' FUNÇÃO PARA REALIZAR SPLIT DO COMANDO DO CLIENTE '''
 
-def COMAND_SPLIT(msg):
+def COMAND_SPLIT(msg): 
     try:
-        msg_split = msg.split(':')
+        msg_split = msg.split(':') # para casos de /b:mensagem (separar o comando do parametro/argumento )
     except:
-        loggerServer.error(f'\nErro no Split do Comand...{sys.exc_info()[0]}')  
+        loggerServer.error(f'Erro no Split do Comand...{sys.exc_info()[0]}')  
         exit() 
     return msg_split
 
 # ============================================================================================================
 
+''' FUNÇÃO PARA REALIZAR A CRIAÇÃO DE UMA PASTA '''
+
 def CREATE_PAST(name):
     try:
-        os.makedirs(name, exist_ok=True)
+        os.makedirs(name, exist_ok=True) # utilizando makedirs para ter o parametro "exist_ok=true" para caso a pasta exista, não retorne erro!
     except:
-        loggerServer.error(f'\nErro na Criação da Pasta...{sys.exc_info()}')  
+        loggerServer.error(f'Erro na Criação da Pasta...{sys.exc_info()}')  
         exit()      
 
 # ============================================================================================================
