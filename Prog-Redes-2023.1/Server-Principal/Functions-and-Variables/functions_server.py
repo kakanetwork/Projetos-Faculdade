@@ -173,7 +173,7 @@ def DOWNLOAD_RSS(comand=None, sock=None, **kwargs):
                             num += 1
                             msg_rss += f'NOTÍCIA {num}\nTítulo: {titulo}\nURL: {url}\n'
         if num == 0:
-            msg_rss = f'\n\nNenhuma notícia foi encontrada para a palavra-chave: {palavra_chave}\n'                   
+            msg_rss = f'\nNenhuma notícia foi encontrada para a palavra-chave: {palavra_chave}\n'                   
         MESSAGE_CLIENT(sock, msg_rss)
         MESSAGE_CLIENT(sock, '/end_rss')
     except:

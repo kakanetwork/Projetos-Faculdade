@@ -15,10 +15,24 @@ except:
 
 dir_atual = os.path.dirname(os.path.abspath(__file__))  # pegando a pasta atual
 dir_arq =  os.path.abspath(__file__) 
-dir_pid = dir_atual + "\\pid.temp"
 dir_logconf = dir_atual + "\\log.ini"
 dir_log = dir_atual + "\\log_server.log"
 dir_pastdownload = dir_atual + '\\server_files'
+
+# ============================================================================================================
+
+''' CONFIGURAÇÃO DO LOG '''
+
+try:
+    logging.config.fileConfig(dir_logconf, defaults={'log_path': dir_log.replace('\\', '\\\\')}) # lendo o log.ini na pasta atual
+    urllib3_logger = logging.getLogger('urllib3') 
+    urllib3_logger.setLevel(logging.WARNING) # deixando o level dos logs da URLLIB3 em warning (motivo: espama muitos logs info por conta das requisições do instagram)
+    loggerServer  = logging.getLogger('Server') # pegando os logger definidos na configuração (Server/BotTelegram e debug para fins de debug do código)
+    loggerBot = logging.getLogger('BotTelegram')
+    loggerDebug = logging.getLogger('Debug')
+except:
+    print(f'\nErro na Inicialização da Configuração do Log!\nVerifique se seu arquivo "log.ini" está devidamente Configurado... {sys.exc_info()[0]}\n')
+    sys.exit()
 
 # ============================================================================================================
 
@@ -38,15 +52,15 @@ def VERIFICATION_FUNCTIONS():
     try:
         functions_arq = os.listdir(dir_past) # listando arquivos da pasta onde está as funções para verificar se todos os arquivos necessários estão lá
     except FileNotFoundError: # para caso a pasta não exista
-        print('\nA pasta "Functions and Variables" não foi encontrada, faça o download dela [com todas suas dependencias]!\n')
+        loggerDebug.critical('A pasta "Functions and Variables" não foi encontrada, faça o download dela [com todas suas dependencias]!')
         sys.exit()
     except:
-        print(f'\nErro na Verificação dos arquivos da Pasta de Funções...{sys.exc_info()[0]}')  
+        loggerDebug.critical(f'Erro na Verificação dos arquivos da Pasta de Funções...{sys.exc_info()[0]}')  
         sys.exit() 
     else:
         for arquivos in name_arqs: 
             if arquivos not in functions_arq: # vendo qual o arquivo que falta
-                print(f'\nO Arquivo "{arquivos}" não está presente dentro da pasta "Functions and Variables" faça o download dele!\n')
+                loggerDebug.critical(f'O Arquivo "{arquivos}" não está presente dentro da pasta "Functions and Variables" faça o download dele!')
                 sys.exit()
 
 VERIFICATION_FUNCTIONS()
@@ -61,22 +75,7 @@ try:
     from functions_others import CREATE_PAST
     from functions_bot import START_BOT, NOTIFICATION_BOT
 except:
-    print(f'\nAlguma das Funções necessárias para o código não foi encontrada!...{sys.exc_info()[0]}\n')
-    sys.exit()
-
-# ============================================================================================================
-
-''' CONFIGURAÇÃO DO LOG '''
-
-try:
-    logging.config.fileConfig(dir_logconf, defaults={'log_path': dir_log.replace('\\', '\\\\')}) # lendo o log.ini na pasta atual
-    urllib3_logger = logging.getLogger('urllib3') 
-    urllib3_logger.setLevel(logging.WARNING) # deixando o level dos logs da URLLIB3 em warning (motivo: espama muitos logs info por conta das requisições do instagram)
-    loggerServer  = logging.getLogger('Server') # pegando os logger definidos na configuração (Server/BotTelegram e debug para fins de debug do código)
-    loggerBot = logging.getLogger('BotTelegram')
-    loggerDebug = logging.getLogger('Debug')
-except:
-    print(f'\nErro na Inicialização da Configuração do Log!\nVerifique se seu arquivo "log.ini" está devidamente Configurado... {sys.exc_info()[0]}\n')
+    loggerDebug.critical(f'Alguma das Funções necessárias para o código não foi encontrada!...{sys.exc_info()[0]}')
     sys.exit()
 
 # ============================================================================================================
@@ -130,33 +129,3 @@ except:
     sys.exit() 
 
 # ============================================================================================================
-
-
-
-'''
-def PROCESS_RUNNER():
-    if platform.system() == 'Windows':
-        subprocess.Popen(["pythonw", "server.py"], creationflags=subprocess.CREATE_NEW_CONSOLE)
-    elif platform.system() == 'Linux':
-        subprocess.Popen(["python", "server.py"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, preexec_fn=os.setpgrp)
-
-    with open(dir_pid, "w") as file:
-        file.write(str(os.getpid()))
-def VERIFICATION_PID(pid):
-    if system == 'windows':
-        process = subprocess.run(['Powershell', 'Get-Process', '-Id', pid], capture_output=True, text=True).stdout.strip()
-    elif system == 'linux':
-        process = subprocess.run(['ps', '-p', pid], capture_output=True, text=True).stdout.strip()
-    if process:
-        print(f'\nO Server já está sendo rodado em 2° Plano com o PID: {pid}\n')
-        sys.exit()
-    else:
-        PROCESS_RUNNER()
-    
-def START():
-    if os.path.isfile('pid.temp'):
-        with open(dir_pid, 'r') as arquive:
-            pid = arquive.readline().strip()
-        VERIFICATION_PID(pid)
-    else:
-        PROCESS_RUNNER()'''
