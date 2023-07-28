@@ -82,13 +82,12 @@ def LIST_CLIENTS_BOT(clients_connected):
 
 def LOG_BOT(dir_log):
     try:
-        msg_log = "=============== LOG DO SERVIDOR ===============\n\nDATA - LOGGER - TIPO - INFORMAÇÃO\n\n"
-        with open(dir_log, 'r') as arquive: # faço a abertura do arquivo log 
-            msg_log += arquive.read() # adiciono ao msg_log
-        resposta = {'chat_id':id_chat,'text':f'{msg_log}'} # faço o envio
-        var = requests.post(url_req+'/sendMessage',data=resposta) 
+        file_name = 'log-server.txt'
+        with open(dir_log, 'rb') as arquive: 
+            log = arquive.read()    
+        var = requests.post(url_req+'/sendDocument', data={'chat_id': id_chat}, files={'document': (file_name, log)}) # realizo envio do Log como documento
     except:
-        loggerBot.error(f'Erro no momento de listar o Log para o Bot do Telegram...{sys.exc_info()[0]}')  
+        loggerBot.error(f'Erro no momento de listar o Log para o Bot do Telegram...{sys.exc_info()}')  
         sys.exit() 
 
 # ============================================================================================================
@@ -97,7 +96,7 @@ def LOG_BOT(dir_log):
 
 def INVALID():
     try:
-        msg_invalid = "\nInforme um comando válido!\n\n/u -> Listagem de Clientes Conectados\n/log -> Listagem do Log atual do servidor"
+        msg_invalid = "\nInforme um comando válido!\n\n/u -> Listagem de Clientes Conectados\n/log -> Listagem do Log atual do servidor\n"
         msg_invalid += "\nBy: https://github.com/kakanetwork"
         resposta = {'chat_id':id_chat,'text':f'{msg_invalid}'} # faço o envio
         var = requests.post(url_req+'/sendMessage',data=resposta) 

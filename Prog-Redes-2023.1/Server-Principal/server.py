@@ -4,7 +4,7 @@
 ''' IMPORTANDO BIBLIOTECAS NECESSÁRIAS PARA O FUNCIONAMENTO DO CÓDIGO '''
 
 try:
-    import socket, threading, os, sys, time, subprocess, platform, logging, logging.config
+    import socket, threading, os, sys, logging, logging.config
 except:
     print(f'\nErro na Importação das Bibliotecas necessárias...{sys.exc_info()[0]}')  
     sys.exit()
@@ -15,7 +15,6 @@ except:
 
 dir_atual = os.path.dirname(os.path.abspath(__file__))  # pegando a pasta atual
 dir_arq =  os.path.abspath(__file__) 
-system = platform.system() # salvando o sistema operacional
 dir_pid = dir_atual + "\\pid.temp"
 dir_logconf = dir_atual + "\\log.ini"
 dir_log = dir_atual + "\\log_server.log"
@@ -34,7 +33,8 @@ def VERIFICATION_FUNCTIONS():
         'functions_others.py',
         'functions_server.py',
         'functions_download.py',
-        'variables.py']
+        'variables.py',
+        'rss.conf']
     try:
         functions_arq = os.listdir(dir_past) # listando arquivos da pasta onde está as funções para verificar se todos os arquivos necessários estão lá
     except FileNotFoundError: # para caso a pasta não exista
@@ -133,8 +133,8 @@ except:
 
 
 
-
-'''def PROCESS_RUNNER():
+'''
+def PROCESS_RUNNER():
     if platform.system() == 'Windows':
         subprocess.Popen(["pythonw", "server.py"], creationflags=subprocess.CREATE_NEW_CONSOLE)
     elif platform.system() == 'Linux':

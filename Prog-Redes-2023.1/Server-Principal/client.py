@@ -12,18 +12,18 @@ try:
     sock_tcp.connect((SERVER_CLIENT, PORT))
 
     PRINT_DIV(f"Você se conectou com sucesso ao Server de IP: {SERVER} | Na Porta: {PORT}")
-    tServer = threading.Thread(target=SERVER_INTERACTION, args=(sock_tcp, dir_atual))
-    tUser = threading.Thread(target=USER_INTERACTION, args=(sock_tcp, dir_atual))
+    tRecv = threading.Thread(target=USER_RECV, args=(sock_tcp, dir_atual))
+    tSend = threading.Thread(target=USER_SEND, args=(sock_tcp, dir_atual))
 
-    tServer.start()
-    tUser.start()
+    tRecv.start()
+    tSend.start()
 
-    tServer.join()
-    tUser.join()
+    tRecv.join()
+    tSend.join()
 except KeyboardInterrupt:
     print(f'\n\nVocê encerrou a conexão.\nVolte Sempre!\n')  
     exit()     
 
 except:
-    print(f'\nErro na Inicialização do Cliente...{sys.exc_info()[0]}')  
+    print(f'\nErro na Inicialização do Cliente...{sys.exc_info()}')  
     exit() 

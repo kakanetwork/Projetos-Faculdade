@@ -1,9 +1,20 @@
 
-import socket, sys, ssl, logging
+import socket, sys, ssl, logging, requests
 from variables import *
 from functions_others import *
 
 loggerServer  = logging.getLogger('Server')
+
+# ============================================================================================================
+
+def REQUEST_RSS(url):
+    try:
+        response = requests.get(str(url))
+        response.raise_for_status() #debug
+        return response.text # retorna o resultado em texto/string
+    except requests.exceptions.RequestException as e:
+        print(f'Erro ao acessar a URL {url}: {e}')
+        return None
 
 # ============================================================================================================
 
@@ -65,7 +76,7 @@ def DOWNLOAD_WEB(socket_conexão, sock_client):
         MESSAGE_CLIENT(sock_client, msg_download)
     except:
         loggerServer.error(f'Erro no recebimento dos dados do Download Web...{sys.exc_info()[0]}')  
-        exit()  
+        sys.exit()  
     socket_conexão.close() # fechando a conexão
     return arquivo_dados, content_type
     

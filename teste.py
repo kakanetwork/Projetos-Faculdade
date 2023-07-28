@@ -12,13 +12,16 @@ dir_log = dir_atual + "\\log.log"
 dir_pastdownload = dir_atual + '\\server_files'
 
 
-msg_log = "LISTAGEM LOG SERVIDOR\nDATA - LOGGER - TIPO - INFORMAÇÃO\n"
+'''msg_log = "LISTAGEM LOG SERVIDOR\nDATA - LOGGER - TIPO - INFORMAÇÃO\n"
 with open(dir_log, 'r') as arquive:
     msg_log += arquive.read()
 print(msg_log)
+'''
 
-
-
+process = subprocess.Popen(["pythonw", "teste.py"], creationflags=subprocess.CREATE_NEW_CONSOLE)
+print(process.pid)
+time.sleep(100)
+sys.exit()
 
 
 

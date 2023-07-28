@@ -1,8 +1,10 @@
 import socket, sys, logging
+import xml.etree.ElementTree as ET
 from functions_others import *
 from variables import *
 from functions_download import *
 
+dir_functions = os.path.dirname(os.path.abspath(__file__))
 loggerServer  = logging.getLogger('Server')
 loggerDebug  = logging.getLogger('Debug')
 
@@ -108,7 +110,8 @@ def HELP(sock=None, **kwargs):
         '/f': 'Lista os arquivos disponiveis para download local',
         '/d:arquivo': 'Faz o download de um arquivo do servidor [Informe nome do arquivo]',
         '/u:arquivo': 'Faz upload do arquivo para o Server',
-        '/w:url' : 'Faz o download do arquivo de uma URL no banco do servidor [Informe uma URL]',
+        '/w:url': 'Faz o download do arquivo de uma URL no banco do servidor [Informe uma URL]',
+        '/rss:palavra': 'Retorna Notícias com a palavra informada [Informe palavra-chave]',
         '/?': 'Lista as opções disponiveis',
         '/q': 'Desconectar do Servidor'
         }
@@ -134,18 +137,48 @@ def LIST_FILES(sock=None, dir=None, **kwargs):
             num += 1 
             size = os.path.getsize(dir_arq + f'\\{arquives}')
             msg_list += f"       {num}° Name: {arquives} | Size: {size} Bytes\n" # formatação da mensagem
+        if num == 0: # para caso não possua nenhuma arquivo ele avisar
+            msg_list = f"\nNo momento o server não possui nenhum arquivo para Download!\n"
         MESSAGE_CLIENT(sock, msg_list)
     except:
         loggerServer.error(f'Erro no momento de listar os Arquivos para Download...{sys.exc_info()[0]}')  
-        exit()  
+        sys.exit()  
 
 # ============================================================================================================
 
-def DOWNLOAD_RSS():
-    # EM DESENVOLVIMENTO...
-    ...
+''' FUNÇÃO PARA REALIZAR A CAPTURA DO FEED RSS EM X(INDEFINIDAS) URLS E RETORNAR AS NOTICIAS DA PALAVRA-CHAVE '''
 
-
+def DOWNLOAD_RSS(comand=None, sock=None, **kwargs):
+    palavra_chave = comand[1]
+    dir_rss = dir_functions + '\\rss.conf'
+    try:
+        with open(dir_rss, 'r') as arquive: # abro o arquivo onde se encontra as URL RSS (Admnistrador pode retirar ou adicionar + URLS)
+            urls = arquive.readlines() # faço leitura das linhas (readlines transforma em uma lista)
+        msg_rss = f'\nAbaixo estão as Notícias com a Palavra-Chave: {palavra_chave}\n\n'
+        num = 0
+        for url in urls: # pego cada URL dentro da lista de URLS
+            url = url.strip()
+            rss_content = REQUEST_RSS(url) # função para realizar a conexão (utilizando request e retornar o XML)
+            if rss_content: 
+                try:
+                    root_rss = ET.fromstring(rss_content)
+                except ET.ParseError:
+                    loggerServer.error(f'Erro ao fazer o parse do XML da URL {url}')  
+                else:
+                    noticias = root_rss.findall('.//item')[:MAX_NOTICIAS]
+                    for noticia in noticias:
+                        titulo = noticia.find('title').text
+                        url = noticia.find('link').text
+                        if palavra_chave.lower() in titulo.lower().split():
+                            num += 1
+                            msg_rss += f'NOTÍCIA {num}\nTítulo: {titulo}\nURL: {url}\n'
+        if num == 0:
+            msg_rss = f'\n\nNenhuma notícia foi encontrada para a palavra-chave: {palavra_chave}\n'                   
+        MESSAGE_CLIENT(sock, msg_rss)
+        MESSAGE_CLIENT(sock, '/end_rss')
+    except:
+        loggerServer.error(f'Erro ao tentar informar os RSS {sys.exc_info()}')  
+        sys.exit() 
 
 # ============================================================================================================
 
@@ -263,7 +296,7 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected, dir_atual):
             '/u': UPLOAD_RECV,
             '/w': DOWNLOAD_URL,
             '/rss': DOWNLOAD_RSS}
-        options_choice = set(options.keys()) # usado para verificar se o comando pertence ao dicionário 
+        options_choice = set(options.keys()) # pego apenas as chaves e faço um conjunto delas
         while True: # continuar ouvindo o cliente a menos que ele digite /q 
             msg = sock_client.recv(BUFFER_SIZE01).decode(UNICODE) # recebendo mensagem do cliente
             history_client.append(msg) # histórico de comandos do cliente
@@ -274,11 +307,12 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected, dir_atual):
                 break
             if comand_prompt in options_choice:  # verificando se o comando está dentro das opções disponivéis 
                 # ativando a função chamada (passando argumento depois)
+                # Utilizei o metodo de **kwargs para repassar os argumentos de maneira mais organizada para cada função (podendo também renomear ele facilmente)
                 options[comand_prompt](clients=clients_connected, sock=sock_client, comand=comand, info_client=info_client, history=history_client, options=options, dir=dir_atual, msg=msg)
         del clients_connected[info_client[1]] # quando o cliente digitar /q ele exclui socket do cliente da lista de clientes ativos
         sock_client.close()
     except:
-        loggerServer.critical(f'Erro na Interação do Cliente [pelo servidor]...{sys.exc_info()[0]}')  
+        loggerServer.critical(f'Erro na Interacao do Cliente [pelo servidor]...{sys.exc_info()[0]}')  
         del clients_connected[info_client[1]] # caso o cliente seja desconectado por algum erro, ele apaga o cliente da lista de clientes ativos
         sock_client.close() 
         exit() 

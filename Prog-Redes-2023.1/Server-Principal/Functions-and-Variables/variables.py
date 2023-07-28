@@ -1,6 +1,7 @@
 
 ''' VARIAVÉIS '''
 
+MAX_NOTICIAS = 5
 BUFFER_SIZE01 = 512
 SERVER_CLIENT = 'localhost'
 SERVER = '0.0.0.0'
