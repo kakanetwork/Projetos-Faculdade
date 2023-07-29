@@ -16,11 +16,9 @@
 <h2 align="center">📂 Conteúdo</h2>
 
 <ul>
-  <li><code>Functions</code>: Essa Pasta possui arquivos com funções definidas, necessárias para o funcionamento de alguns dos códigos contidos abaixo.
-  <li><code>ifrn_alunos_campus.py</code>: O código realiza uma requisição em uma URL para obter dados de alunos do IFRN, processa esses dados para obter informações    sobre os campus e cursos, e apresenta essas informações em um formato legível ao usuário.</li>
-  <li><code>cotação_dolar.py</code>: Esse código solicita ao usuário um ano, obtém as cotações de dólar do período de 01-01 até 31-12 do ano informado, e em seguida, para cada mês do ano, calcula a média de cotações de compra e venda, bem como as maiores cotações de compra e venda do mês.</li>
-  <li><code>Download_File.py</code>: Esse código realiza uma requisição Get (utilizando apenas da biblioteca Socket) para realizar o download de um arquivo com base na sua URL (HTTP ou HTTPS), além disso ele também salva o Header do arquivo, com informações sobre ela. (Bibliotecas Utilizadas: SYS, OS, SSL, SOCKET, TIME, PYFIGLET[OPCIONAL].)</li>
-  <li><code>Eleições.py</code>: Esse código em Python realiza uma requisição HTTP para obter dados eleitorais do site do Tribunal Superior Eleitoral (TSE) com base nas informações fornecidas pelo usuário, como o ano da eleição, o cargo, o estado e o ID da eleição. Em seguida, ele filtra e organiza os dados dos candidatos com base na quantidade de votos recebidos e os armazena em um arquivo de texto. (É utilizado a biblioteca Requests com a API do TSE)</li>
+  <li><code>Tratamento-de-dados</code>: Alguns scripts criados para tratar dados em grande quantidade [ex: Cotações do dólar, Alunos cadastrados na rede do IFRN e Informações de candidatos das últimas eleições]</li>
+  <li><code>Sockets</code>: Scripts em python utilizando principalmente da biblioteca sockets, para criação de conexões, servidores locais e etc...</li>
+  <li><code>Server-Projeto</code>: Projeto desenvolvido ao final da matéria de Prog.Redes para avaliação, consiste em um Servidor/Cliente local que realiza diversas funções, entre elas: download de arquivos via URL, download/upload de arquivos locais, chat privado entre clientes, múltiplas conexões, integração com bot telegram para controle remoto do server, implementação de leitura dos feeds RSS com base em palavras-chaves para pesquisa, e entre muitos outros.</li>
 </ul>
 
 <h2 align="center">🚀 Como utilizar</h2>
