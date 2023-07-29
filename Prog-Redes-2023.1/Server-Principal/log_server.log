@@ -1,7 +1,2 @@
-2023-07-28 02:10:05,495 - BotTelegram - INFO - Sua API_KEY foi verificada com sucesso!
-2023-07-28 02:10:05,496 - Server - INFO - Servidor Iniciado: 0.0.0.0 / 5678
-2023-07-28 02:12:33,849 - Server - INFO - O Cliente de IP: 127.0.0.1 | Na Porta: 60991 - Foi conectado com sucesso!
-2023-07-28 02:15:17,623 - Server - INFO - O cliente 127.0.0.1:60991 encerrou a conexao.
-2023-07-28 02:24:08,025 - Debug - CRITICAL - Alguma das Funções necessárias para o código não foi encontrada!...<class 'SystemExit'>
-2023-07-28 02:24:29,679 - BotTelegram - INFO - Sua API_KEY foi verificada com sucesso!
-2023-07-28 02:24:29,680 - Server - INFO - Servidor Iniciado: 0.0.0.0 / 5678
+2023-07-29 12:42:28,173 - BotTelegram - INFO - Sua API_KEY foi verificada com sucesso!
+2023-07-29 12:42:28,173 - Server - INFO - Servidor Iniciado: 0.0.0.0 / 5678

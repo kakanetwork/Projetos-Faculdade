@@ -82,11 +82,9 @@ def READ_PID():
 # nas IDE's executamos normalmente pelo "run/f5" para não ficar dando erro, ele vai executar o servidor 
 try:
     args = sys.argv[1].lower()
-except IndexError:
-    args = '/start'
 except:
-    print(f'\nErro na hora de Capturar os argumentos... {sys.exc_info()[0]}')
-
+    print('\nlauncher.py < /start | /stop | /? >\n')
+    sys.exit()
 # ============================================================================================================
 
 ''' VERIFICANDO ARGUMENTOS DO SYS.ARGV E APENAS REDIRECIONANDO PARA O PROJETO! '''

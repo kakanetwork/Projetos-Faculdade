@@ -16,13 +16,15 @@ def CHAT(comand=None, clients=None, info_client=None, sock=None, **kwargs):
     try:
         ip_destination = comand[1] # guardando o ip de destino da mensagem
         port = comand[2] # guardando a porta de destino
+        msg_envio = comand[3]
+        loggerDebug.debug(f'Função Chat Ativada | Destino: {ip_destination}:{port} | Mensagem: {msg_envio}')
         bool = False
         for chave, valor in clients.items(): # dando um for na lista de clientes
             port_envio = str(chave) # Armazenamento Temporário 
             ip_envio = valor[0] # Armazenamento Temporário 
             sock_envio = valor[1] # pegando o socket do cliente destino 
             if ip_destination == ip_envio and port == port_envio: # verificando se o ip/porta (ou seja cliente) está conectado ao servidor
-                msg_chat = f"\nO Cliente: {info_client[0]}:{info_client[1]} lhe enviou uma mensagem!\nMensagem >> {comand[3]}\n" # formatação de mensagem
+                msg_chat = f"\nO Cliente: {info_client[0]}:{info_client[1]} lhe enviou uma mensagem!\nMensagem >> {msg_envio}\n" # formatação de mensagem
                 MESSAGE_CLIENT(sock_envio, msg_chat) # realizando o envio para o socket do cliente destino
                 bool = True
                 break
@@ -61,6 +63,7 @@ def LIST_CLIENTS(clients=None, sock=None, **kwargs):
 def BROADCAST (clients=None, info_client=None, sock=None, comand=None, **kwargs):
     try:
         msg = comand[1]
+        loggerDebug.debug(f'Função de Broadcast Ativada | Mensagem: {msg}')
         if msg: # para caso não tenha digitado nada apenas /b:
             msg_broadcast = f"\nO Cliente: {info_client[0]} : {info_client[1]} Enviou uma mensagem para Todos!\nMensagem >> {comand[1]}\n" # formatação de mensagem
             for chave, valor in clients.items(): # realizando o for para mandar p/ todos os clientes
@@ -187,6 +190,7 @@ def DOWNLOAD_RSS(comand=None, sock=None, **kwargs):
 def UPLOAD_RECV(comand=None, sock=None, dir=None, **kwargs):
     size = int(comand[1]) # pegando o tamanho enviado antecipadamente 
     name = comand[2] # pegando o nome enviado antecipadamente 
+    loggerDebug.debug(f'Função Upload Ativada | Arquivo: {name}')
     try:
         local_arquive = dir + f'\\server_files\\{name}' # definindo o local de save
         with open(local_arquive, 'wb') as arquivo: # abrindo o arquivo em "Wb" -> Leitura Binária
@@ -256,15 +260,17 @@ def DOWNLOAD_URL(sock=None, msg=None, dir=None, **kwargs):
 def DOWNLOAD_SEND(comand=None, dir=None, sock=None, **kwargs):
     try:
         dir_arq = dir + '\\server_files' # montando diretorio de onde tá os arquivos lado server
-        nome_arquivo = dir_arq + f'\\{comand[1]}' # pegando o nome do arquivo fornecido e montando caminho absoluto
-        if not os.path.exists(nome_arquivo): # verificando se o arquivo fornecido existe
-            msg_local = f'\nO Arquivo que você pediu "{comand[1]}" não existe no servidor!\nDê /f para consultar os arquivos existentes\n'
+        name_arq = comand[1] # nome do arquivo
+        loggerDebug.debug(f'Função Download Local Ativado | Arquivo: {name_arq}')
+        dir_arquivo = dir_arq + f'\\{name_arq}' # pegando o nome do arquivo fornecido e montando caminho absoluto
+        if not os.path.exists(dir_arquivo): # verificando se o arquivo fornecido existe
+            msg_local = f'\nO Arquivo que você pediu "{name_arq}" não existe no servidor!\nDê /f para consultar os arquivos existentes\n'
             MESSAGE_CLIENT(sock, msg_local) # se não existir ele informa que não existe
             return
-        size_arq = os.path.getsize(nome_arquivo) # existindo ele pega o tamanho do arquivo
-        msg_local = f'/d:{size_arq}:{comand[1]}' # e faço o envio do comando, nome e tamanho do arquivo 
+        size_arq = os.path.getsize(dir_arquivo) # existindo ele pega o tamanho do arquivo
+        msg_local = f'/d:{size_arq}:{name_arq}' # e faço o envio do comando, nome e tamanho do arquivo 
         MESSAGE_CLIENT(sock, msg_local)
-        with open(nome_arquivo, 'rb') as arquive: # lendo o arquivo
+        with open(dir_arquivo, 'rb') as arquive: # lendo o arquivo
             while True:
                 dados_img = arquive.read(BUFFER) 
                 if not dados_img:
