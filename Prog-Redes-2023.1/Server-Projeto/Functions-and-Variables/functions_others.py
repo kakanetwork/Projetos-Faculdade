@@ -37,7 +37,12 @@ def CONTENT_TYPE (headers): # FUNÇÃO PARA RETIRAR O CONTENT-TYPE DO HEADER DE 
         for line in lines:
             if line.lower().startswith('content-type:'): # vasculho nessas linhas o content-type por meio do startswich que retorna True quando a palavra existir
                 extensao = line.strip().split('/')[1] # pego a linha do Content-type, retiro os espaços com strip() e quebro com split() onde tiver uma barra
-                return extensao
+                break
+        html_verification = extensao.find(';') # EXCEÇÃO: quando a url é de um arquivo HTML, temos que fazer um filtro diferente para conseguir pegar a extensão
+        if html_verification != -1:
+            extensao = extensao.split(';')[0] # usamos split() para quebrar a extensão onde tiver ';' e pego o primeiro resultado 
+                                              # formato content type HTML -> html; charset = utf-8
+        return extensao
     except:
         loggerServer.error(f'Erro na captura do Content-Type...{sys.exc_info()[0]}')
 

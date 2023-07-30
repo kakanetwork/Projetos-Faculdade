@@ -303,14 +303,20 @@ def CLIENT_INTERACTION(sock_client, info_client, clients_connected, dir_atual):
             comand = COMAND_SPLIT(msg) # realizando split do comando do cliente 
             comand_prompt = comand[0].lower() # usando apenas para pegar o comando bruto "/x"
             if comand_prompt == '/q':
-                loggerServer.info(f"O cliente {info_client[0]}:{info_client[1]} encerrou a conexao.")
+                loggerServer.info(f"O cliente {info_client[0]}:{info_client[1]} encerrou a conexao com /q.")
                 break
             if comand_prompt in options_choice:  # verificando se o comando está dentro das opções disponivéis 
+                loggerDebug.debug(f'O Clente {info_client[0]}:{info_client[1]} | inseriu o comando: {comand_prompt}')
                 # ativando a função chamada (passando argumento depois)
                 # Utilizei o metodo de **kwargs para repassar os argumentos de maneira mais organizada para cada função (podendo também renomear ele facilmente)
                 options[comand_prompt](clients=clients_connected, sock=sock_client, comand=comand, info_client=info_client, history=history_client, options=options, dir=dir_atual, msg=msg)
         del clients_connected[info_client[1]] # quando o cliente digitar /q ele exclui socket do cliente da lista de clientes ativos
         sock_client.close()
+    except ConnectionResetError:
+        loggerServer.info(f"O cliente {info_client[0]}:{info_client[1]} encerrou a conexao forcadamente.")
+        del clients_connected[info_client[1]] # caso o cliente feche sua conexão forçadamente
+        sock_client.close() 
+        exit()
     except:
         loggerServer.critical(f'Erro na Interacao do Cliente [pelo servidor]...{sys.exc_info()[0]}')  
         del clients_connected[info_client[1]] # caso o cliente seja desconectado por algum erro, ele apaga o cliente da lista de clientes ativos
