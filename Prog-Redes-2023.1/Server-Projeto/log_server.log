@@ -69,3 +69,5 @@
 2023-07-29 18:29:23,296 - Server - INFO - Servidor Iniciado: 0.0.0.0 / 5678
 2023-07-29 18:29:24,907 - Server - INFO - O Cliente de IP: 127.0.0.1 | Na Porta: 57967 - Foi conectado com sucesso!
 2023-07-29 18:29:27,465 - Server - ERROR - Erro no momento de fazer o Download da URL...(<class 'OSError'>, OSError(22, 'Invalid argument'), <traceback object at 0x00000218D86D9340>)
+2023-07-30 06:37:00,069 - BotTelegram - ERROR - Erro no momento de Ler as mensagens do Telegram...(<class 'requests.exceptions.ConnectionError'>, ConnectionError(ProtocolError('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))), <traceback object at 0x00000218D86DACC0>)
+2023-07-30 18:33:54,735 - Server - INFO - O cliente 127.0.0.1:57967 encerrou a conexao.
