@@ -16,8 +16,8 @@ def CHAT(comand=None, clients=None, info_client=None, sock=None, **kwargs):
     try:
         ip_destination = comand[1] # guardando o ip de destino da mensagem
         port = comand[2] # guardando a porta de destino
-        msg_envio = comand[3]
-        loggerDebug.debug(f'Função Chat Ativada | Destino: {ip_destination}:{port} | Mensagem: {msg_envio}')
+        msg_envio = ''.join(comand[3:])
+        msg_ack = '\nA mensagem foi enviada com sucesso!\n'
         bool = False
         for chave, valor in clients.items(): # dando um for na lista de clientes
             port_envio = str(chave) # Armazenamento Temporário 
@@ -25,7 +25,9 @@ def CHAT(comand=None, clients=None, info_client=None, sock=None, **kwargs):
             sock_envio = valor[1] # pegando o socket do cliente destino 
             if ip_destination == ip_envio and port == port_envio: # verificando se o ip/porta (ou seja cliente) está conectado ao servidor
                 msg_chat = f"\nO Cliente: {info_client[0]}:{info_client[1]} lhe enviou uma mensagem!\nMensagem >> {msg_envio}\n" # formatação de mensagem
+                loggerDebug.debug(f'Funcao Chat Ativada | Destino: {ip_destination}:{port} | Mensagem: {msg_envio}')
                 MESSAGE_CLIENT(sock_envio, msg_chat) # realizando o envio para o socket do cliente destino
+                MESSAGE_CLIENT(sock, msg_ack)
                 bool = True
                 break
         if not bool:
@@ -36,8 +38,7 @@ def CHAT(comand=None, clients=None, info_client=None, sock=None, **kwargs):
         MESSAGE_CLIENT(sock, msg_erro)
         return
     except:
-        loggerServer.error(f'Erro no Chat...{sys.exc_info()[0]}')  
-        exit() 
+        loggerServer.error(f'Erro no Chat...{sys.exc_info()[0]}')   
             
 # ============================================================================================================
 
@@ -54,18 +55,17 @@ def LIST_CLIENTS(clients=None, sock=None, **kwargs):
         MESSAGE_CLIENT(sock, msg_list) # enviando mensagens 
     except:
         loggerServer.error(f'Erro no momento de Listar os Clientes Conectados...{sys.exc_info()[0]}')  
-        exit() 
 
 # ============================================================================================================
 
 ''' FUNÇÃO PARA ENVIAR MENSAGEM EM MODO BROADCAST (P/ TODOS CLIENTES, EXCETO QUEM PEDIU) '''
 
-def BROADCAST (clients=None, info_client=None, sock=None, comand=None, **kwargs):
+def BROADCAST (clients=None, info_client=None, sock=None, msg=None, **kwargs):
     try:
-        msg = comand[1]
-        loggerDebug.debug(f'Função de Broadcast Ativada | Mensagem: {msg}')
+        msg = msg[3:]
+        loggerDebug.debug(f'Funcao de Broadcast Ativada | Mensagem: {msg}')
         if msg: # para caso não tenha digitado nada apenas /b:
-            msg_broadcast = f"\nO Cliente: {info_client[0]} : {info_client[1]} Enviou uma mensagem para Todos!\nMensagem >> {comand[1]}\n" # formatação de mensagem
+            msg_broadcast = f"\nO Cliente: {info_client[0]} : {info_client[1]} Enviou uma mensagem para Todos!\nMensagem >> {msg}\n" # formatação de mensagem
             for chave, valor in clients.items(): # realizando o for para mandar p/ todos os clientes
                 port_envio = chave # Armazenamento Temporário 
                 ip_envio = valor[0] # Armazenamento Temporário 
@@ -79,8 +79,7 @@ def BROADCAST (clients=None, info_client=None, sock=None, comand=None, **kwargs)
         msg_erro = f"\nInforme todos os argumentos/parametros necessários para essa opção\n"
         MESSAGE_CLIENT(sock, msg_erro)
     except:
-        loggerServer.error(f'Erro no momento de enviar o Broadcast...{sys.exc_info()[0]}')  
-        exit()                 
+        loggerServer.error(f'Erro no momento de enviar o Broadcast...{sys.exc_info()[0]}')            
 
 # ============================================================================================================
 
@@ -96,7 +95,6 @@ def HISTORY(history=None, sock=None, **kwargs):
         MESSAGE_CLIENT(sock, msg_history)
     except:
         loggerServer.error(f'Erro no momento de enviar o Histórico de Comandos...{sys.exc_info()[0]}')  
-        exit()  
 
 # ============================================================================================================
 
@@ -124,7 +122,6 @@ def HELP(sock=None, **kwargs):
         MESSAGE_CLIENT(sock, msg_help)
     except:
         loggerServer.error(f'Erro no momento de listar as Opções...{sys.exc_info()[0]}')  
-        exit()  
 
 # ============================================================================================================
 
@@ -145,7 +142,6 @@ def LIST_FILES(sock=None, dir=None, **kwargs):
         MESSAGE_CLIENT(sock, msg_list)
     except:
         loggerServer.error(f'Erro no momento de listar os Arquivos para Download...{sys.exc_info()[0]}')  
-        sys.exit()  
 
 # ============================================================================================================
 
@@ -181,7 +177,6 @@ def DOWNLOAD_RSS(comand=None, sock=None, **kwargs):
         MESSAGE_CLIENT(sock, '/end_rss')
     except:
         loggerServer.error(f'Erro ao tentar informar os RSS {sys.exc_info()}')  
-        sys.exit() 
 
 # ============================================================================================================
 
@@ -190,7 +185,7 @@ def DOWNLOAD_RSS(comand=None, sock=None, **kwargs):
 def UPLOAD_RECV(comand=None, sock=None, dir=None, **kwargs):
     size = int(comand[1]) # pegando o tamanho enviado antecipadamente 
     name = comand[2] # pegando o nome enviado antecipadamente 
-    loggerDebug.debug(f'Função Upload Ativada | Arquivo: {name}')
+    loggerDebug.debug(f'Funcao Upload Ativada | Arquivo: {name}')
     try:
         local_arquive = dir + f'\\server_files\\{name}' # definindo o local de save
         with open(local_arquive, 'wb') as arquivo: # abrindo o arquivo em "Wb" -> Leitura Binária
@@ -210,7 +205,7 @@ def UPLOAD_RECV(comand=None, sock=None, dir=None, **kwargs):
         msg_upload = f'\n\nO Upload do arquivo {name} foi finalizado!\n' # informando que o Upload foi feito com sucesso
         MESSAGE_CLIENT(sock, msg_upload)
     except FileNotFoundError: # erro já tratado no lado cliente, apenas para evitar logs 
-        ...
+        pass
     except:
         loggerServer.error(f'Erro no recebimento dos dados pelo Upload [Lado servidor]...{sys.exc_info()[0]}')
 
@@ -250,8 +245,7 @@ def DOWNLOAD_URL(sock=None, msg=None, dir=None, **kwargs):
         msg_erro = "\nInforme todos os argumentos/parametros necessários para essa opção\n"
         MESSAGE_CLIENT(sock, msg_erro)
     except:
-        loggerServer.error(f'Erro no momento de fazer o Download da URL...{sys.exc_info()[0]}')  
-        exit()  
+        loggerServer.error(f'Erro no momento de fazer o Download da URL...{sys.exc_info()}')   
 
 # ============================================================================================================
 
@@ -261,7 +255,7 @@ def DOWNLOAD_SEND(comand=None, dir=None, sock=None, **kwargs):
     try:
         dir_arq = dir + '\\server_files' # montando diretorio de onde tá os arquivos lado server
         name_arq = comand[1] # nome do arquivo
-        loggerDebug.debug(f'Função Download Local Ativado | Arquivo: {name_arq}')
+        loggerDebug.debug(f'Funcao Download Local Ativado | Arquivo: {name_arq}')
         dir_arquivo = dir_arq + f'\\{name_arq}' # pegando o nome do arquivo fornecido e montando caminho absoluto
         if not os.path.exists(dir_arquivo): # verificando se o arquivo fornecido existe
             msg_local = f'\nO Arquivo que você pediu "{name_arq}" não existe no servidor!\nDê /f para consultar os arquivos existentes\n'

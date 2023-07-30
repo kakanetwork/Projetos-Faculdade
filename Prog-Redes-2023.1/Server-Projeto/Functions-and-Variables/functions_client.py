@@ -92,11 +92,14 @@ def USER_RECV(sock_tcp, dir_atual):
                 DOWNLOAD_RECV(sock_tcp, size, name, dir_atual) # chamo a função de download
                 continue
             print(msg) # printo o restante das mensagens/respostas recebidas
+        CLOSE_SOCKET(sock_tcp)
+    except ConnectionResetError:
+        print(f'\n\nVocê foi desconectado do servidor!\n')
+        sys.exit()
     except:
         print(f'\nErro na interacao com o servidor... {sys.exc_info()}')
         sys.exit()
-    finally:
-        CLOSE_SOCKET(sock_tcp)
+       
 
 # ============================================================================================================
 
@@ -121,10 +124,12 @@ def USER_SEND(sock_tcp, dir_atual):
                 print('\nAs Notícias estão sendo carregadas, aguarde um momento...!')
                 received_rss = True
             time.sleep(0.4) # time.sleep apenas para evitar pequenos bugs de input relacionados a velocidade do laço 
+        CLOSE_SOCKET(sock_tcp)
+    except ConnectionResetError:
+        pass
     except:
         print(f'\nErro na interacao com o Usuário... {sys.exc_info()}')
         sys.exit()
-    finally:
-        CLOSE_SOCKET(sock_tcp)
+        
 
 # ============================================================================================================

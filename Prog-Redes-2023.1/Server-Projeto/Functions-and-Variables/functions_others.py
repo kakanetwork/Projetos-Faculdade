@@ -79,7 +79,6 @@ def COMAND_SPLIT(msg):
         msg_split = msg.split(':') # para casos de /b:mensagem (separar o comando do parametro/argumento )
     except:
         loggerServer.error(f'Erro no Split do Comand...{sys.exc_info()[0]}')  
-        exit() 
     return msg_split
 
 # ============================================================================================================

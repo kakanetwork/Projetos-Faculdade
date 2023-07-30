@@ -88,7 +88,6 @@ except:
 # ============================================================================================================
 
 ''' VERIFICANDO ARGUMENTOS DO SYS.ARGV E APENAS REDIRECIONANDO PARA O PROJETO! '''
-
 if args == '/start':
     pid = READ_PID()
     if pid:

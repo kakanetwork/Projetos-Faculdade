@@ -1,2 +1,71 @@
-2023-07-29 12:42:28,173 - BotTelegram - INFO - Sua API_KEY foi verificada com sucesso!
-2023-07-29 12:42:28,173 - Server - INFO - Servidor Iniciado: 0.0.0.0 / 5678
+2023-07-29 17:37:32,814 - BotTelegram - INFO - Sua API_KEY foi verificada com sucesso!
+2023-07-29 17:37:32,816 - Server - INFO - Servidor Iniciado: 0.0.0.0 / 5678
+2023-07-29 17:39:36,591 - Server - INFO - O Cliente de IP: 127.0.0.1 | Na Porta: 54558 - Foi conectado com sucesso!
+2023-07-29 17:40:30,701 - Server - INFO - O Cliente de IP: 127.0.0.1 | Na Porta: 55762 - Foi conectado com sucesso!
+2023-07-29 17:40:52,859 - BotTelegram - INFO - Foi pedido para Listar os Clientes Conectados!
+2023-07-29 17:41:24,950 - Debug - DEBUG - Função Chat Ativada | Destino: 127.0.0.1:54558 | Mensagem: iae
+2023-07-29 17:41:37,230 - Debug - DEBUG - Função Chat Ativada | Destino: 127.0.0.1:55762 | Mensagem: iae
+2023-07-29 17:44:46,726 - Server - INFO - O cliente 127.0.0.1:54558 encerrou a conexao.
+2023-07-29 17:45:38,899 - BotTelegram - INFO - Foi pedido para Listar os Clientes Conectados!
+2023-07-29 17:52:04,384 - BotTelegram - INFO - Sua API_KEY foi verificada com sucesso!
+2023-07-29 17:52:04,385 - Server - INFO - Servidor Iniciado: 0.0.0.0 / 5678
+2023-07-29 17:52:50,396 - Server - INFO - O Cliente de IP: 127.0.0.1 | Na Porta: 56174 - Foi conectado com sucesso!
+2023-07-29 17:52:54,724 - Server - INFO - O Cliente de IP: 127.0.0.1 | Na Porta: 56178 - Foi conectado com sucesso!
+2023-07-29 17:53:04,742 - Debug - DEBUG - Funcao Chat Ativada | Destino: 127.0.0.1:54558 | Mensagem: iae
+2023-07-29 17:55:25,350 - Debug - DEBUG - Funcao Chat Ativada | Destino: 127.0.0.1:56178 | Mensagem: iae
+2023-07-29 17:55:34,255 - Debug - DEBUG - Funcao Chat Ativada | Destino: 127.0.0.1:56174 | Mensagem: iae
+2023-07-29 17:56:13,358 - Debug - DEBUG - Funcao de Broadcast Ativada | Mensagem: ola para tosoosdoso
+2023-07-29 17:56:35,079 - Debug - DEBUG - Funcao de Broadcast Ativada | Mensagem: ola para tosoosdoso
+2023-07-29 17:57:00,943 - Debug - DEBUG - Funcao de Broadcast Ativada | Mensagem: ola para tosoosdoso
+2023-07-29 17:59:56,567 - Server - INFO - O cliente 127.0.0.1:56178 encerrou a conexao.
+2023-07-29 18:03:31,628 - BotTelegram - INFO - Sua API_KEY foi verificada com sucesso!
+2023-07-29 18:03:31,629 - Server - INFO - Servidor Iniciado: 0.0.0.0 / 5678
+2023-07-29 18:03:49,503 - Server - INFO - O Cliente de IP: 127.0.0.1 | Na Porta: 56738 - Foi conectado com sucesso!
+2023-07-29 18:03:58,875 - Server - INFO - O Cliente de IP: 127.0.0.1 | Na Porta: 56836 - Foi conectado com sucesso!
+2023-07-29 18:04:10,407 - Debug - DEBUG - Funcao de Broadcast Ativada | Mensagem: :iaeeee galeras
+2023-07-29 18:04:12,631 - Debug - DEBUG - Funcao de Broadcast Ativada | Mensagem: :iaeeee galeras
+2023-07-29 18:04:13,823 - Debug - DEBUG - Funcao de Broadcast Ativada | Mensagem: :iaeeee galeras
+2023-07-29 18:04:14,919 - Debug - DEBUG - Funcao de Broadcast Ativada | Mensagem: :iaeeee galeras
+2023-07-29 18:04:25,151 - Debug - DEBUG - Funcao de Broadcast Ativada | Mensagem: :iaeeee galeras:aaaa
+2023-07-29 18:08:56,623 - Debug - DEBUG - Funcao de Broadcast Ativada | Mensagem: :iaeeee galeras:aaaa
+2023-07-29 18:08:58,023 - Server - INFO - O cliente 127.0.0.1:56836 encerrou a conexao.
+2023-07-29 18:10:04,179 - BotTelegram - INFO - Sua API_KEY foi verificada com sucesso!
+2023-07-29 18:10:04,179 - Server - INFO - Servidor Iniciado: 0.0.0.0 / 5678
+2023-07-29 18:10:07,751 - Server - INFO - O Cliente de IP: 127.0.0.1 | Na Porta: 57277 - Foi conectado com sucesso!
+2023-07-29 18:10:10,521 - Server - INFO - O Cliente de IP: 127.0.0.1 | Na Porta: 57281 - Foi conectado com sucesso!
+2023-07-29 18:10:16,855 - Debug - DEBUG - Funcao de Broadcast Ativada | Mensagem: oaee
+2023-07-29 18:10:20,927 - Debug - DEBUG - Funcao de Broadcast Ativada | Mensagem: oaee:aaa
+2023-07-29 18:10:28,071 - Debug - DEBUG - Funcao de Broadcast Ativada | Mensagem: oaee:aaadad:dsad:ds
+2023-07-29 18:10:58,511 - Debug - DEBUG - Funcao Chat Ativada | Destino: 127.0.0.1:57281 | Mensagem: iaeeeeeeeeeeeee
+2023-07-29 18:11:05,247 - Debug - DEBUG - Funcao Chat Ativada | Destino: 127.0.0.1:57281 | Mensagem: iaeeeeeeeeeeeeeaaaaaaaaaa
+2023-07-29 18:11:11,407 - Debug - DEBUG - Funcao Chat Ativada | Destino: 127.0.0.1:57281 | Mensagem: iaeeeeeeeeeeeeeaaaaaaaaaa ass
+2023-07-29 18:11:15,759 - Debug - DEBUG - Funcao Chat Ativada | Destino: 127.0.0.1:57281 | Mensagem: iaeeeeeeeeeeeeeaaaaaaaaaa ass   asd
+2023-07-29 18:11:32,983 - Debug - DEBUG - Funcao Chat Ativada | Destino: 127.0.0.1:57281 | Mensagem: iaeeeeeeeeeeeeeaaaaaaaaaa ass   asd >, 
+2023-07-29 18:11:36,296 - Debug - DEBUG - Funcao Chat Ativada | Destino: 127.0.0.1:57281 | Mensagem: iaeeeeeeeeeeeeeaaaaaaaaaa ass   asd >, 
+2023-07-29 18:11:39,656 - Debug - DEBUG - Funcao Chat Ativada | Destino: 127.0.0.1:57281 | Mensagem: iaeeeeeeeeeeeeeaaaaaaaaaa ass   asd >, d 
+2023-07-29 18:12:10,087 - Debug - DEBUG - Funcao Download Local Ativado | Arquivo: sda
+2023-07-29 18:12:12,527 - Debug - DEBUG - Funcao Download Local Ativado | Arquivo: s2312
+2023-07-29 18:12:14,615 - Debug - DEBUG - Funcao Download Local Ativado | Arquivo: 
+2023-07-29 18:12:36,928 - Debug - DEBUG - Funcao Download Local Ativado | Arquivo: 
+2023-07-29 18:12:51,960 - Debug - DEBUG - Funcao Download Local Ativado | Arquivo: 01.mp4
+2023-07-29 18:13:09,288 - Debug - DEBUG - Funcao Upload Ativada | Arquivo: 
+2023-07-29 18:13:54,240 - Debug - DEBUG - Funcao Upload Ativada | Arquivo: 
+2023-07-29 18:13:58,840 - Debug - DEBUG - Funcao Upload Ativada | Arquivo: 
+2023-07-29 18:14:01,584 - Debug - DEBUG - Funcao Upload Ativada | Arquivo: 
+2023-07-29 18:14:07,280 - Debug - DEBUG - Funcao Upload Ativada | Arquivo: pid.conf
+2023-07-29 18:14:48,187 - Server - ERROR - Erro no momento de fazer o Download da URL...<class 'OSError'>
+2023-07-29 18:14:48,187 - Server - CRITICAL - Erro na Interacao do Cliente [pelo servidor]...<class 'SystemExit'>
+2023-07-29 18:15:10,365 - Server - INFO - O Cliente de IP: 127.0.0.1 | Na Porta: 57414 - Foi conectado com sucesso!
+2023-07-29 18:23:24,240 - Server - INFO - O cliente 127.0.0.1:57414 encerrou a conexao.
+2023-07-29 18:23:40,191 - BotTelegram - INFO - Sua API_KEY foi verificada com sucesso!
+2023-07-29 18:23:40,192 - Server - INFO - Servidor Iniciado: 0.0.0.0 / 5678
+2023-07-29 18:23:54,354 - Server - INFO - O Cliente de IP: 127.0.0.1 | Na Porta: 57693 - Foi conectado com sucesso!
+2023-07-29 18:23:56,495 - Server - INFO - O Cliente de IP: 127.0.0.1 | Na Porta: 57695 - Foi conectado com sucesso!
+2023-07-29 18:24:02,878 - Server - ERROR - Erro no momento de fazer o Download da URL...<class 'OSError'>
+2023-07-29 18:26:28,242 - Server - CRITICAL - Erro na Interacao do Cliente [pelo servidor]...<class 'ConnectionResetError'>
+2023-07-29 18:28:45,036 - Server - ERROR - Erro no momento de fazer o Download da URL...<class 'OSError'>
+2023-07-29 18:29:09,257 - Server - INFO - O cliente 127.0.0.1:57695 encerrou a conexao.
+2023-07-29 18:29:23,295 - BotTelegram - INFO - Sua API_KEY foi verificada com sucesso!
+2023-07-29 18:29:23,296 - Server - INFO - Servidor Iniciado: 0.0.0.0 / 5678
+2023-07-29 18:29:24,907 - Server - INFO - O Cliente de IP: 127.0.0.1 | Na Porta: 57967 - Foi conectado com sucesso!
+2023-07-29 18:29:27,465 - Server - ERROR - Erro no momento de fazer o Download da URL...(<class 'OSError'>, OSError(22, 'Invalid argument'), <traceback object at 0x00000218D86D9340>)
