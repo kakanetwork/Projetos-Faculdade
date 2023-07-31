@@ -74,6 +74,8 @@ try:
     from functions_server import CLIENT_INTERACTION
     from functions_others import CREATE_PAST
     from functions_bot import START_BOT, NOTIFICATION_BOT
+except SystemExit:
+    sys.exit()
 except:
     loggerDebug.critical(f'Alguma das Funcoes necessarias para o codigo nao foi encontrada!...{sys.exc_info()[0]}')
     sys.exit()
@@ -120,7 +122,7 @@ except OSError as e: # exceção para quando a porta do servidor atual estiver o
         loggerServer.critical('A porta atual do servidor se encontra ocupada!')
         sys.exit()
 except ConnectionAbortedError:
-    loggerServer.critical('O Servidor foi desligado Abruptamente!')
+    loggerServer.warning('O Servidor foi desligado Abruptamente!')
     sys.exit()
 except SystemExit: # SystemExit para fins de debug
     ...
