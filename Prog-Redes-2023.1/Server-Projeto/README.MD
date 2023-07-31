@@ -37,4 +37,10 @@
   - /?: Lista as opções disponiveis
   - /q: Desconectar do Servidor
 
+### Descrição do Funcionamento Bot Telegram:
+##### O servidor possui integração com a API do Bot Telegram, se seu bot foi configurado corretamente pelo Bot Father, sua API_KEY e ID_CHAT foram passados da forma correta, o servidor realizará toda a leitura e envio de dados.
+  - /u: Ao ser digitado este comando pelo telegram o servidor irá informar a lista de clientes conectados (IP:PORTA).
+  - /log: Esta comando irá te enviar pelo telegram remotamente o Log Atual/Completo do servidor.
+  - Avisos de conexões: O servidor está configurado para enviar automaticamente uma mensagem de "aviso de conexão" para qualquer cliente que se conectar ao servidor.
+
 <code> - by kakanetwork </code>
