@@ -1,4 +1,4 @@
-import socket, sys, logging
+import socket, sys, logging, os
 import xml.etree.ElementTree as ET
 from functions_others import *
 from variables import *

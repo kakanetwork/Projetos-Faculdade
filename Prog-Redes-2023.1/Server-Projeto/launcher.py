@@ -10,7 +10,16 @@ import subprocess, sys, os, signal, platform
 dir_atual = os.path.dirname(os.path.abspath(__file__)) 
 dir_arq =  os.path.abspath(__file__) 
 dir_pid = dir_atual + "\\pid.conf" # montando pasta
+dir_vlog = dir_atual + '\\log.ini'
 system = platform.system().lower() # pegando nome do sistema
+
+# ============================================================================================================
+
+if os.path.isfile(dir_vlog):
+    pass
+else:
+    print('\nAntes da execução do server você precisa ter configurado o arquivo "log.ini"!\n')
+    sys.exit()
 
 # ============================================================================================================
 
@@ -31,6 +40,7 @@ def KILL_PROCESS(pid):
 
 def PROCESS_RUNNER():
     try:
+
         if system == 'windows': # verificação de sistema 
             # utilizo o subprocess para executar ele em 2° plano e retornar o seu PID original
             process = subprocess.Popen(["pythonw", "app_server.py"], creationflags=subprocess.CREATE_NEW_CONSOLE).pid
@@ -85,6 +95,7 @@ try:
 except:
     print('\nlauncher.py < /start | /stop | /? >\n')
     sys.exit()
+    
 # ============================================================================================================
 
 ''' VERIFICANDO ARGUMENTOS DO SYS.ARGV E APENAS REDIRECIONANDO PARA O PROJETO! '''

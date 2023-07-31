@@ -1,4 +1,4 @@
-import socket, time
+import socket, time, os, sys
 from variables import *
 from functions_others import *
 

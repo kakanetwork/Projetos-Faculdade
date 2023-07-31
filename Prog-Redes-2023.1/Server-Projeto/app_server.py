@@ -26,7 +26,7 @@ dir_pastdownload = dir_atual + '\\server_files'
 try:
     logging.config.fileConfig(dir_logconf, defaults={'log_path': dir_log.replace('\\', '\\\\')}) # lendo o log.ini na pasta atual
     urllib3_logger = logging.getLogger('urllib3') 
-    urllib3_logger.setLevel(logging.WARNING) # deixando o level dos logs da URLLIB3 em warning (motivo: espama muitos logs info por conta das requisições do instagram)
+    urllib3_logger.setLevel(logging.WARNING) # deixando o level dos logs da URLLIB3 em warning (motivo: espama muitos logs info por conta das requisições do telegram)
     loggerServer  = logging.getLogger('Server') # pegando os logger definidos na configuração (Server/BotTelegram e debug para fins de debug do código)
     loggerBot = logging.getLogger('BotTelegram')
     loggerDebug = logging.getLogger('Debug')
@@ -60,7 +60,7 @@ def VERIFICATION_FUNCTIONS():
     else:
         for arquivos in name_arqs: 
             if arquivos not in functions_arq: # vendo qual o arquivo que falta
-                loggerDebug.critical(f'O Arquivo "{arquivos}" não está presente dentro da pasta "Functions and Variables" faça o download dele!')
+                loggerDebug.critical(f'O Arquivo "{arquivos}" nao este presente dentro da pasta "Functions and Variables" faca o download dele!')
                 sys.exit()
 
 VERIFICATION_FUNCTIONS()
@@ -75,7 +75,7 @@ try:
     from functions_others import CREATE_PAST
     from functions_bot import START_BOT, NOTIFICATION_BOT
 except:
-    loggerDebug.critical(f'Alguma das Funções necessárias para o código não foi encontrada!...{sys.exc_info()[0]}')
+    loggerDebug.critical(f'Alguma das Funcoes necessarias para o codigo nao foi encontrada!...{sys.exc_info()[0]}')
     sys.exit()
 
 # ============================================================================================================

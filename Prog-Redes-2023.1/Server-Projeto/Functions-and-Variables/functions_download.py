@@ -1,5 +1,5 @@
 
-import socket, sys, ssl, logging, requests
+import socket, sys, ssl, logging, requests, os
 from variables import *
 from functions_others import *
 

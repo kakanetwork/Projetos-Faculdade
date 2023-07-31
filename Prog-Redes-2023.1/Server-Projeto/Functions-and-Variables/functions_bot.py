@@ -1,6 +1,8 @@
 
-import requests, sys, time, logging
+import requests, sys, time, logging, os
 
+dir_bot = os.path.dirname(os.path.abspath(__file__))
+dir_credentials = dir_bot + '\\credentials.py'
 loggerBot = logging.getLogger('BotTelegram')
 
 # ============================================================================================================
@@ -8,20 +10,22 @@ loggerBot = logging.getLogger('BotTelegram')
 ''' VERIFICANDO A EXISTÊNCIA DA API_key PARA O TELEGRAM BOT'''
 
 try:
-    from credentials import API_key # verificando se a pasta com as credenciais existem (*Apenas no meu computador)
+    from credentials import API_KEY, ID_CHAT # verificando se a pasta com as credenciais existem 
 except ModuleNotFoundError: 
-    print('\nNão foi encontrado a sua API_key!\n')
-    API_key = input('Insira sua API_KEY do Telegram BOT: ') # pedindo a sua API_key
-except:
-    print(f'\nErro na Aquisição da API_KEY...{sys.exc_info()[0]}')  
+    loggerBot.warning('Nao foi encontrado a sua API_key!')
+    with open(dir_credentials, 'w') as arquive:
+        arquive.write("API_KEY = 'YOUR_API_KEY'\nID_CHAT = YOUR_ID_CHAT_BOT")
+    loggerBot.warning('O Arquivo "credentials.py" foi criado, insira a informacao da sua API_KEY / ID_CHAT dentro dele e reinicie o server!')
+    sys.exit()
+except: 
+    loggerBot.critical(f'Erro na Aquisicao da API_KEY...{sys.exc_info()[0]}')  
     sys.exit()      
 
 # ============================================================================================================
 
 ''' MONTAGEM DE VARIAVEL '''
 
-url_req = f'https://api.telegram.org/bot{API_key}' # montagem variavel para requisição
-id_chat = 6104631573 # PREENCHA AQUI COM O ID CHAT DO SEU BOT
+url_req = f'https://api.telegram.org/bot{API_KEY}' # montagem variavel para requisição
 
 # ============================================================================================================
 
@@ -31,15 +35,15 @@ def VERIFICATION_KEY():
     try:
         verification_key = requests.get(url_req + '/getUpdates').json() # fazendo uma requisição
     except:
-        print(f'\nErro na Verificação da API_KEY...{sys.exc_info()[0]}')  
+        loggerBot.critical(f'Erro na Verificacao da API_KEY...{sys.exc_info()[0]}')  
         sys.exit()
     else:
         if verification_key.get('ok'): # verificando se a requisição foi completa
             loggerBot.info(f'Sua API_KEY foi verificada com sucesso!')  
             pass # se for validada a api ira continuar normalmente o código
         else:
-            print(f'\nA chave: {API_key}\nInformada é inválida!')
-            sys.exit()
+            loggerBot.critical(f'A chave: {API_KEY} Informada e invalida!')
+            sys.exit(1)
    
 VERIFICATION_KEY()
 
@@ -49,7 +53,7 @@ VERIFICATION_KEY()
 
 def NOTIFICATION_BOT(msg_connected):
     try:
-        resposta = {'chat_id':id_chat,'text':f'{msg_connected}'} # realizo a montagem da formatação para o chat com id especificado
+        resposta = {'chat_id':ID_CHAT,'text':f'{msg_connected}'} # realizo a montagem da formatação para o chat com id especificado
         var = requests.post(url_req+'/sendMessage',data=resposta) # envio a mensagem via requests.post
     except:
         loggerBot.error(f'Erro no envio da mensagem de [Cliente Conectado] para o Bot...{sys.exc_info()[0]}')  
@@ -70,7 +74,7 @@ def LIST_CLIENTS_BOT(clients_connected):
                 msg_list += f"\nCLIENTE {num}\nIP: {ip}\nPORTA: {chave}\n\n" # formatação listagem clientes (lembrando que chave=porta e valor[0]=ip
         else: # se não existir ele informa para o chat que não possui nenhum conectado
             msg_list = "O Servidor não possui nenhum cliente conectado!"
-        resposta = {'chat_id':id_chat,'text':f'{msg_list}'} # realizo a montagem da formatação para o chat com id especificado
+        resposta = {'chat_id':ID_CHAT,'text':f'{msg_list}'} # realizo a montagem da formatação para o chat com id especificado
         var = requests.post(url_req+'/sendMessage',data=resposta) # envio a mensagem via requests.post
     except:
         loggerBot.error(f'Erro no momento de Listar os Clientes Conectados...{sys.exc_info()[0]}')  
@@ -85,7 +89,7 @@ def LOG_BOT(dir_log):
         file_name = 'log-server.txt'
         with open(dir_log, 'rb') as arquive: 
             log = arquive.read()    
-        var = requests.post(url_req+'/sendDocument', data={'chat_id': id_chat}, files={'document': (file_name, log)}) # realizo envio do Log como documento
+        var = requests.post(url_req+'/sendDocument', data={'chat_id': ID_CHAT}, files={'document': (file_name, log)}) # realizo envio do Log como documento
     except:
         loggerBot.error(f'Erro no momento de listar o Log para o Bot do Telegram...{sys.exc_info()}')  
         sys.exit() 
@@ -98,7 +102,7 @@ def INVALID():
     try:
         msg_invalid = "\nInforme um comando válido!\n\n/u -> Listagem de Clientes Conectados\n/log -> Listagem do Log atual do servidor\n"
         msg_invalid += "\nBy: https://github.com/kakanetwork"
-        resposta = {'chat_id':id_chat,'text':f'{msg_invalid}'} # faço o envio
+        resposta = {'chat_id':ID_CHAT,'text':f'{msg_invalid}'} # faço o envio
         var = requests.post(url_req+'/sendMessage',data=resposta) 
     except:
         loggerBot.error(f'Erro no momento de Informar para digitar um comando válido...{sys.exc_info()[0]}')  
