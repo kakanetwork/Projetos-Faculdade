@@ -3,5 +3,5 @@
 # ignorar arquivos de conteudo sensivel.
 
 credentials.py
-
+/Server-Projeto
 sensible.py
