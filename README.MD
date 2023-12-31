@@ -2,6 +2,16 @@
 <p align="center">
     🚀 Este repositório contém projetos em Python desenvolvidos por mim, alguns criados durante minha graduação em Redes de Computadores, e outros focados em tópicos básicos de Python. Os projetos aqui presentes são de minha autoria e tem como objetivo demonstrar minhas habilidades em programação.
 </p>
+
+<p align="center">
+  
+  <img src="http://img.shields.io/static/v1?label=License&message=MIT&color=fe428e&style=for-the-badge"/>
+
+  <img src="http://img.shields.io/static/v1?label=Python&message=3.12.0&color=fe428e&style=for-the-badge&logo=python&logoColor=white"/>
+
+   <img src="http://img.shields.io/static/v1?label=STATUS&message=EM DESENVOLVIMENTO&color=fe428e&style=for-the-badge"/>
+</p>
+
 <p align="center">
     <a href="https://github.com/kakanetwork/Projetos.py/stargazers"><img alt="GitHub stars" 
     src="https://img.shields.io/github/stars/kakanetwork/Projetos.py?color=4d080e&style=flat-square"></a>
