@@ -30,6 +30,6 @@
     Para mais informações sobre os projetos presentes neste repositório ou para sugerir alterações e correções, entre em contato comigo pelo meu perfil do GitHub.
 </p>
 <div align="center">
-    <a href="https://github.com/kakanetwork"><img src="https://img.shields.io/badge/-GitHub-4d080e?style=for-the-badge&logo=github" alt="GitHub"></a>
-    <a href="https://www.instagram.com/kaka_0206/"><img src="https://img.shields.io/badge/-Instagram-4d080e?style=for-the-badge&logo=instagram&color=fe428e&logoColor=ffffff" alt="Instagram"></a>
+    <a href="https://github.com/kakanetwork"><img src="https://img.shields.io/badge/-GitHub-4d080e?style=for-the-badge&color=141321&logo=github" alt="GitHub"></a>
+    <a href="https://www.instagram.com/kaka_0206/"><img src="https://img.shields.io/badge/-Instagram-4d080e?style=for-the-badge&logo=instagram&color=141321&logoColor=ffffff" alt="Instagram"></a>
 </div>
