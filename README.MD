@@ -31,5 +31,5 @@
 </p>
 <div align="center">
     <a href="https://github.com/kakanetwork"><img src="https://img.shields.io/badge/-GitHub-4d080e?style=for-the-badge&logo=github" alt="GitHub"></a>
-    <a href="https://www.instagram.com/kaka_0206/"><img src="https://img.shields.io/badge/-Instagram-4d080e?style=for-the-badge&logo=instagram&logoColor=ffffff" alt="Instagram"></a>
+    <a href="https://www.instagram.com/kaka_0206/"><img src="https://img.shields.io/badge/-Instagram-4d080e?style=for-the-badge&logo=instagram&logoColor=ffffff&labelColor=141321" alt="Instagram"></a>
 </div>
