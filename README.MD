@@ -9,7 +9,7 @@
 
   <img src="http://img.shields.io/static/v1?label=Python&message=3.12.0&color=fe428e&style=for-the-badge&logo=python&logoColor=white"/>
 
-   <img src="http://img.shields.io/static/v1?label=STATUS&message=EM DESENVOLVIMENTO&color=fe428e&style=for-the-badge"/>
+   <img src="http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=fe428e&style=for-the-badge"/>
 
 </p>
 
