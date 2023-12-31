@@ -12,13 +12,6 @@
    <img src="http://img.shields.io/static/v1?label=STATUS&message=EM DESENVOLVIMENTO&color=fe428e&style=for-the-badge"/>
 </p>
 
-<p align="center">
-    <a href="https://github.com/kakanetwork/Projetos.py/stargazers"><img alt="GitHub stars" 
-    src="https://img.shields.io/github/stars/kakanetwork/Projetos.py?color=4d080e&style=flat-square"></a>
-    <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/kakanetwork/Projetos.py?color=4d080e&style=flat-square">
-    <a href="https://github.com/kakanetwork/Projetos.py/pulls"><img alt="GitHub pull requests" 
-    src="https://img.shields.io/github/issues-pr/kakanetwork/Projetos.py?color=4d080e&style=flat-square"></a>
-</p>
 <h2 align="center">📂 Conteúdo</h2>
 <ul>
   <li><code>Prog-Comp-2022.2</code>: Este repositório contém códigos em Python que abrangem questões básicas de programação para iniciantes.</li>
